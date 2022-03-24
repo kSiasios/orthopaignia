@@ -1,0 +1,276 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+
+  z-index: 0;
+  font-family: Comfortaa, sans-serif;
+
+  --bg: white;
+  --primary-clr: #c4c4c4;
+  --secondary-clr: #b2b2b2;
+  --secondary-clr-dark: #6d6d6d;
+  --text-clr: black;
+  --transition: 0.5s ease-in-out;
+}
+
+body {
+  background: var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  width: 100%;
+  height: 100%;
+}
+
+.nav-link {
+  list-style: none;
+  /* padding: 1.5rem; */
+  transition: var(--transition);
+  font-size: 1rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  font-size: small;
+}
+
+.nav-link:hover,
+.nav-link:focus-within,
+.nav-link.active:hover,
+.nav-link.active:focus-within {
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+  cursor: pointer;
+}
+
+.nav-link.active {
+  background: var(--secondary-clr);
+}
+
+.nav-link a {
+  display: block;
+  padding: 1.5rem;
+}
+
+nav {
+  background: var(--primary-clr);
+}
+
+.page-content {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button,
+a.button {
+  position: relative;
+  padding: 0.75em 1rem;
+  border: none;
+  cursor: pointer;
+  background-color: #0000;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--secondary-clr-dark);
+  color: white;
+  border-radius: 0.25rem;
+  gap: 0.5em;
+  transition: var(--transition);
+
+  font-weight: 700;
+}
+
+button:hover,
+button:focus,
+a.button:hover,
+a.button:focus {
+  background: var(--bg);
+  color: var(--secondary-clr-dark);
+  box-shadow: 0 1em 1em -1em rgba(0, 0, 0, 0.5);
+}
+
+form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* BUTTON SPECIFIC CLASSES */
+.blue {
+  background: rgb(44, 118, 255) !important;
+}
+
+.blue:hover,
+.blue:focus {
+  background: rgb(122, 168, 255) !important;
+  color: white !important;
+}
+
+.red {
+  background: rgb(255, 88, 88) !important;
+}
+
+.red:hover,
+.red:focus {
+  background: rgb(255, 162, 162) !important;
+  color: white !important;
+}
+
+.green {
+  background: rgb(0, 182, 106) !important;
+}
+
+.green:hover,
+.green:focus {
+  background: rgb(122, 216, 177) !important;
+  color: white !important;
+}
+
+.inverse {
+  background: white !important;
+  color: var(--secondary-clr-dark) !important;
+}
+
+.inverse:hover,
+.inverse:focus {
+  background: var(--secondary-clr-dark) !important;
+  color: white !important;
+}
+
+i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fade-in {
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+select {
+  border: 1px solid var(--primary-clr);
+  border-radius: 0.25em;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  margin-inline-start: 0.5em;
+}
+
+h2 {
+  width: 100%;
+  margin-block: 1em 0.5em;
+  padding-block: 0.5em;
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.25);
+}
+
+.special-text-1,
+.special-text-2,
+.special-text-3,
+.special-text-4,
+.special-text-5,
+.special-text-6,
+.special-text-7,
+.special-text-8,
+.special-text-9,
+.special-text-10 {
+  position: relative;
+}
+
+.special-text-1 {
+  color: #69b1f5;
+}
+.special-text-2 {
+  color: #5cbf7d;
+}
+.special-text-3 {
+  color: #ffd730;
+}
+.special-text-4 {
+  color: #ff9643;
+}
+.special-text-5 {
+  color: #ff2a00;
+}
+.special-text-6 {
+  color: #ae00ff;
+}
+.special-text-7 {
+  color: #0c00b0;
+}
+.special-text-8 {
+  color: #bf5e34;
+}
+.special-text-9 {
+  color: #ff6ceb;
+}
+.special-text-10 {
+  color: #27b8b0;
+}
+
+tr {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+td {
+  display: inline-flex;
+  gap: 1em;
+  margin-inline: 0.5em 1em;
+}
+
+.test::before,
+.test::after {
+  position: absolute;
+  content: "";
+  display: block;
+  height: 1em;
+  width: 1em;
+  background-size: 100% 100%;
+  background-image: url("/sostografia/svg/test-tube.svg");
+  background-repeat: no-repeat;
+}
+
+.test::before {
+  /* background: black; */
+  right: 100%;
+}
+
+.test::after {
+  /* background: red; */
+  left: 100%;
+}

@@ -1,0 +1,11 @@
+.admin-panel-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

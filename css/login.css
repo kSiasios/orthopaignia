@@ -1,0 +1,107 @@
+.login-form {
+  background: var(--primary-clr);
+  width: 100%;
+  max-width: 30rem;
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  border-radius: 1rem;
+  max-height: 30rem;
+  height: 100%;
+}
+
+.form-header {
+  font-size: x-large;
+  margin-block: 1.5rem;
+}
+
+.form-selector {
+  display: flex;
+  flex-direction: row;
+  margin-block-end: 1.5rem;
+}
+
+.form-selector a {
+  padding: 0.5rem;
+  background: var(--secondary-clr);
+}
+
+.form-selector a:first-child,
+.input-container label {
+  border-radius: 0.25em 0 0 0.25rem;
+}
+
+.form-selector a:last-child,
+.input-container input {
+  border-radius: 0 0.25em 0.25em 0;
+}
+
+.form-selector a:hover,
+.form-selector a:focus {
+  color: white;
+  background: var(--secondary-clr-dark);
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 20rem;
+  margin-block-end: 2rem;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-block: 0.5rem;
+  height: 2rem;
+  width: 100%;
+}
+
+.input-container input,
+.input-container label {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
+.input-container input {
+  background: var(--secondary-clr);
+  padding-inline: 0.5em;
+}
+
+.input-container input::placeholder {
+  color: var(--secondary-clr-dark);
+}
+
+.input-container label {
+  background: var(--secondary-clr-dark);
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-container label i {
+  color: var(--bg);
+}
+
+.form-extras a {
+  text-decoration: underline;
+}
+
+.form-extras a:hover,
+.form-extras a:focus {
+  color: white;
+}
+
+a.active {
+  background: var(--secondary-clr-dark);
+  color: white;
+}

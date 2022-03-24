@@ -1,0 +1,42 @@
+.form-container {
+  width: 80%;
+  max-width: 50em;
+  background: var(--primary-clr);
+  padding: 1em;
+  border-radius: 1em;
+}
+input[type="text"] {
+  border: none;
+  width: 100%;
+  border-radius: 0.25em;
+  padding: 0.5em;
+}
+
+.form-section {
+  width: 100%;
+}
+
+.answer-controls {
+  display: inline-flex;
+  width: 100%;
+  gap: 1em;
+}
+
+form {
+  gap: 1em;
+}
+
+.form-buttons {
+  width: 100%;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+.format-helper {
+  background: var(--primary-clr);
+  margin: 2em;
+  padding: 1em;
+  border-radius: 1em;
+}
