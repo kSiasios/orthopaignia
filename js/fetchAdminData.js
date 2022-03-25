@@ -1,6 +1,9 @@
 console.log("Fetching Admin's Data");
+let baseURL = window.location.pathname
+  .split("/")[1]
+  .replace(/(?:\r\n|\r|\n)/g, "");
 
-fetch("/sostografia/includes/fetchAdminData.php")
+fetch(`/${baseURL}/includes/fetchAdminData.php`)
   .then((res) => {
     return res.text();
   })

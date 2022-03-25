@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["isAdmin"])) {
-    header("location: /sostografia/");
+    header("location: $baseURL/");
     exit();
 }
 $title = "Διαχείρηση";
@@ -12,7 +12,7 @@ $stylesheets =
 include '../header.php'; ?>
 
 <body>
-    <script src="/sostografia/js/fetchAdminData.js"></script>
+    <script src="<?php echo $baseURL ?>/js/fetchAdminData.js"></script>
     <?php include '../components/navbar.php'; ?>
     <div class="page-content">
         <div class="admin-panel-container">
@@ -40,36 +40,36 @@ include '../header.php'; ?>
         </div>
     </div>
     <script>
-    const cats = (document.getElementsByClassName("categories")[0]);
-    const rules = (document.getElementsByClassName("rules")[0]);
-    const ques = (document.getElementsByClassName("questions")[0]);
-    const dropdown = document.querySelector("select");
+        const cats = (document.getElementsByClassName("categories")[0]);
+        const rules = (document.getElementsByClassName("rules")[0]);
+        const ques = (document.getElementsByClassName("questions")[0]);
+        const dropdown = document.querySelector("select");
 
-    function filterAssets() {
-        console.log(dropdown.value);
-        switch (dropdown.value) {
-            case "category":
-                cats.style.display = "block";
-                rules.style.display = "none";
-                ques.style.display = "none";
-                break;
-            case "rule":
-                cats.style.display = "none";
-                rules.style.display = "block";
-                ques.style.display = "none";
-                break;
-            case "question":
-                cats.style.display = "none";
-                rules.style.display = "none";
-                ques.style.display = "block";
-                break;
-            default:
-                cats.style.display = "block";
-                rules.style.display = "block";
-                ques.style.display = "block";
-                break;
+        function filterAssets() {
+            console.log(dropdown.value);
+            switch (dropdown.value) {
+                case "category":
+                    cats.style.display = "block";
+                    rules.style.display = "none";
+                    ques.style.display = "none";
+                    break;
+                case "rule":
+                    cats.style.display = "none";
+                    rules.style.display = "block";
+                    ques.style.display = "none";
+                    break;
+                case "question":
+                    cats.style.display = "none";
+                    rules.style.display = "none";
+                    ques.style.display = "block";
+                    break;
+                default:
+                    cats.style.display = "block";
+                    rules.style.display = "block";
+                    ques.style.display = "block";
+                    break;
+            }
         }
-    }
     </script>
 </body>
 

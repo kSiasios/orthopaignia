@@ -13,7 +13,7 @@ include './header.php';
 ?>
 
 <body>
-    <?php include 'components\navbar.php'; ?>
+    <?php include 'components/navbar.php'; ?>
     <div class="page-content">
         <!-- <p>Γειά σου  -->
         <?php
@@ -85,8 +85,7 @@ include './header.php';
             <p id="story-lines">
             </p>
             <div class="dialog-buttons">
-                <button class="blue" id="next-dialog" onclick="changeStoryLine(1)">Επόμενο <i
-                        class="fi fi-rr-angle-right"></i></button>
+                <button class="blue" id="next-dialog" onclick="changeStoryLine(1)">Επόμενο <i class="fi fi-rr-angle-right"></i></button>
                 <button class="blue" id="prev-dialog" onclick="changeStoryLine(-1)"><i class="fi fi-rr-angle-left"></i>
                     Προηγούμενο</button>
             </div>
@@ -98,140 +97,140 @@ include './header.php';
     </div>
     <!-- <p>Hello, world!</p> -->
     <script>
-    let storyLines;
-    let storyLineIndex = 0;
+        let storyLines;
+        let storyLineIndex = 0;
 
-    let prevDialogBtn = document.querySelector("#prev-dialog");
-    prevDialogBtn.style.display = "none";
+        let prevDialogBtn = document.querySelector("#prev-dialog");
+        prevDialogBtn.style.display = "none";
 
-    let nextDialogBtn = document.querySelector("#next-dialog");
+        let nextDialogBtn = document.querySelector("#next-dialog");
 
-    let dialogText = document.querySelector("#story-lines");
+        let dialogText = document.querySelector("#story-lines");
 
-    let dialogBtns = document.querySelector(".dialog-buttons");
-    let answerBtns = document.querySelector(".answer-buttons");
+        let dialogBtns = document.querySelector(".dialog-buttons");
+        let answerBtns = document.querySelector(".answer-buttons");
 
-    let canPressButton = true;
-    let stopFunc = false;
+        let canPressButton = true;
+        let stopFunc = false;
 
-    fetch("/sostografia/story/story_lines.json")
-        .then((response) => {
-            return response.json();
-        })
-        .then((json) => {
-            storyLines = json;
-            // console.log(storyLines);
-            // for (var key in storyLines) {
-            //     var value = storyLines[key];
-            //     if ((!!value) && (value.constructor === Object))
-            //         console.log("BINGO")
-            //     else
-            //         console.log(value);
-            // }
-            // recursiveObjectPrint(storyLines);
-            // console.log(`StoryLine at index 2: ${storyLines[2]}`);
-            changeStoryLine(0);
-        });
+        fetch(`/${baseURL}/story/story_lines.json`)
+            .then((response) => {
+                return response.json();
+            })
+            .then((json) => {
+                storyLines = json;
+                // console.log(storyLines);
+                // for (var key in storyLines) {
+                //     var value = storyLines[key];
+                //     if ((!!value) && (value.constructor === Object))
+                //         console.log("BINGO")
+                //     else
+                //         console.log(value);
+                // }
+                // recursiveObjectPrint(storyLines);
+                // console.log(`StoryLine at index 2: ${storyLines[2]}`);
+                changeStoryLine(0);
+            });
 
-    function recursiveObjectPrint(obj) {
-        let storyLinesElement = document.querySelector(".story-lines");
-        for (var key in obj) {
-            var value = obj[key];
-            if (!!value && value.constructor === Object) {
-                recursiveObjectPrint(value);
-            } else {
-                // console.log(value);
-                typeWriter(value, storyLinesElement);
-                // .then(console.log("----------------------- DONE -----------------------"));
-            }
-        }
-    }
-
-    function typeWriter(str, element) {
-        canPressButton = false;
-        let i = 0;
-        const interval = setInterval(typeWriterIteration, 25);
-
-        function typeWriterIteration() {
-            if (i >= str.length) {
-                clearInterval(interval);
-                canPressButton = true;
-            } else {
-                i++;
-                console.log(`String: '${str.slice(0, i)}'`);
-                if (element != null) {
-                    element.innerHTML = str.slice(0, i);
+        function recursiveObjectPrint(obj) {
+            let storyLinesElement = document.querySelector(".story-lines");
+            for (var key in obj) {
+                var value = obj[key];
+                if (!!value && value.constructor === Object) {
+                    recursiveObjectPrint(value);
+                } else {
+                    // console.log(value);
+                    typeWriter(value, storyLinesElement);
+                    // .then(console.log("----------------------- DONE -----------------------"));
                 }
             }
         }
-    }
 
-    function changeStoryLine(index) {
-        if (canPressButton) {
-            console.log(`StoryLineIndex: ${storyLineIndex}\n`);
-            console.log(`Index received: ${index}`);
-            console.log(`StoryLine Length: ${Object.keys(storyLines).length}`);
-            if (
-                storyLineIndex + index < 0 ||
-                storyLineIndex + index > Object.keys(storyLines).length - 1
-            ) {
-                console.error("StoryLineIndex is out of bounds!");
-                return;
-            } else {
-                storyLineIndex += index;
-            }
-            if (storyLineIndex > 0) {
-                prevDialogBtn.style.display = "flex";
-            } else {
-                prevDialogBtn.style.display = "none";
-            }
+        function typeWriter(str, element) {
+            canPressButton = false;
+            let i = 0;
+            const interval = setInterval(typeWriterIteration, 25);
 
-            if (storyLineIndex < Object.keys(storyLines).length - 1) {
-                nextDialogBtn.style.display = "flex";
-                nextDialogBtn.parentElement.style.flexDirection = "row-reverse";
-            } else {
-                nextDialogBtn.style.display = "none";
-                nextDialogBtn.parentElement.style.flexDirection = "row";
-            }
-            if (typeof storyLines[storyLineIndex] === "object") {
-                // WE HAVE DIALOG DEPENDING ON THE ANSWER (Y OR N)
-                // MAKE Y OR N BUTTONS VISIBLE, HIDE OTHER BUTTONS
-                answerBtns.style.display = "flex";
-                dialogBtns.style.display = "none";
-                typeWriter(
-                    storyLines[storyLineIndex][0].replaceAll(
-                        "<name>",
-                        "<?php echo $_SESSION['username'] ?>"
-                    ),
-                    dialogText
-                );
-            } else {
-                answerBtns.style.display = "none";
-                dialogBtns.style.display = "flex";
-                typeWriter(
-                    storyLines[storyLineIndex].replaceAll(
-                        "<name>",
-                        "<?php echo $_SESSION['username'] ?>"
-                    ),
-                    dialogText
-                );
+            function typeWriterIteration() {
+                if (i >= str.length) {
+                    clearInterval(interval);
+                    canPressButton = true;
+                } else {
+                    i++;
+                    console.log(`String: '${str.slice(0, i)}'`);
+                    if (element != null) {
+                        element.innerHTML = str.slice(0, i);
+                    }
+                }
             }
         }
-    }
 
-    function answerDialog(ans) {
-        switch (ans) {
-            case 'y':
-                console.log("Answered YES");
-                break;
-            case 'n':
-                console.log("Answered NO");
-                break;
-            default:
-                console.error("Invalid answer!");
-                break;
+        function changeStoryLine(index) {
+            if (canPressButton) {
+                console.log(`StoryLineIndex: ${storyLineIndex}\n`);
+                console.log(`Index received: ${index}`);
+                console.log(`StoryLine Length: ${Object.keys(storyLines).length}`);
+                if (
+                    storyLineIndex + index < 0 ||
+                    storyLineIndex + index > Object.keys(storyLines).length - 1
+                ) {
+                    console.error("StoryLineIndex is out of bounds!");
+                    return;
+                } else {
+                    storyLineIndex += index;
+                }
+                if (storyLineIndex > 0) {
+                    prevDialogBtn.style.display = "flex";
+                } else {
+                    prevDialogBtn.style.display = "none";
+                }
+
+                if (storyLineIndex < Object.keys(storyLines).length - 1) {
+                    nextDialogBtn.style.display = "flex";
+                    nextDialogBtn.parentElement.style.flexDirection = "row-reverse";
+                } else {
+                    nextDialogBtn.style.display = "none";
+                    nextDialogBtn.parentElement.style.flexDirection = "row";
+                }
+                if (typeof storyLines[storyLineIndex] === "object") {
+                    // WE HAVE DIALOG DEPENDING ON THE ANSWER (Y OR N)
+                    // MAKE Y OR N BUTTONS VISIBLE, HIDE OTHER BUTTONS
+                    answerBtns.style.display = "flex";
+                    dialogBtns.style.display = "none";
+                    typeWriter(
+                        storyLines[storyLineIndex][0].replaceAll(
+                            "<name>",
+                            "<?php echo $_SESSION['username'] ?>"
+                        ),
+                        dialogText
+                    );
+                } else {
+                    answerBtns.style.display = "none";
+                    dialogBtns.style.display = "flex";
+                    typeWriter(
+                        storyLines[storyLineIndex].replaceAll(
+                            "<name>",
+                            "<?php echo $_SESSION['username'] ?>"
+                        ),
+                        dialogText
+                    );
+                }
+            }
         }
-    }
+
+        function answerDialog(ans) {
+            switch (ans) {
+                case 'y':
+                    console.log("Answered YES");
+                    break;
+                case 'n':
+                    console.log("Answered NO");
+                    break;
+                default:
+                    console.error("Invalid answer!");
+                    break;
+            }
+        }
     </script>
     <script src="js/formHandler.js"></script>
 </body>

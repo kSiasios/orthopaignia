@@ -1,3 +1,5 @@
+baseURL = window.location.pathname.split("/")[1].replace(/(?:\r\n|\r|\n)/g, "");
+
 function submitLogin() {
   const formData = new FormData(
     document.querySelector(".form-inputs.login").getElementsByTagName("form")[0]
@@ -15,12 +17,12 @@ function submitLogin() {
 
   searchParams.append("submit", "submit");
 
-  fetch("/sostografia/includes/loginHandler.php", {
+  fetch(`/${baseURL}/includes/loginHandler.php`, {
     method: "POST",
     body: searchParams,
   })
     .then(function (response) {
-      window.location = "/sostografia";
+      window.location = `/${baseURL}`;
       return response.text();
     })
     .then(function (text) {
@@ -61,7 +63,7 @@ function submitRegister() {
 
   searchParams.append("submit", "submit");
 
-  fetch("/sostografia/includes/registerHandler.php", {
+  fetch(`/${baseURL}/includes/registerHandler.php`, {
     method: "POST",
     body: searchParams,
   })

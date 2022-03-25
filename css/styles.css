@@ -261,7 +261,7 @@ td {
   height: 1em;
   width: 1em;
   background-size: 100% 100%;
-  background-image: url("/sostografia/svg/test-tube.svg");
+  background-image: url("../svg/test-tube.svg");
   background-repeat: no-repeat;
 }
 

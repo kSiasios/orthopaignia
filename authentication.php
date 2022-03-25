@@ -1,9 +1,18 @@
 <?php
 session_start();
 if (isset($_SESSION['logged'])) {
-    header("location: /sostografia/");
+    header("location: $baseURL/");
     exit();
 }
+
+// $env_array = getenv();
+// echo "<script>console.log('$env_array')</script>";
+// foreach ($env_array as $key=>$value)
+// {
+//     // echo "$key => $value <br />";
+//     echo "<script>console.log('$key => $value')</script>";
+// }
+
 $title = "Σύνδεση";
 $stylesheets =
     '<link rel="stylesheet" href="css/styles.css">
@@ -32,8 +41,7 @@ include './header.php';
                     </div>
                     <div class="input-container">
                         <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="password" id="password-input login"
-                            placeholder="Κωδικός Πρόσβασης" />
+                        <input type="password" name="password" id="password-input login" placeholder="Κωδικός Πρόσβασης" />
                     </div>
                     <div class="form-submit">
                         <button value="submit" type="submit" name="submit">
@@ -54,13 +62,11 @@ include './header.php';
                     </div>
                     <div class="input-container">
                         <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="password" id="password-input register"
-                            placeholder="Κωδικός Πρόσβασης" />
+                        <input type="password" name="password" id="password-input register" placeholder="Κωδικός Πρόσβασης" />
                     </div>
                     <div class="input-container">
                         <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="repeat-password" id="repeat-password-input"
-                            placeholder="Επανάληψη Κωδικού Πρόσβασης" />
+                        <input type="password" name="repeat-password" id="repeat-password-input" placeholder="Επανάληψη Κωδικού Πρόσβασης" />
                     </div>
                     <div class="form-submit">
                         <button value="submit" type="submit" name="submit">
@@ -80,61 +86,61 @@ include './header.php';
     </div>
     <!-- <p>Hello, world!</p> -->
     <script>
-    let registerForm = document.querySelector(".form-inputs.register");
-    let loginForm = document.querySelector(".form-inputs.login");
+        let registerForm = document.querySelector(".form-inputs.register");
+        let loginForm = document.querySelector(".form-inputs.login");
 
-    registerForm.addEventListener(
-        "submit",
-        function(event) {
-            event.preventDefault();
-            submitRegister();
-        },
-        true
-    );
+        registerForm.addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
+                submitRegister();
+            },
+            true
+        );
 
-    loginForm.addEventListener(
-        "submit",
-        function(event) {
-            event.preventDefault();
-            submitLogin();
-        },
-        true
-    );
+        loginForm.addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
+                submitLogin();
+            },
+            true
+        );
 
-    let formExtras = document.querySelector(".form-extras");
+        let formExtras = document.querySelector(".form-extras");
 
-    let loginLink = document.querySelectorAll(".form-selector a")[0];
-    let registerLink = document.querySelectorAll(".form-selector a")[1];
+        let loginLink = document.querySelectorAll(".form-selector a")[0];
+        let registerLink = document.querySelectorAll(".form-selector a")[1];
 
-    registerForm.style.display = "none";
-    loginForm.style.display = "flex";
+        registerForm.style.display = "none";
+        loginForm.style.display = "flex";
 
-    loginLink.classList.add("active");
-    registerLink.classList.remove("active");
+        loginLink.classList.add("active");
+        registerLink.classList.remove("active");
 
-    function toggleForm(mode) {
-        if (mode == "login") {
-            registerForm.style.display = "none";
-            loginForm.style.display = "flex";
+        function toggleForm(mode) {
+            if (mode == "login") {
+                registerForm.style.display = "none";
+                loginForm.style.display = "flex";
 
-            formExtras.style.display = "block";
+                formExtras.style.display = "block";
 
-            document.title = `Σύνδεση - ${document.title.split(" - ")[1]}`;
+                document.title = `Σύνδεση - ${document.title.split(" - ")[1]}`;
 
-            loginLink.classList.add("active");
-            registerLink.classList.remove("active");
-        } else {
-            registerForm.style.display = "flex";
-            loginForm.style.display = "none";
+                loginLink.classList.add("active");
+                registerLink.classList.remove("active");
+            } else {
+                registerForm.style.display = "flex";
+                loginForm.style.display = "none";
 
-            formExtras.style.display = "none";
+                formExtras.style.display = "none";
 
-            document.title = `Εγγραφή - ${document.title.split(" - ")[1]}`;
+                document.title = `Εγγραφή - ${document.title.split(" - ")[1]}`;
 
-            loginLink.classList.remove("active");
-            registerLink.classList.add("active");
+                loginLink.classList.remove("active");
+                registerLink.classList.add("active");
+            }
         }
-    }
     </script>
     <script src="js/formHandler.js"></script>
 </body>

@@ -1,3 +1,8 @@
+<?php
+$baseURL = file("variables.env")[0];
+// $baseURL
+// echo "<script>console.log($baseURL)</script>";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,16 +13,17 @@
     <?php
     echo $stylesheets;
     ?>
-    <link rel="stylesheet"
-        href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css" />
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css" />
-    <link rel="stylesheet"
-        href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css" />
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" />
     <title>
         <?php echo $title ?>
         - Σωστογραφία</title>
+    <script>
+        let baseURL = window.location.pathname.split("/")[1].replace(/(?:\r\n|\r|\n)/g, "");
+    </script>
 </head>
