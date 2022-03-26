@@ -75,7 +75,7 @@ include '../header.php';
 
                     switch (error) {
                         case "none":
-                            location.reload();
+                            window.location = `/${baseURL}/routes/admin_panel.php`;
                             break;
                         case "stmtFailed":
                             window.alert("Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.");

@@ -27,10 +27,18 @@ function submitLogin() {
     })
     .then(function (text) {
       let error = text.split("=")[1];
-      if (error === "none") {
-        window.location = `/${baseURL}`;
-      } else if (error === "userDoesNotExist") {
-        window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
+      switch (error) {
+        case "none":
+          window.location = `/${baseURL}`;
+          break;
+        case "userDoesNotExist":
+          window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
+          break;
+        case "wrongPassword":
+          window.alert("Ο κωδικός που δώσατε είναι λάθος!");
+          break;
+        default:
+          break;
       }
       // console.log(`Response Text: "${text}"`);
       // window.location = `/${baseURL}`;

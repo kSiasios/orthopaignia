@@ -30,26 +30,32 @@ if (!isset($_SESSION["isAdmin"])) {
             </div>
             <div class="categories">
                 <h2>Κατηγορίες</h2>
+                <div class="categories-container"></div>
                 <button class="blue" onclick="window.location = 'add_category.php';">Προσθήκη κατηγορίας</button>
             </div>
             <div class="rules">
                 <h2>Κανόνες</h2>
-                <button class="red" onclick="window.location = 'add_rule.php';">Προσθήκη κανόνα</button>
+                <div class="rules-container"></div>
+                <button class="blue" onclick="window.location = 'add_rule.php';">Προσθήκη κανόνα</button>
             </div>
             <div class="questions">
                 <h2>Ερωτήσεις</h2>
-                <button class="green" onclick="window.location = 'add_question.php';">Προσθήκη ερώτησης</button>
+                <div class="questions-container"></div>
+                <button class="blue" onclick="window.location = 'add_question.php';">Προσθήκη ερώτησης</button>
             </div>
         </div>
     </div>
     <script>
-        const cats = (document.getElementsByClassName("categories")[0]);
-        const rules = (document.getElementsByClassName("rules")[0]);
-        const ques = (document.getElementsByClassName("questions")[0]);
+        const catsContainer = (document.querySelector(".categories").querySelector(".categories-container"));
+        const cats = (document.querySelector(".categories"));
+        const rulesContainer = (document.querySelector(".rules").querySelector(".rules-container"));
+        const rules = (document.querySelector(".rules"));
+        const quesContainer = (document.querySelector(".questions").querySelector(".questions-container"));
+        const ques = (document.querySelector(".questions"));
         const dropdown = document.querySelector("select");
 
         function filterAssets() {
-            console.log(dropdown.value);
+            // console.log(dropdown.value);
             switch (dropdown.value) {
                 case "category":
                     cats.style.display = "block";
@@ -73,6 +79,33 @@ if (!isset($_SESSION["isAdmin"])) {
                     break;
             }
         }
+
+        fetch(`/${baseURL}/includes/fetchCategories.php`).then((res) => {
+            return res.text();
+        }).then((text) => {
+            catsContainer.innerHTML = text;
+            // console.log(text);
+        }).catch((error) => {
+            console.error(`${error}`);
+        });
+
+        fetch(`/${baseURL}/includes/fetchRules.php`).then((res) => {
+            return res.text();
+        }).then((text) => {
+            rulesContainer.innerHTML = text;
+            // console.log(text);
+        }).catch((error) => {
+            console.error(`${error}`);
+        });
+
+        fetch(`/${baseURL}/includes/fetchQuestions.php`).then((res) => {
+            return res.text();
+        }).then((text) => {
+            quesContainer.innerHTML = text;
+            // console.log(text);
+        }).catch((error) => {
+            console.error(`${error}`);
+        });
     </script>
 </body>
 

@@ -1,7 +1,6 @@
 <?php
 function emptyInputRegister($username, $email, $password)
 {
-    $result;
     if (empty($username) || empty($email) || empty($password))
         $result = true;
     else
@@ -11,7 +10,6 @@ function emptyInputRegister($username, $email, $password)
 
 function invalidUID($username)
 {
-    $result;
     if (!preg_match("/^[a-zA-Z0-9_]*$/", $username))
         $result = true;
     else
@@ -21,7 +19,6 @@ function invalidUID($username)
 
 function invalidEmail($email)
 {
-    $result;
     if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         $result = true;
     else
@@ -100,7 +97,7 @@ function logUserIn($conn, $pwd, $pwdHash)
 
         // GET USER'S USERNAME (MIGHT HAVE LOGGED IN USING EMAIL)
         // CHECK IF USER IS ADMIN
-        $sql = "SELECT userUsername, userFirstName FROM users WHERE userUsername = ? OR userEmail = ?;";
+        $sql = "SELECT userUsername, userFirstName, userLastName FROM users WHERE userUsername = ? OR userEmail = ?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             echo ("error=userFetchFailed");
@@ -117,6 +114,8 @@ function logUserIn($conn, $pwd, $pwdHash)
             //     $_SESSION['username'] = $row['userFirstName'];
 
             $_SESSION['username'] = $row['userUsername'];
+            $_SESSION['firstname'] = $row['userFirstName'];
+            $_SESSION['lastname'] = $row['userLastName'];
         }
 
         // print_r($_SESSION);

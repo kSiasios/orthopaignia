@@ -22,7 +22,7 @@ if (!file("variables.env")) {
             echo '<li class="nav-link"><a href="' . $baseURL . '/routes/admin_panel.php">ΔΙΑΧΕΙΡΗΣΗ</a></li>';
         }
         if (isset($_SESSION["logged"])) {
-            echo '<li class="nav-link"><a onclick="logoutHandler()">ΑΠΟΣΥΝΔΕΣΗ</a></li>';
+            echo '<li class="nav-link"><a href="#" onclick="logoutHandler()">ΑΠΟΣΥΝΔΕΣΗ</a></li>';
         }
         //  else {
         //     echo '<li class="nav-link"><a href="/sostografia/">ΣΥΝΔΕΣΗ</a></li>';

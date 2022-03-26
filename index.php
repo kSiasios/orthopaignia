@@ -15,72 +15,6 @@ include './header.php';
 <body>
     <?php include 'components/navbar.php'; ?>
     <div class="page-content">
-        <!-- <p>Γειά σου  -->
-        <?php
-        // echo "<strong>" . $_SESSION['username'] . "</strong>"
-        ?>
-        <!-- </p> -->
-        <!-- <div class="login-form">
-            <div class="form-header">
-                <p>Σωστογραφία</p>
-            </div>
-            <div class="form-selector">
-                <a href="#" onclick="toggleForm('login')">Σύνδεση</a>
-                <a href="#" onclick="toggleForm('register')">Εγγραφή</a>
-            </div>
-            <div class="form-inputs login">
-                <form method="POST">
-                    <div class="input-container">
-                        <label for="username"><i class="fi fi-ss-user"></i></label>
-                        <input type="text" name="username" id="username-input login" placeholder="Όνομα Χρήστη" />
-                    </div>
-                    <div class="input-container">
-                        <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="password" id="password-input login"
-                            placeholder="Κωδικός Πρόσβασης" />
-                    </div>
-                    <div class="form-submit">
-                        <button value="submit" type="submit" name="submit">
-                            Σύνδεση
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="form-inputs register">
-                <form method="POST">
-                    <div class="input-container">
-                        <label for="username"><i class="fi fi-ss-user"></i></label>
-                        <input type="text" name="username" id="username-input register" placeholder="Όνομα Χρήστη" />
-                    </div>
-                    <div class="input-container">
-                        <label for="email"><i class="fi fi-ss-at"></i></label>
-                        <input type="email" name="email" id="email-input" placeholder="Ηλ. Ταχυδρομείο" />
-                    </div>
-                    <div class="input-container">
-                        <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="password" id="password-input register"
-                            placeholder="Κωδικός Πρόσβασης" />
-                    </div>
-                    <div class="input-container">
-                        <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="repeat-password" id="repeat-password-input"
-                            placeholder="Επανάληψη Κωδικού Πρόσβασης" />
-                    </div>
-                    <div class="form-submit">
-                        <button value="submit" type="submit" name="submit">
-                            <p>Εγγραφή</p>
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-
-            <div class="form-extras">
-                <div class="forgot-password">
-                    <p>Ξεχάσατε τον κωδικό σας; <a href="">Πατήστε εδώ</a></p>
-                </div>
-            </div>
-        </div> -->
         <div class="dialog fade-in">
             <p id="story-lines">
             </p>
@@ -95,7 +29,6 @@ include './header.php';
             </div>
         </div>
     </div>
-    <!-- <p>Hello, world!</p> -->
     <script>
         let storyLines;
         let storyLineIndex = 0;
@@ -119,16 +52,6 @@ include './header.php';
             })
             .then((json) => {
                 storyLines = json;
-                // console.log(storyLines);
-                // for (var key in storyLines) {
-                //     var value = storyLines[key];
-                //     if ((!!value) && (value.constructor === Object))
-                //         console.log("BINGO")
-                //     else
-                //         console.log(value);
-                // }
-                // recursiveObjectPrint(storyLines);
-                // console.log(`StoryLine at index 2: ${storyLines[2]}`);
                 changeStoryLine(0);
             });
 
@@ -139,9 +62,7 @@ include './header.php';
                 if (!!value && value.constructor === Object) {
                     recursiveObjectPrint(value);
                 } else {
-                    // console.log(value);
                     typeWriter(value, storyLinesElement);
-                    // .then(console.log("----------------------- DONE -----------------------"));
                 }
             }
         }
@@ -157,7 +78,6 @@ include './header.php';
                     canPressButton = true;
                 } else {
                     i++;
-                    // console.log(`String: '${str.slice(0, i)}'`);
                     if (element != null) {
                         element.innerHTML = str.slice(0, i);
                     }
@@ -165,11 +85,8 @@ include './header.php';
             }
         }
 
-        function changeStoryLine(index) {
+        function changeStoryLine(index, answer) {
             if (canPressButton) {
-                // console.log(`StoryLineIndex: ${storyLineIndex}\n`);
-                // console.log(`Index received: ${index}`);
-                // console.log(`StoryLine Length: ${Object.keys(storyLines).length}`);
                 if (
                     storyLineIndex + index < 0 ||
                     storyLineIndex + index > Object.keys(storyLines).length - 1
@@ -192,13 +109,13 @@ include './header.php';
                     nextDialogBtn.style.display = "none";
                     nextDialogBtn.parentElement.style.flexDirection = "row";
                 }
-                if (typeof storyLines[storyLineIndex] === "object") {
+                if (typeof storyLines[storyLineIndex + 1] === "object") {
                     // WE HAVE DIALOG DEPENDING ON THE ANSWER (Y OR N)
                     // MAKE Y OR N BUTTONS VISIBLE, HIDE OTHER BUTTONS
                     answerBtns.style.display = "flex";
                     dialogBtns.style.display = "none";
                     typeWriter(
-                        storyLines[storyLineIndex][0].replaceAll(
+                        storyLines[storyLineIndex].replaceAll(
                             "<name>",
                             "<?php echo $_SESSION['username'] ?>"
                         ),
@@ -207,29 +124,52 @@ include './header.php';
                 } else {
                     answerBtns.style.display = "none";
                     dialogBtns.style.display = "flex";
-                    typeWriter(
-                        storyLines[storyLineIndex].replaceAll(
-                            "<name>",
-                            "<?php echo $_SESSION['username'] ?>"
-                        ),
-                        dialogText
-                    );
+                    if (answer === true) {
+                        typeWriter(
+                            storyLines[storyLineIndex][0].replaceAll(
+                                "<name>",
+                                "<?php echo $_SESSION['username'] ?>"
+                            ),
+                            dialogText
+                        );
+                    } else if (answer === false) {
+                        typeWriter(
+                            storyLines[storyLineIndex][1].replaceAll(
+                                "<name>",
+                                "<?php echo $_SESSION['username'] ?>"
+                            ),
+                            dialogText
+                        );
+                    } else {
+                        typeWriter(
+                            storyLines[storyLineIndex].replaceAll(
+                                "<name>",
+                                "<?php echo $_SESSION['username'] ?>"
+                            ),
+                            dialogText
+                        );
+                    }
+
                 }
             }
         }
 
         function answerDialog(ans) {
+            let answer;
             switch (ans) {
                 case 'y':
                     console.log("Answered YES");
+                    answer = true;
                     break;
                 case 'n':
                     console.log("Answered NO");
+                    answer = false;
                     break;
                 default:
                     console.error("Invalid answer!");
                     break;
             }
+            changeStoryLine(1, answer);
         }
     </script>
     <script src="js/formHandler.js"></script>
