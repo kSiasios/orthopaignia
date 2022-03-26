@@ -1,0 +1,43 @@
+input {
+  height: 2rem;
+  width: 100%;
+  border: none;
+  background: var(--secondary-clr);
+  padding-inline: 0.5em;
+  border-radius: 0.25em;
+}
+
+input::placeholder {
+  color: var(--secondary-clr-dark);
+}
+
+.settings {
+  background: red;
+  width: 80%;
+  max-width: 50em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: var(--primary-clr);
+}
+
+.settings div {
+  width: 50%;
+}
+
+.settings div form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.delete-section {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -20,7 +20,7 @@
 
 .answer-buttons {
   width: 100%;
-  display: flex;
+  display: none;
   flex-direction: row-reverse;
   justify-content: center;
   gap: 1em;

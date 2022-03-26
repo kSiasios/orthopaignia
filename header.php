@@ -1,5 +1,9 @@
 <?php
-$baseURL = file("variables.env")[0];
+if (!file("variables.env")) {
+    $baseURL = file("../variables.env")[0];
+} else {
+    $baseURL = file("variables.env")[0];
+}
 // $baseURL
 // echo "<script>console.log($baseURL)</script>";
 ?>

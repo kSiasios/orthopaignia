@@ -56,15 +56,73 @@ function createUser($conn, $email, $username, $password)
     $sql = "INSERT INTO users (userEmail, userUsername, userPassword) VALUES (?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../?error=stmtFailed");
+        echo ("error=stmtFailed");
         exit();
     }
+
     // HASH PASSWORD
     $hash = password_hash($password, PASSWORD_DEFAULT);
     mysqli_stmt_bind_param($stmt, "sss", $email, $username, $hash);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../?error=none");
+
+    if ($row = uidExists($conn, $username, $username)) {
+        // USER EXISTS => CHECK PASSWORD
+        // logUserIn();
+        logUserIn($conn, $password, $row["userPassword"]);
+    }
+
+    echo ("error=none");
     exit();
+}
+
+function logUserIn($conn, $pwd, $pwdHash)
+{
+    if (password_verify($pwd, $pwdHash)) {
+        session_start();
+        $_SESSION['logged'] = time();
+
+        // CHECK IF USER IS ADMIN
+        $sql = "SELECT * FROM administrators WHERE (SELECT userID FROM users WHERE userUsername = ? OR userEmail = ?) = administrators.userID;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            echo ("error=adminFetchFailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "ss", $_POST['username'], $_POST['username']);
+        mysqli_stmt_execute($stmt);
+
+        $resultData = mysqli_stmt_get_result($stmt);
+        if ($row = mysqli_fetch_assoc($resultData)) {
+            $_SESSION['isAdmin'] = true;
+        }
+
+        // GET USER'S USERNAME (MIGHT HAVE LOGGED IN USING EMAIL)
+        // CHECK IF USER IS ADMIN
+        $sql = "SELECT userUsername, userFirstName FROM users WHERE userUsername = ? OR userEmail = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            echo ("error=userFetchFailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "ss", $_POST['username'], $_POST['username']);
+        mysqli_stmt_execute($stmt);
+
+        $resultData = mysqli_stmt_get_result($stmt);
+        if ($row = mysqli_fetch_assoc($resultData)) {
+            // if ($row["userFirstName"] === "")
+            //     $_SESSION['username'] = $row['userUsername'];
+            // else
+            //     $_SESSION['username'] = $row['userFirstName'];
+
+            $_SESSION['username'] = $row['userUsername'];
+        }
+
+        // print_r($_SESSION);
+        // echo ("error=none");
+    } else {
+        echo ("error=wrongPassword");
+        exit();
+    }
 }

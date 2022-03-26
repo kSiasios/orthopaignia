@@ -9,7 +9,8 @@ function submitLogin() {
 
   for (const pair of formData) {
     if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
-      window.alert("Some information are missing");
+      // window.alert("Some information are missing");
+      window.alert("Κάποια πεδία είναι κενά!");
       return;
     }
     searchParams.append(pair[0], pair[1]);
@@ -22,11 +23,17 @@ function submitLogin() {
     body: searchParams,
   })
     .then(function (response) {
-      window.location = `/${baseURL}`;
       return response.text();
     })
     .then(function (text) {
-      console.log(`Response Text: ${text}`);
+      let error = text.split("=")[1];
+      if (error === "none") {
+        window.location = `/${baseURL}`;
+      } else if (error === "userDoesNotExist") {
+        window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
+      }
+      // console.log(`Response Text: "${text}"`);
+      // window.location = `/${baseURL}`;
     })
     .catch(function (error) {
       console.log(error);
@@ -46,12 +53,13 @@ function submitRegister() {
 
   for (const pair of formData) {
     if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
-      window.alert("Some information are missing");
+      window.alert("Κάποια πεδία είναι κενά!");
+      // window.alert("Some information are missing");
       return;
     }
     searchParams.append(pair[0], pair[1]);
 
-    console.log();
+    // console.log();
   }
 
   //   console.log(searchParams.get("password"));
@@ -71,6 +79,28 @@ function submitRegister() {
       return response.text();
     })
     .then(function (text) {
+      let error = text.split("=")[1];
+
+      switch (error) {
+        case "none":
+          window.location = `/${baseURL}`;
+          break;
+        case "invalidEmail":
+          window.alert("Αυτό το email δεν είναι αποδεκτό!");
+          break;
+        case "emptyInput":
+          window.alert("Κάποια πεδία είναι άδεια!");
+          break;
+        case "invalidUsername":
+          window.alert("Αυτό το όνομα χρήστη δεν είναι αποδεκτό!");
+          break;
+        case "userExists":
+          window.alert("Αυτό το όνομα χρήστη ή το email δεν είναι διαθέσιμο!");
+          break;
+        default:
+          window.alert(`Υπήρξε ένα ασυνήθιστο λάθος: ${error}`);
+          break;
+      }
       console.log(`Response Text: ${text}`);
     })
     .catch(function (error) {

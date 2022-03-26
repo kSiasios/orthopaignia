@@ -157,7 +157,7 @@ include './header.php';
                     canPressButton = true;
                 } else {
                     i++;
-                    console.log(`String: '${str.slice(0, i)}'`);
+                    // console.log(`String: '${str.slice(0, i)}'`);
                     if (element != null) {
                         element.innerHTML = str.slice(0, i);
                     }
@@ -167,9 +167,9 @@ include './header.php';
 
         function changeStoryLine(index) {
             if (canPressButton) {
-                console.log(`StoryLineIndex: ${storyLineIndex}\n`);
-                console.log(`Index received: ${index}`);
-                console.log(`StoryLine Length: ${Object.keys(storyLines).length}`);
+                // console.log(`StoryLineIndex: ${storyLineIndex}\n`);
+                // console.log(`Index received: ${index}`);
+                // console.log(`StoryLine Length: ${Object.keys(storyLines).length}`);
                 if (
                     storyLineIndex + index < 0 ||
                     storyLineIndex + index > Object.keys(storyLines).length - 1

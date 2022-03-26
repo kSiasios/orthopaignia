@@ -1,3 +1,14 @@
+<?php
+if (!file("variables.env")) {
+    $baseURL = file("../variables.env")[0];
+} else {
+    $baseURL = file("variables.env")[0];
+}
+// echo "<script>console.log('Base URL:" . str_replace("\n", "", $baseURL) . "')</script>";
+// echo $baseURL;
+
+?>
+
 <script src="<?php echo $baseURL ?>/js/global.js"></script>
 <nav>
     <!-- <a href="/sostografia/"><i class="fi fi-rr-arrow-small-left"></i></a> -->
@@ -8,7 +19,7 @@
         <li class="nav-link"><a href="<?php echo $baseURL ?>/routes/account.php">ΛΟΓΑΡΙΑΣΜΟΣ</a></li>
         <?php
         if (isset($_SESSION["isAdmin"])) {
-            echo '<li class="nav-link"><a href="$baseURL/routes/admin_panel.php">ΔΙΑΧΕΙΡΗΣΗ</a></li>';
+            echo '<li class="nav-link"><a href="' . $baseURL . '/routes/admin_panel.php">ΔΙΑΧΕΙΡΗΣΗ</a></li>';
         }
         if (isset($_SESSION["logged"])) {
             echo '<li class="nav-link"><a onclick="logoutHandler()">ΑΠΟΣΥΝΔΕΣΗ</a></li>';

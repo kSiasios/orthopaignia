@@ -1,15 +1,18 @@
 <?php
 session_start();
-
-if (!isset($_SESSION["isAdmin"])) {
-    header("location: $baseURL/");
-    exit();
-}
 $title = "Διαχείρηση";
 $stylesheets =
     '<link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/admin_panel.css">';
-include '../header.php'; ?>
+
+include '../header.php';
+
+if (!isset($_SESSION["isAdmin"])) {
+    echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
+    // header("location: $baseURL/");
+    exit();
+}
+?>
 
 <body>
     <script src="<?php echo $baseURL ?>/js/fetchAdminData.js"></script>

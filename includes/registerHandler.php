@@ -11,30 +11,39 @@ if (isset($_POST['submit'])) {
 
     if (emptyInputRegister($username, $email, $password) !== false) {
         // THERE ARE EMPTY INPUTS
-        header("location: ../?error=emptyInput");
+        echo ("error=emptyInput");
         exit();
     }
 
     if (invalidUID($username) !== false) {
         // THERE ARE EMPTY INPUTS
-        header("location: ../?error=invalidUsername");
+        echo ("error=invalidUsername");
         exit();
     }
 
     if (invalidEmail($email) !== false) {
         // THERE ARE EMPTY INPUTS
-        header("location: ../?error=invalidEmail");
+        echo ("error=invalidEmail");
         exit();
     }
 
     if (uidExists($conn, $username, $email) !== false) {
         // THERE ARE EMPTY INPUTS
-        header("location: ../?error=invalidEmail");
+        echo ("error=userExists");
         exit();
     }
 
+    // echo '<script>console.log("CREATING USER");</script>';
     createUser($conn, $email, $username, $password);
+
+    echo "error=none";
+
+    // if ($row = uidExists($conn, $username, $username)) {
+    //     // USER EXISTS => CHECK PASSWORD
+    //     // logUserIn();
+    //     logUserIn($conn, $password, $row["userPassword"]);
+    // }
 } else {
-    header("location: ../");
+    echo ("error=accessDenied");
     exit();
 }

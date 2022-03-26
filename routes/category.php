@@ -4,9 +4,14 @@ $title = "Κανόνες";
 $stylesheets =
     '<link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/category.css">';
-?>
 
-<?php include '../header.php'; ?>
+include '../header.php';
+if (!isset($_SESSION["logged"])) {
+    echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
+    // header("location: " . $baseURL . "/");
+    exit();
+}
+?>
 
 <body>
     <?php include '../components/navbar.php'; ?>

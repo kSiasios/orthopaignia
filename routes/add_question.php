@@ -5,7 +5,8 @@ if (!(isset($_SESSION['logged']) && isset($_SESSION['isAdmin']))) {
     // IF USERS IS NOT LOGGED IN OR
     // IS LOGGED IN AND IS NOT ADMIN,
     // EXIT
-    header("location: $baseURL/");
+    // header("location: $baseURL/");
+    echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
     exit();
 }
 
