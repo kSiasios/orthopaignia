@@ -80,6 +80,18 @@ if (!isset($_SESSION["isAdmin"])) {
             }
         }
 
+        function deleteRule(index) {
+            console.log(`DELETING RULE ${index}`);
+        }
+
+        function deleteCategory(index) {
+            console.log(`DELETING CATEGORY ${index}`);
+        }
+
+        function deleteQuestion(index) {
+            console.log(`DELETING QUESTION ${index}`);
+        }
+
         fetch(`/${baseURL}/includes/fetchCategories.php`).then((res) => {
             return res.text();
         }).then((text) => {

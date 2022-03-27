@@ -16,5 +16,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  margin-block: 1em;
+  margin-block: 0.5em;
+}
+
+.rule {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-block: 0.5em;
 }

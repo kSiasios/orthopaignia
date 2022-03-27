@@ -254,7 +254,7 @@ td {
   margin-inline: 0.5em 1em;
 }
 
-.test::before,
+/* .test::before,
 .test::after {
   position: absolute;
   content: "";
@@ -267,14 +267,12 @@ td {
 }
 
 .test::before {
-  /* background: black; */
   right: 100%;
 }
 
 .test::after {
-  /* background: red; */
   left: 100%;
-}
+} */
 
 input:disabled {
   cursor: not-allowed;

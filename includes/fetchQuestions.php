@@ -20,7 +20,7 @@ mysqli_stmt_execute($stmt);
 
 $resultData = mysqli_stmt_get_result($stmt);
 while ($row = mysqli_fetch_assoc($resultData)) {
-    $returnTxt = $returnTxt . "<div class='question'><p class='question-text'>" . $row['questionText'] . "</p><button class='red'>Διαγραφή " . $row['questionID'] . "</button></div>";
+    $returnTxt = $returnTxt . "<div class='question'><p class='question-text'>" . $row['questionText'] . "</p><button class='red' onclick='deleteQuestion(" . $row['questionID'] . ")'>Διαγραφή</button></div>";
 }
 
 echo $returnTxt;

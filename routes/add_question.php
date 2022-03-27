@@ -22,33 +22,88 @@ include '../header.php';
     <!-- <script src="/sostografia/js/fetchAdminData.js"></script> -->
     <?php include '../components/navbar.php'; ?>
     <div class="page-content">
-        <div class="form-container">
-            <form action="">
-                <div class="form-section">
-                    <label for="question-text">Ερώτηση</label>
-                    <input type="text" name="question-text" id="question-text">
-                </div>
-                <div class="form-section">
+        <div class="form-wrapper">
 
-                    <label for="right-answer">Σωστή Απάντηση</label>
-                    <input type="text" name="right-answer-text" id="right-answer">
-                </div>
-                <div class="form-section">
-                    <label for="wrong-answer-1">Λάθος Απάντηση</label>
-                    <input type="text" name="wrong-answer-1-text" class="wrong-answer" key="1">
-                </div>
-                <!-- <textarea name="question-text" id="question-text" cols="30" rows="10"></textarea> -->
-                <div class="form-buttons">
-                    <a class="button" onclick="addAnswerInput()">Προσθήκη Απάντησης</a>
-                    <a class="button green" onclick="submitForm()">Ολοκλήρωση</a>
-                </div>
-            </form>
+            <div class="form-container">
+                <form action="">
+                    <div class="form-section">
+                        <label for="question-text">Ερώτηση</label>
+                        <input type="text" name="question-text" id="question-text">
+                    </div>
+                    <div class="form-section">
+                        <label for="question-rule">Αντίστοιχος Κανόνας</label>
+                        <!-- <input type="text" name="question-text" id="question-text"> -->
+                        <select name="question-rule" id="question-rule">
+                            <option value="" selected disabled>Επιλέξτε Κανόνα</option>
+                        </select>
+                    </div>
+                    <div class="form-section">
+                        <label for="right-answer">Σωστή Απάντηση</label>
+                        <input type="text" name="right-answer-text" id="right-answer">
+                    </div>
+                    <div class="form-section">
+                        <label for="wrong-answer-1">Λάθος Απάντηση</label>
+                        <input type="text" name="wrong-answer-1-text" class="wrong-answer" key="1">
+                    </div>
+                    <!-- <textarea name="question-text" id="question-text" cols="30" rows="10"></textarea> -->
+                    <div class="form-buttons">
+                        <a class="button" onclick="addAnswerInput()">Προσθήκη Απάντησης</a>
+                        <a class="button green" onclick="submitForm()">Ολοκλήρωση</a>
+                    </div>
+                </form>
+            </div>
+            <div class="format-helper">
+                <table>
+                    <tr>
+                        <td>!!κείμενο/!! <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-1">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>**κείμενο/** <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-2">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>$κείμενο/$ <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-3">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>#κείμενο/# <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-4">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>%κείμενο/% <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-5">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>^κείμενο/^ <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-6">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>&κείμενο/& <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-7">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>@κείμενο/@ <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-8">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>?κείμενο/? <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-9">κείμενο</td>
+                    </tr>
+                    <tr>
+                        <td>[κείμενο/] <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="special-text-10 test">κείμενο</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
+    <script src="<?php echo $baseURL ?>/js/textFormat.js"></script>
     <script>
         let form = document.querySelector("form");
         let formButtons = document.querySelector(".form-buttons");
         // let submitFormBtn = document.querySelector(".form-buttons").lastElementChild;
+        const selectRule = document.querySelector("#question-rule");
 
         function addAnswerInput() {
             let inputElement = document.createElement("input");
@@ -96,18 +151,68 @@ include '../header.php';
         }
 
         function submitForm() {
-            console.log("Submitting form");
-            let questionText = document.querySelector("#question-text").value;
-            let rightAnswer = document.querySelector("#right-answer").value;
-            let wrongAnswers = document.querySelectorAll(".wrong-answer");
-            for (const ans of wrongAnswers) {
-                if (ans.value === "") {
-                    ans.style.background = "red";
-                }
-                console.log(`wrong answer: ${ans.value}`);
+            // console.log("Submitting form");
+            const questionText = document.querySelector("#question-text").value;
+            const rightAnswer = document.querySelector("#right-answer").value;
+            const wrongAnswers = document.querySelectorAll(".wrong-answer");
+            const ruleID = selectRule.value;
+
+            if (questionText === "" || rightAnswer === "" || ruleID === "") {
+                window.alert("Κάποια πεδία είναι κενά!");
+                return;
             }
-            console.log(questionText, rightAnswer);
+            // console.log(questionText, rightAnswer);
+            const searchParams = new URLSearchParams();
+            searchParams.append("question", questionText);
+            searchParams.append("right-answer", rightAnswer);
+            for (const [i, ans] of wrongAnswers.entries()) {
+                if (ans.value === "") {
+                    window.alert("Κάποια πεδία είναι κενά!");
+                    return;
+                }
+                searchParams.append(`wrong-answer-${i}`, ans.value);
+            }
+
+            searchParams.append("rule", ruleID);
+            searchParams.append("submit", "submit");
+
+            fetch(`/${baseURL}/includes/newQuestionHandler.php`, {
+                    method: "POST",
+                    body: searchParams
+                }).then(function(response) {
+                    return response.text();
+                })
+                .then(function(text) {
+                    let error = text.split("=")[1];
+                    switch (error) {
+                        case "none":
+                            window.location = `/${baseURL}/routes/admin_panel.php`;
+                            break;
+                        case "userDoesNotExist":
+                            window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
+                            break;
+                        case "wrongPassword":
+                            window.alert("Ο κωδικός που δώσατε είναι λάθος!");
+                            break;
+                        default:
+                            break;
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         }
+
+        fetch(`/${baseURL}/includes/fetchRulesOptions.php`)
+            .then((res) => {
+                return res.text();
+            })
+            .then((text) => {
+                selectRule.innerHTML += text;
+                // console.log(text);
+            }).catch((error) => {
+                console.error(`${error}`);
+            });
     </script>
 </body>
 
