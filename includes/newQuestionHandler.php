@@ -1,75 +1,141 @@
 <?php
 
 if (isset($_POST['submit'])) {
-    // echo ("Username: " . $_POST["username"]);
-    // $catID = intval($_POST["rule-category"], $base = 10);
-    // echo ("Category: " . $catID);
-    // $categoryText = $_POST["category-text"];
 
     require_once "db.info.php";
     require_once "functions.php";
 
-    // // CHECK IF RULE ALREADY EXISTS
-    // $sql = "SELECT * FROM rule WHERE ruleName = ?;";
-    // $stmt = mysqli_stmt_init($conn);
-    // if (!mysqli_stmt_prepare($stmt, $sql)) {
-    //     echo ("error=stmtFailed");
-    //     exit();
-    // }
-    // mysqli_stmt_bind_param($stmt, "s", $_POST["rule-name"]);
-    // mysqli_stmt_execute($stmt);
+    $questionText = $_POST["question"];
+    $rightAnswer = $_POST["right-answer"];
+    $ruleID = $_POST["rule"];
 
-    // $resultData = mysqli_stmt_get_result($stmt);
-    // if ($row = mysqli_fetch_assoc($resultData)) {
-    //     echo "error=ruleAlreadyExists";
-    //     mysqli_stmt_close($stmt);
-    //     exit();
-    // } else {
+    $questionID;
+    $answerID;
 
-    //     // CHECK IF RULE'S CATEGORY EXISTS
-    //     mysqli_stmt_close($stmt);
-    //     $sqlCheckCat = "SELECT * FROM category WHERE categoryID = ?;";
-    //     $stmtCheckCat = mysqli_stmt_init($conn);
-    //     if (!mysqli_stmt_prepare($stmtCheckCat, $sqlCheckCat)) {
-    //         echo ("error=stmtFailed");
-    //         exit();
-    //     }
-    //     mysqli_stmt_bind_param($stmtCheckCat, "i", $catID);
-    //     mysqli_stmt_execute($stmtCheckCat);
+    if (!($questionText != "" && $rightAnswer != "" && $ruleID != "")) {
+        echo "error=emptyInputs";
+        exit();
+    }
 
-    //     // echo "HERE!";
+    // ----------------------------------------------------------------------------------------------
+    // CREATE QUESTION
+    // GET QUESTION ID
+    $sqlCreateQuestion = "INSERT INTO questions(questionText, ruleID) VALUES (?, ?);";
+    //   SELECT * FROM questions WHERE questionText = ?;";
+    $stmtCreateQuestion = mysqli_stmt_init($conn);
 
-    //     $resultDataCheckCat = mysqli_stmt_get_result($stmtCheckCat);
-    //     // echo " HERE 2!";
-    //     if ($row2 = mysqli_fetch_assoc($resultDataCheckCat)) {
-    //         // echo " HERE 3!";
+    if (!mysqli_stmt_prepare($stmtCreateQuestion, $sqlCreateQuestion)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
 
-    //         mysqli_stmt_close($stmtCheckCat);
-    //         $sqlInsert = "INSERT INTO rule(ruleName, ruleText, categoryID) VALUES (?, ?, ?);";
-    //         $stmtInsert = mysqli_stmt_init($conn);
-    //         // echo " HERE 4!";
+    mysqli_stmt_bind_param($stmtCreateQuestion, "si", $questionText, $ruleID);
+    mysqli_stmt_execute($stmtCreateQuestion);
+    mysqli_stmt_close($stmtCreateQuestion);
 
-    //         if (!mysqli_stmt_prepare($stmtInsert, $sqlInsert)) {
-    //             echo ("error=stmtFailed");
-    //             exit();
-    //         }
-    //         // echo " HERE 5!";
+    $sqlGetQuestionID = "SELECT * FROM questions WHERE questionText = ?;";
+    $stmtGetQuestionID = mysqli_stmt_init($conn);
 
-    //         mysqli_stmt_bind_param($stmtInsert, "ssi", $_POST["rule-name"], $_POST["rule-text"], $catID);
+    if (!mysqli_stmt_prepare($stmtGetQuestionID, $sqlGetQuestionID)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
 
-    //         // echo " HERE 6!";
-    //         // echo ("Statement: " . $stmtInsert);
+    mysqli_stmt_bind_param($stmtGetQuestionID, "s", $questionText);
+    mysqli_stmt_execute($stmtGetQuestionID);
 
-    //         mysqli_stmt_execute($stmtInsert);
-    //         echo "error=none";
-    //         mysqli_stmt_close($stmtInsert);
-    //         exit();
-    //     } else {
-    //         // echo " HERE 7!";
-    //         echo "error=categoryNotFound";
-    //         exit();
-    //     }
-    // }
+    $resultData = mysqli_stmt_get_result($stmtGetQuestionID);
+    if ($row = mysqli_fetch_assoc($resultData)) {
+        $questionID = $row["questionID"];
+    } else {
+        echo "error=questionNotCreatedOrNoID";
+        mysqli_stmt_close($stmtGetQuestionID);
+        exit();
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // CREATE RIGHT ANSWER
+    // GET THE ID OF THE RIGHT ANSWER
+    $sqlCreateRightAnswer = "INSERT INTO answers(answerText, questionID) VALUES (?, ?);";
+    // SELECT answerID FROM answers WHERE answerText = ?;";
+    $stmtCreateRightAnswer = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtCreateRightAnswer, $sqlCreateRightAnswer)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtCreateRightAnswer, "si", $rightAnswer, $questionID);
+    mysqli_stmt_execute($stmtCreateRightAnswer);
+    mysqli_stmt_close($stmtCreateRightAnswer);
+
+    $sqlGetRightAnswerID = "SELECT answerID FROM answers WHERE answerText = ?;";
+    $stmtGetRightAnswerID = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtGetRightAnswerID, $sqlGetRightAnswerID)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtGetRightAnswerID, "s", $rightAnswer);
+    mysqli_stmt_execute($stmtGetRightAnswerID);
+    // mysqli_stmt_close($stmtGetRightAnswerID);
+
+    $resultAnswerID = mysqli_stmt_get_result($stmtGetRightAnswerID);
+    if ($row2 = mysqli_fetch_assoc($resultAnswerID)) {
+        $answerID = $row2["answerID"];
+    } else {
+        echo "error=rightAnswerNotCreatedOrNoID";
+        mysqli_stmt_close($stmtGetRightAnswerID);
+        exit();
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // CREATE WRONG ANSWERS
+    $sqlCreateWrongAnswers = "INSERT INTO answers(answerText, questionID) VALUES";
+    $index = 0;
+    $bindValues = [];
+    $bindTypes = "";
+    foreach ($_POST as $postVarKey => $postVarVal) {
+        if (str_contains($postVarKey, "wrong-answer")) {
+            if ($index != 0) {
+                $sqlCreateWrongAnswers .= ",";
+            }
+            $sqlCreateWrongAnswers .= "(?, ?)";
+            $index++;
+            array_push($bindValues, $postVarVal, $questionID);
+            $bindTypes .= "si";
+        }
+    }
+    $sqlCreateWrongAnswers .= ";";
+
+    if ($index == 0) {
+        // THERE ARE NO WRONG ANSWERS
+        echo "error=noWrongAnswers";
+        exit();
+    }
+
+    $stmtCreateWrongAnswers = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtCreateWrongAnswers, $sqlCreateWrongAnswers)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtCreateWrongAnswers, $bindTypes, ...$bindValues);
+    mysqli_stmt_execute($stmtCreateWrongAnswers);
+    mysqli_stmt_close($stmtCreateWrongAnswers);
+    // ----------------------------------------------------------------------------------------------
+    // UPDATE QUESTION TO PROVIDE THE RIGHT ANSWER ID
+    $sqlUpdateQuestion = "UPDATE questions SET answerID = ? WHERE questionID = ?;";
+    $stmtUpdateQuestion = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtUpdateQuestion, $sqlUpdateQuestion)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtUpdateQuestion, "ii", $answerID, $questionID);
+    mysqli_stmt_execute($stmtUpdateQuestion);
+    mysqli_stmt_close($stmtUpdateQuestion);
+
+    echo "error=none";
 } else {
     echo ("error=accessDenied");
     exit();

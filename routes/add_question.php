@@ -184,19 +184,20 @@ include '../header.php';
                 })
                 .then(function(text) {
                     let error = text.split("=")[1];
-                    switch (error) {
-                        case "none":
-                            window.location = `/${baseURL}/routes/admin_panel.php`;
-                            break;
-                        case "userDoesNotExist":
-                            window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
-                            break;
-                        case "wrongPassword":
-                            window.alert("Ο κωδικός που δώσατε είναι λάθος!");
-                            break;
-                        default:
-                            break;
-                    }
+                    console.log(`Error code: ${error}`);
+                    // switch (error) {
+                    //     case "none":
+                    //         window.location = `/${baseURL}/routes/admin_panel.php`;
+                    //         break;
+                    //     case "userDoesNotExist":
+                    //         window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
+                    //         break;
+                    //     case "wrongPassword":
+                    //         window.alert("Ο κωδικός που δώσατε είναι λάθος!");
+                    //         break;
+                    //     default:
+                    //         break;
+                    // }
                 })
                 .catch(function(error) {
                     console.log(error);
