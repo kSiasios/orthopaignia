@@ -209,37 +209,53 @@ h2 {
 .special-text-9,
 .special-text-10 {
   position: relative;
+  padding: 0.3em;
+  border-radius: 0.25em;
+  line-height: 1.8;
+  color: white;
+  text-shadow: 1px 1px black;
 }
 
 .special-text-1 {
-  color: #69b1f5;
+  /* color: #69b1f5; */
+  background: #69b1f5;
+  /* color: white; */
 }
 .special-text-2 {
-  color: #5cbf7d;
+  /* color: #5cbf7d; */
+  background: #5cbf7d;
 }
 .special-text-3 {
-  color: #ffd730;
+  /* color: #ffd730; */
+  background: #ffd730;
 }
 .special-text-4 {
-  color: #ff9643;
+  /* color: #ff9643; */
+  background: #ff9643;
 }
 .special-text-5 {
-  color: #ff2a00;
+  /* color: #ff2a00; */
+  background: #ff2a00;
 }
 .special-text-6 {
-  color: #ae00ff;
+  /* color: #ae00ff; */
+  background: #ae00ff;
 }
 .special-text-7 {
-  color: #0c00b0;
+  /* color: #0c00b0; */
+  background: #0c00b0;
 }
 .special-text-8 {
-  color: #bf5e34;
+  /* color: #bf5e34; */
+  background: #bf5e34;
 }
 .special-text-9 {
-  color: #ff6ceb;
+  /* color: #ff6ceb; */
+  background: #ff6ceb;
 }
 .special-text-10 {
-  color: #27b8b0;
+  /* color: #27b8b0; */
+  background: #27b8b0;
 }
 
 tr {

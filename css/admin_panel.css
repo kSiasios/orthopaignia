@@ -11,15 +11,9 @@
   align-items: center;
 }
 
-.category {
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-block: 0.5em;
-}
-
-.rule {
+.category,
+.rule,
+.question {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;

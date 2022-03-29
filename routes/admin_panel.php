@@ -81,7 +81,31 @@ if (!isset($_SESSION["isAdmin"])) {
         }
 
         function deleteRule(index) {
-            console.log(`DELETING RULE ${index}`);
+            // console.log(`DELETING RULE ${index}`);
+            const searchParams = new URLSearchParams();
+
+            searchParams.append("submit", "submit");
+            searchParams.append("ruleID", index);
+
+            fetch(`/${baseURL}/includes/deleteRule.php`, {
+                method: "POST",
+                body: searchParams,
+            }).then((res) => {
+                return res.text();
+            }).then((text) => {
+                const error = text.split("=")[1];
+                switch (error) {
+                    case "none":
+                        // console.log("Hooray!");
+                        location.reload();
+                        break;
+                    default:
+                        // console.log("Error!?");
+                        break;
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
         }
 
         function deleteCategory(index) {
@@ -89,7 +113,30 @@ if (!isset($_SESSION["isAdmin"])) {
         }
 
         function deleteQuestion(index) {
-            console.log(`DELETING QUESTION ${index}`);
+            // console.log(`DELETING QUESTION ${index}`);
+            const searchParams = new URLSearchParams();
+
+            searchParams.append("submit", "submit");
+            searchParams.append("questionID", index);
+
+            fetch(`/${baseURL}/includes/deleteQuestion.php`, {
+                method: "POST",
+                body: searchParams,
+            }).then((res) => {
+                return res.text();
+            }).then((text) => {
+                const error = text.split("=")[1];
+                switch (error) {
+                    case "none":
+                        // console.log("Hooray!");
+                        location.reload();
+                        break;
+                    default:
+                        break;
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
         }
 
         fetch(`/${baseURL}/includes/fetchCategories.php`).then((res) => {

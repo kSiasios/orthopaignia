@@ -36,7 +36,7 @@ include '../header.php';
                     </div>
                     <!-- DYNAMIC SECTIONS THAT HAVE A TEXT SECTION EXPLAINING THE RULE AND AN EXAMPLE SECTION 
                 FOR POTENTIAL EXAMPLES -->
-                    <div class="form-section" id="form-section-1">
+                    <div class="form-section rule-form-section" id="form-section-1">
                         <div class="sectionHeader">
                             <h3>Τμήμα Κανόνα</h3>
                         </div>
@@ -108,10 +108,10 @@ include '../header.php';
         // let submitFormBtn = document.querySelector(".form-buttons").lastElementChild;
 
         function addSectionInput() {
-            let formSectionCount = document.querySelectorAll(".form-section").length;
+            let formSectionCount = document.querySelectorAll(".rule-form-section").length;
 
             let formSection = document.createElement("div");
-            formSection.classList.add("form-section");
+            formSection.classList.add("rule-form-section");
             formSection.setAttribute("id", `form-section-${formSectionCount + 1}`);
 
             let sectionHeader = document.createElement("div");
@@ -169,7 +169,7 @@ include '../header.php';
         function submitForm() {
             const ruleName = document.querySelector("#rule-name").value;
             const ruleCategory = selectCategory.value;
-            const ruleSections = document.querySelectorAll(".form-section");
+            const ruleSections = document.querySelectorAll(".rule-form-section");
 
             const ruleSectionText = [];
             const ruleSectionExample = [];
@@ -187,7 +187,7 @@ include '../header.php';
                     ruleSectionText.push(filterText(text.value));
                     textStr += `<p class="rule-text">${filterText(text.value)}</p>`;
                 }
-                if (example) {
+                if (example && example.value != "") {
                     ruleSectionExample.push(filterText(example.value));
                     textStr += `<div class="rule-example"><p class="rule-example-header">Παράδειγμα</p><p class="example">${filterText(example.value)}</p></div>`;
                 }
