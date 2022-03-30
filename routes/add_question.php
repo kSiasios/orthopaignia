@@ -47,8 +47,8 @@ include '../header.php';
                     </div>
                     <!-- <textarea name="question-text" id="question-text" cols="30" rows="10"></textarea> -->
                     <div class="form-buttons">
-                        <a class="button" onclick="addAnswerInput()">Προσθήκη Απάντησης</a>
-                        <a class="button green" onclick="submitForm()">Ολοκλήρωση</a>
+                        <a class="button" href="#" onclick="addAnswerInput()">Προσθήκη Απάντησης</a>
+                        <a class="button green" href="#" onclick="submitForm()">Ολοκλήρωση</a>
                     </div>
                 </form>
             </div>

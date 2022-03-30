@@ -48,8 +48,8 @@ include '../header.php';
                         <textarea name="rule-section-1-example" class="rule-section-example" key="1"></textarea>
                     </div>
                     <div class="form-buttons">
-                        <a class="button" onclick="addSectionInput()">Προσθήκη Τμήματος</a>
-                        <a class="button green" onclick="submitForm()">Ολοκλήρωση</a>
+                        <a class="button" href="#" onclick="addSectionInput()">Προσθήκη Τμήματος</a>
+                        <a class="button green" href="#" onclick="submitForm()">Ολοκλήρωση</a>
                     </div>
                 </form>
             </div>

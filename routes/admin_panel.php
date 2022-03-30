@@ -110,6 +110,29 @@ if (!isset($_SESSION["isAdmin"])) {
 
         function deleteCategory(index) {
             console.log(`DELETING CATEGORY ${index}`);
+            const searchParams = new URLSearchParams();
+
+            searchParams.append("submit", "submit");
+            searchParams.append("categoryID", index);
+
+            fetch(`/${baseURL}/includes/deleteCategory.php`, {
+                method: "POST",
+                body: searchParams,
+            }).then((res) => {
+                return res.text();
+            }).then((text) => {
+                const error = text.split("=")[1];
+                switch (error) {
+                    case "none":
+                        // console.log("Hooray!");
+                        location.reload();
+                        break;
+                    default:
+                        break;
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
         }
 
         function deleteQuestion(index) {

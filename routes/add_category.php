@@ -27,7 +27,7 @@ include '../header.php';
                     <input type="text" name="category-text" id="category-text">
                 </div>
                 <div class="form-buttons">
-                    <a class="button green" onclick="submitForm()">Ολοκλήρωση</a>
+                    <a class="button green" href="#" onclick="submitForm()">Ολοκλήρωση</a>
                 </div>
             </form>
         </div>
