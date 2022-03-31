@@ -173,6 +173,5 @@ include './header.php';
         }
     </script>
     <script src="js/formHandler.js"></script>
-</body>
 
-</html>
+    <?php include 'components/footer.php'; ?>

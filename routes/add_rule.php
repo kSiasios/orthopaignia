@@ -234,6 +234,4 @@ include '../header.php';
             console.error(`${error}`);
         });
     </script>
-</body>
-
-</html>
+    <?php include '../components/footer.php'; ?>

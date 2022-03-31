@@ -171,6 +171,4 @@ if (!isset($_SESSION["logged"])) {
                 });
         }
     </script>
-</body>
-
-</html>
+    <?php include '../components/footer.php'; ?>

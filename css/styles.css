@@ -17,6 +17,8 @@
 
 body {
   background: var(--bg);
+  min-height: 100vh;
+  height: 100%;
 }
 
 a {
@@ -48,6 +50,56 @@ nav ul {
   font-size: small;
 }
 
+.hamburger {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 1em;
+  margin: 0.1em;
+  font-size: larger;
+  border-radius: 1em;
+  transition: var(--transition);
+  display: none;
+}
+
+.hamburger:hover,
+.hamburger:focus {
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+@media only screen and (max-width: 49em) {
+  nav ul {
+    padding-inline: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+  }
+  nav ul.closed {
+    display: none;
+  }
+  nav ul.open {
+    display: flex;
+  }
+  .nav-link {
+    list-style: none;
+    /* padding: 1.5rem; */
+    transition: var(--transition);
+    font-size: 1rem;
+    display: flex;
+    align-content: center;
+    justify-content: flex-end;
+    font-size: small;
+    width: 100%;
+  }
+  .hamburger {
+    display: block;
+  }
+}
+
 .nav-link:hover,
 .nav-link:focus-within,
 .nav-link.active:hover,
@@ -64,14 +116,17 @@ nav ul {
 .nav-link a {
   display: block;
   padding: 1.5rem;
+  width: 100%;
+  text-align: end;
 }
 
 nav {
   background: var(--primary-clr);
+  min-height: 3.875em;
 }
 
 .page-content {
-  position: absolute;
+  /* position: absolute;
   width: 100%;
   height: 100vh;
   top: 0;
@@ -79,7 +134,18 @@ nav {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-block-start: 5em;
+  padding-block-start: 5em; */
+  /* position: absolute; */
+  width: 100%;
+  /* height: 100vh; */
+  top: 0;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* padding-block-start: 5em; */
+  padding-block-start: 2em;
+  flex-direction: column;
 }
 
 button,
@@ -292,4 +358,12 @@ td {
 
 input:disabled {
   cursor: not-allowed;
+}
+
+.footer {
+  width: 100%;
+  height: 2em;
+  /* background: red; */
+  /* position: absolute; */
+  /* bottom: 0; */
 }

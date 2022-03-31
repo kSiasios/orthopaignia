@@ -189,6 +189,4 @@ if (!isset($_SESSION["isAdmin"])) {
             console.error(`${error}`);
         });
     </script>
-</body>
-
-</html>
+    <?php include '../components/footer.php'; ?>

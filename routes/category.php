@@ -137,6 +137,4 @@ if (!isset($_SESSION["logged"])) {
             ruleBody.parentElement.appendChild(buttons);
         }
     </script>
-</body>
-
-</html>
+    <?php include '../components/footer.php'; ?>
