@@ -43,6 +43,11 @@ if (!isset($_SESSION["isAdmin"])) {
                 <div class="questions-container"></div>
                 <button class="blue" onclick="window.location = 'add_question.php';">Προσθήκη ερώτησης</button>
             </div>
+
+            <div class="flush-db">
+                <h2>Λειτουργίες Βάσης Δεδομένων</h2>
+                <button class="red" onclick="flushDatabase()">Άδειασμα Βάσης</button>
+            </div>
         </div>
     </div>
     <script>
@@ -159,6 +164,20 @@ if (!isset($_SESSION["isAdmin"])) {
                 }
             }).catch((error) => {
                 console.log(error);
+            });
+        }
+
+        function flushDatabase() {
+            console.log('FLUSHED');
+            const searchParams = new URLSearchParams();
+            searchParams.append("submit", "submit");
+            fetch(`/${baseURL}/includes/flushGrades.php`, {
+                method: "POST",
+                body: searchParams
+            }).then((res) => {
+                location.reload();
+            }).catch((error) => {
+                console.error(`${error}`);
             });
         }
 

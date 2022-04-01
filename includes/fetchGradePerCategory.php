@@ -8,31 +8,17 @@ if (!isset($_SESSION['logged'])) {
 }
 
 require_once "db.info.php";
+require_once "functions.php";
 
 if (!isset($_POST['submit']) || !isset($_POST['user'])) {
     echo '{"error": "notEnoughVariables"}';
     exit();
 }
 
-$userCredentials = $_POST['user'];
-$userID;
+// $userCredentials = $_POST['user'];
+$userID = getUserID($conn, $_POST['user']);
 
-$sqlGetUserID = "SELECT * FROM users WHERE userID = ? OR userUsername = ? OR userEmail = ?;";
-$stmtGetUserID = mysqli_stmt_init($conn);
-if (!mysqli_stmt_prepare($stmtGetUserID, $sqlGetUserID)) {
-    echo ('{"error": "stmtFailed"}');
-    // header("location: ../?error=stmtFailed");
-    exit();
-}
-mysqli_stmt_bind_param($stmtGetUserID, "iss", $userCredentials, $userCredentials, $userCredentials);
-mysqli_stmt_execute($stmtGetUserID);
-
-$resultUserInfo = mysqli_stmt_get_result($stmtGetUserID);
-if ($rowUserInfo = mysqli_fetch_assoc($resultUserInfo)) {
-    // return $rowCatInfo;
-    // $returnData .= '"' . $index . '":{"name":"' . $rowCatInfo["categoryName"] . '","grade":"' . $row["grade"] . '"},';
-    $userID = $rowUserInfo["userID"];
-} else {
+if (!$userID) {
     echo '{"error": "userNotFound"}';
     exit();
 }

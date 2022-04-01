@@ -126,9 +126,9 @@ if (!isset($_SESSION["logged"])) {
                     questionProgress.classList.add("question-progress-bar");
                     let questionGrade = document.createElement("p");
                     questionProgress.appendChild(questionGrade);
-                    questionProgress.setAttribute("data-grade", element.grade);
-                    questionProgress.style.setProperty("--conic-gradient-percentage", `${element.grade * 10}%`);
-                    questionGrade.innerText = element.grade;
+                    questionProgress.setAttribute("data-grade", Math.round(element.grade * 100) / 10);
+                    questionProgress.style.setProperty("--conic-gradient-percentage", `${element.grade * 100}%`);
+                    questionGrade.innerText = Math.round(element.grade * 100) / 10;
 
                     let question = document.createElement("div");
                     question.classList.add("question-grade");
