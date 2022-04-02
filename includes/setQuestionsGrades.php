@@ -32,11 +32,13 @@ if (!$userID) {
 
 for ($i = 0; $i < sizeof($results); $i++) {
     // FOREACH QUESTION ANSWERED, GET ID, UPDATE ITS GRADE, RELEVANT_GRADE, ATTEMPTS_PER_QUESTION, RELEVANT_ATTEMPTS
-    $questionID = getQuestionByText($conn, $results[$i][0]);
-    if (!$questionID) {
+    $questionInfo = getQuestionByText($conn, $results[$i][0]);
+    if (!$questionInfo) {
         echo '{"error": "questionNotFound"}';
         exit();
     }
+
+    $questionID = $questionInfo["questionID"];
 
     $prevGrade;
     $sqlGetPrevGrade = "SELECT * FROM gradeperquestion WHERE questionID = ? AND userID = ?;";
@@ -129,6 +131,8 @@ for ($i = 0; $i < sizeof($results); $i++) {
     mysqli_stmt_execute($stmtUpdateGrade);
 
     mysqli_stmt_close($stmtUpdateGrade);
+
+    // UPDATE RULE GRADE?
 }
 
 

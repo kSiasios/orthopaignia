@@ -317,7 +317,7 @@ function getQuestionByText($conn, $text)
 
     $resultData = mysqli_stmt_get_result($stmtQuestionID);
     if ($row = mysqli_fetch_assoc($resultData)) {
-        return $row["questionID"];
+        return $row;
     } else {
         echo '{"error":"questionIDNotFound"}';
         exit();
@@ -331,3 +331,202 @@ function getQuestionByText($conn, $text)
 // echo "\n\n\nEncrypted message: " . $enc_msg;
 // $dec_msg = decrypt($enc_msg, $alphabet, $letters);
 // echo "\n\n\nDecrypted message: " . $dec_msg;
+
+
+function updateGradePerRule($conn, $ruleID, $userID)
+{
+    // CHECK IF RULE EXISTS
+    $sqlRuleInfo = "SELECT * FROM rule WHERE ruleID = ?;";
+    $stmtRuleInfo = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtRuleInfo, $sqlRuleInfo)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtRuleInfo, "i", $ruleID);
+    mysqli_stmt_execute($stmtRuleInfo);
+
+    $resultData = mysqli_stmt_get_result($stmtRuleInfo);
+    if (!mysqli_fetch_assoc($resultData)) {
+        echo '{"error":"ruleNotFound"}';
+        exit();
+    }
+    mysqli_stmt_close($stmtRuleInfo);
+
+    // FETCH GRADE FOREACH CONNECTED QUESTION
+    $sqlConnectedQuestions = "SELECT * FROM questions WHERE ruleID = ?;";
+    $stmtConnectedQuestions = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtConnectedQuestions, $sqlConnectedQuestions)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtConnectedQuestions, "i", $ruleID);
+    mysqli_stmt_execute($stmtConnectedQuestions);
+
+    $resultData = mysqli_stmt_get_result($stmtConnectedQuestions);
+    $sum = 0;
+    $questionCount = 0;
+    while ($row = mysqli_fetch_assoc($resultData)) {
+        $sqlGetQuestionGrade = "SELECT * FROM gradepercategory WHERE questionID = ? AND userID = ?;";
+        $stmtGetQuestionGrade = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmtGetQuestionGrade, $sqlGetQuestionGrade)) {
+            echo '{"error": "stmtFailed"}';
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmtGetQuestionGrade, "ii", $row["questionID"], $userID);
+        mysqli_stmt_execute($stmtGetQuestionGrade);
+        $resultDataGetGrades = mysqli_stmt_get_result($stmtConnectedQuestions);
+
+
+        if ($rowGetGrades = mysqli_fetch_assoc($resultDataGetGrades)) {
+            $sum += $rowGetGrades["relevantGrade"];
+            $questionCount++;
+        }
+
+        mysqli_stmt_close($stmtGetQuestionGrade);
+    }
+
+    $newGrade = $sum / $questionCount;
+    mysqli_stmt_close($stmtConnectedQuestions);
+
+    // UPDATE RULE GRADE
+
+    // CHECK IF THE ENTRY ALREADY EXISTS
+    $sqlGetPrevGrade = "SELECT * FROM gradeperrule WHERE ruleID = ? AND userID = ?;";
+    $stmtGetPrevGrade = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtGetPrevGrade, $sqlGetPrevGrade)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtGetPrevGrade, "ii", $ruleID, $userID);
+    mysqli_stmt_execute($stmtGetPrevGrade);
+
+    $resultData = mysqli_stmt_get_result($stmtGetPrevGrade);
+    if (!mysqli_fetch_assoc($resultData)) {
+        // A PREVIOUS ENTRY DOES NOT EXIST => CREATE ONE
+        $sqlCreateGrade = "INSERT INTO gradeperrule(userID, ruleID) VALUES (?, ?);";
+        $stmtCreateGrade = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmtCreateGrade, $sqlCreateGrade)) {
+            echo '{"error": "stmtFailed"}';
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmtCreateGrade, "ii", $userID, $ruleID);
+        mysqli_stmt_execute($stmtCreateGrade);
+        mysqli_stmt_close($stmtCreateGrade);
+    }
+    mysqli_stmt_close($stmtGetPrevGrade);
+
+    $sqlUpdate = "UPDATE gradeperrule SET grade = ? WHERE ruleID = ? AND userID = ?;";
+    $stmtUpdate = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtUpdate, $sqlUpdate)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtUpdate, "dii", $newGrade, $ruleID, $userID);
+    mysqli_stmt_execute($stmtUpdate);
+    mysqli_stmt_close($stmtGetPrevGrade);
+}
+
+function updateGradePerCategory($conn, $categoryID, $userID)
+{
+    // CHECK IF RULE EXISTS
+    $sqlCategoryInfo = "SELECT * FROM category WHERE categoryID = ?;";
+    $stmtCategoryInfo = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtCategoryInfo, $sqlCategoryInfo)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtCategoryInfo, "i", $categoryID);
+    mysqli_stmt_execute($stmtCategoryInfo);
+
+    $resultData = mysqli_stmt_get_result($stmtCategoryInfo);
+    if (!mysqli_fetch_assoc($resultData)) {
+        echo '{"error":"categoryNotFound"}';
+        exit();
+    }
+    mysqli_stmt_close($stmtCategoryInfo);
+
+    // FETCH GRADE FOREACH CONNECTED QUESTION
+    $sqlConnectedRules = "SELECT * FROM rule WHERE categoryID = ?;";
+    $stmtConnectedRules = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtConnectedRules, $sqlConnectedRules)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtConnectedRules, "i", $categoryID);
+    mysqli_stmt_execute($stmtConnectedRules);
+
+    $resultData = mysqli_stmt_get_result($stmtConnectedRules);
+    $sum = 0;
+    $rulesCount = 0;
+    while ($row = mysqli_fetch_assoc($resultData)) {
+        $sqlGetQuestionGrade = "SELECT * FROM gradeperrule WHERE ruleID = ? AND userID = ?;";
+        $stmtGetQuestionGrade = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmtGetQuestionGrade, $sqlGetQuestionGrade)) {
+            echo '{"error": "stmtFailed"}';
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmtGetQuestionGrade, "ii", $row["ruleID"], $userID);
+        mysqli_stmt_execute($stmtGetQuestionGrade);
+        $resultDataGetGrades = mysqli_stmt_get_result($stmtConnectedRules);
+
+
+        if ($rowGetGrades = mysqli_fetch_assoc($resultDataGetGrades)) {
+            $sum += $rowGetGrades["grade"];
+            $rulesCount++;
+        }
+
+        mysqli_stmt_close($stmtGetQuestionGrade);
+    }
+
+    $newGrade = $sum / $rulesCount;
+    mysqli_stmt_close($stmtConnectedRules);
+
+    // UPDATE RULE GRADE
+
+    // CHECK IF THE ENTRY ALREADY EXISTS
+    $sqlGetPrevGrade = "SELECT * FROM gradeperrule WHERE ruleID = ? AND userID = ?;";
+    $stmtGetPrevGrade = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtGetPrevGrade, $sqlGetPrevGrade)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtGetPrevGrade, "ii", $ruleID, $userID);
+    mysqli_stmt_execute($stmtGetPrevGrade);
+
+    $resultData = mysqli_stmt_get_result($stmtGetPrevGrade);
+    if (!mysqli_fetch_assoc($resultData)) {
+        // A PREVIOUS ENTRY DOES NOT EXIST => CREATE ONE
+        $sqlCreateGrade = "INSERT INTO gradepercategory(userID, categoryID) VALUES (?, ?);";
+        $stmtCreateGrade = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmtCreateGrade, $sqlCreateGrade)) {
+            echo '{"error": "stmtFailed"}';
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmtCreateGrade, "ii", $userID, $categoryID);
+        mysqli_stmt_execute($stmtCreateGrade);
+        mysqli_stmt_close($stmtCreateGrade);
+    }
+    mysqli_stmt_close($stmtGetPrevGrade);
+
+    $sqlUpdate = "UPDATE gradepercategory SET grade = ? WHERE categoryID = ? AND userID = ?;";
+    $stmtUpdate = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtUpdate, $sqlUpdate)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtUpdate, "dii", $newGrade, $categoryID, $userID);
+    mysqli_stmt_execute($stmtUpdate);
+    mysqli_stmt_close($stmtGetPrevGrade);
+}
