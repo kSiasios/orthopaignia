@@ -24,6 +24,8 @@ if (!file("variables.env")) {
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" />
+
+    <link rel="icon" type="image/x-icon" href="<?php echo $baseURL ?>/images/favicon.ico">
     <title>
         <?php echo $title ?>
         - Σωστογραφία</title>

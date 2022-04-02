@@ -303,8 +303,8 @@ function getUserID($conn, $credential)
 
 function getQuestionByText($conn, $text)
 {
-    $sqlQuestionID = "SELECT questionID FROM questions WHERE questionText = ?;";
-    // echo "HERE 1.75<br/>";
+    $sqlQuestionID = "SELECT * FROM questions WHERE questionText = ?;";
+    // // echo "HERE 1.75<br/>";
     $stmtQuestionID = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmtQuestionID, $sqlQuestionID)) {
         echo '{"error": "stmtFailed"}';
@@ -313,13 +313,13 @@ function getQuestionByText($conn, $text)
 
     mysqli_stmt_bind_param($stmtQuestionID, "s", $text);
     mysqli_stmt_execute($stmtQuestionID);
-    // echo "HERE 2<br/>";
+    // // echo "HERE 2<br/>";
 
     $resultData = mysqli_stmt_get_result($stmtQuestionID);
     if ($row = mysqli_fetch_assoc($resultData)) {
         return $row;
     } else {
-        echo '{"error":"questionIDNotFound"}';
+        return '{"error":"questionIDNotFound"}';
         exit();
     }
     mysqli_stmt_close($stmtQuestionID);
@@ -335,6 +335,8 @@ function getQuestionByText($conn, $text)
 
 function updateGradePerRule($conn, $ruleID, $userID)
 {
+    // echo "HERE 4.1<br/>";
+
     // CHECK IF RULE EXISTS
     $sqlRuleInfo = "SELECT * FROM rule WHERE ruleID = ?;";
     $stmtRuleInfo = mysqli_stmt_init($conn);
@@ -348,7 +350,7 @@ function updateGradePerRule($conn, $ruleID, $userID)
 
     $resultData = mysqli_stmt_get_result($stmtRuleInfo);
     if (!mysqli_fetch_assoc($resultData)) {
-        echo '{"error":"ruleNotFound"}';
+        echo '{"error":"ruleNotFound", "ruleID":"' . $ruleID . '"}';
         exit();
     }
     mysqli_stmt_close($stmtRuleInfo);
@@ -363,22 +365,28 @@ function updateGradePerRule($conn, $ruleID, $userID)
 
     mysqli_stmt_bind_param($stmtConnectedQuestions, "i", $ruleID);
     mysqli_stmt_execute($stmtConnectedQuestions);
+    // echo "HERE 4.3<br/>";
 
     $resultData = mysqli_stmt_get_result($stmtConnectedQuestions);
     $sum = 0;
     $questionCount = 0;
+    // echo "HERE 4.35<br/>";
     while ($row = mysqli_fetch_assoc($resultData)) {
-        $sqlGetQuestionGrade = "SELECT * FROM gradepercategory WHERE questionID = ? AND userID = ?;";
+
+        $questionID = $row["questionID"];
+        $sqlGetQuestionGrade = "SELECT * FROM gradeperquestion WHERE questionID = ? AND userID = ?;";
         $stmtGetQuestionGrade = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmtGetQuestionGrade, $sqlGetQuestionGrade)) {
             echo '{"error": "stmtFailed"}';
             exit();
         }
+        // echo "HERE 4.4<br/>";
+        echo "QuestionID: " . $questionID . ", UserID: " . $userID . "<br/>";
 
-        mysqli_stmt_bind_param($stmtGetQuestionGrade, "ii", $row["questionID"], $userID);
+        mysqli_stmt_bind_param($stmtGetQuestionGrade, "ii", $questionID, $userID);
         mysqli_stmt_execute($stmtGetQuestionGrade);
-        $resultDataGetGrades = mysqli_stmt_get_result($stmtConnectedQuestions);
-
+        $resultDataGetGrades = mysqli_stmt_get_result($stmtGetQuestionGrade);
+        // echo "HERE 4.45<br/>";
 
         if ($rowGetGrades = mysqli_fetch_assoc($resultDataGetGrades)) {
             $sum += $rowGetGrades["relevantGrade"];
@@ -390,6 +398,7 @@ function updateGradePerRule($conn, $ruleID, $userID)
 
     $newGrade = $sum / $questionCount;
     mysqli_stmt_close($stmtConnectedQuestions);
+    // echo "HERE 4.5<br/>";
 
     // UPDATE RULE GRADE
 
@@ -403,6 +412,8 @@ function updateGradePerRule($conn, $ruleID, $userID)
 
     mysqli_stmt_bind_param($stmtGetPrevGrade, "ii", $ruleID, $userID);
     mysqli_stmt_execute($stmtGetPrevGrade);
+    // echo "HERE 4.6<br/>";
+
 
     $resultData = mysqli_stmt_get_result($stmtGetPrevGrade);
     if (!mysqli_fetch_assoc($resultData)) {
@@ -419,6 +430,7 @@ function updateGradePerRule($conn, $ruleID, $userID)
         mysqli_stmt_close($stmtCreateGrade);
     }
     mysqli_stmt_close($stmtGetPrevGrade);
+    // echo "HERE 4.7<br/>";
 
     $sqlUpdate = "UPDATE gradeperrule SET grade = ? WHERE ruleID = ? AND userID = ?;";
     $stmtUpdate = mysqli_stmt_init($conn);
@@ -427,9 +439,13 @@ function updateGradePerRule($conn, $ruleID, $userID)
         exit();
     }
 
+    // echo "HERE 4.8<br/>";
+
     mysqli_stmt_bind_param($stmtUpdate, "dii", $newGrade, $ruleID, $userID);
     mysqli_stmt_execute($stmtUpdate);
-    mysqli_stmt_close($stmtGetPrevGrade);
+    mysqli_stmt_close($stmtUpdate);
+
+    // echo "HERE 4.9<br/>";
 }
 
 function updateGradePerCategory($conn, $categoryID, $userID)

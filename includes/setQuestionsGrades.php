@@ -21,7 +21,7 @@ $results = explode("|", $_POST["results"]);
 for ($i = 0; $i < sizeof($results); $i++) {
     $results[$i] = explode("~", $results[$i]);
 }
-echo "HERE 1<br/>";
+// echo "HERE 1<br/>";
 
 $userID = getUserID($conn, $_SESSION["username"]);
 
@@ -39,6 +39,12 @@ for ($i = 0; $i < sizeof($results); $i++) {
     }
 
     $questionID = $questionInfo["questionID"];
+    $ruleID = $questionInfo["ruleID"];
+
+    // echo implode(";", $questionInfo);
+
+    // echo "RuleID: " . $ruleID . ", QuestionID: " . $questionID;
+    // echo "HERE  1<br/>";
 
     $prevGrade;
     $sqlGetPrevGrade = "SELECT * FROM gradeperquestion WHERE questionID = ? AND userID = ?;";
@@ -95,8 +101,8 @@ for ($i = 0; $i < sizeof($results); $i++) {
     if (!$prevGrade["relevantAttempts"]) {
         $prevGrade["relevantAttempts"] = "";
     }
-
-    echo "Relevant attempts '" . $prevGrade["relevantAttempts"] . "'";
+    // echo "HERE  2<br/>";
+    // echo "Relevant attempts '" . $prevGrade["relevantAttempts"] . "'";
     $newGrade = ((floatval($prevGrade["grade"]) * intval($prevGrade["attemptsPerQuestion"])) + intval($results[$i][1])) / (intval($prevGrade["attemptsPerQuestion"]) + 1);
     $newRelevantAttempts = explode(",", $prevGrade["relevantAttempts"]);
     $newRelevantGrade = 0;
@@ -112,12 +118,15 @@ for ($i = 0; $i < sizeof($results); $i++) {
         $newRelevantAttempts = array_slice($newRelevantAttempts, 1);
     }
     array_push($newRelevantAttempts, $results[$i][1]);
-    echo "New Relevant Attempts: " . $newRelevantAttempts;
+    // echo "New Relevant Attempts: " . $newRelevantAttempts;
     $newRelevantAttempts = implode(",", $newRelevantAttempts);
     // echo "New Relevant Attempts: " . $newRelevantAttempts;
     // $newRelevantAttempts .= ",";
     // $newRelevantAttempts .= $results[$i][1];
     $newAttempts = intval($prevGrade["attemptsPerQuestion"]) + 1;
+
+    // echo "HERE  3<br/>";
+
 
     // CREATE QUERY TO UPDATE
     $sqlUpdateGrade = "UPDATE gradeperquestion SET grade=?, attemptsPerQuestion=?, relevantGrade=?, relevantAttempts=? WHERE questionID = ?;";
@@ -131,8 +140,11 @@ for ($i = 0; $i < sizeof($results); $i++) {
     mysqli_stmt_execute($stmtUpdateGrade);
 
     mysqli_stmt_close($stmtUpdateGrade);
+    // echo "HERE  4<br/>";
 
     // UPDATE RULE GRADE?
+    updateGradePerRule($conn, $ruleID, $userID);
+    // echo "HERE  5<br/>";
 }
 
 

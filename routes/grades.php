@@ -21,6 +21,9 @@ if (!isset($_SESSION["logged"])) {
         <div class="page-header">
             <h2>Η βαθμολογία μου</h2>
         </div>
+        <div class="category-grades"></div>
+        <div class="rule-grades"></div>
+        <div class="question-grades"></div>
     </div>
     <script>
         const pageContainer = document.querySelector(".page-content");
@@ -57,8 +60,9 @@ if (!isset($_SESSION["logged"])) {
                 default:
                     break;
             }
-            let categoryGradesContainer = document.createElement("div");
-            categoryGradesContainer.classList.add("category-grades");
+            // let categoryGradesContainer = document.createElement("div");
+            // categoryGradesContainer.classList.add("category-grades");
+            let categoryGradesContainer = document.querySelector(".category-grades");
             let sectionHeader = document.createElement("h3");
             sectionHeader.innerText = "Κατηγορίες";
             categoryGradesContainer.appendChild(sectionHeader);
@@ -75,6 +79,16 @@ if (!isset($_SESSION["logged"])) {
                     categoryProgress.appendChild(categoryGrade);
                     categoryProgress.setAttribute("data-grade", element.grade);
                     categoryProgress.style.setProperty("--conic-gradient-percentage", `${element.grade * 10}%`);
+                    let gradientColor = "";
+                    if (element.grade >= 7.5) {
+                        gradientColor = "green";
+                    } else if (element.grade >= 5) {
+                        gradientColor = "orange";
+                    } else {
+                        gradientColor = "red";
+                    }
+                    categoryProgress.style.setProperty("--conic-gradient-color", gradientColor);
+
                     categoryGrade.innerText = element.grade;
 
                     let category = document.createElement("div");
@@ -85,7 +99,70 @@ if (!isset($_SESSION["logged"])) {
                     categoryGradesContainer.appendChild(category);
                 }
             }
-            pageContainer.appendChild(categoryGradesContainer);
+            // pageContainer.appendChild(categoryGradesContainer);
+            // console.log(error);
+        }).catch((err) => {
+            console.log(err);
+        })
+
+        fetch(`/${baseURL}/includes/fetchGradePerRule.php`, {
+            method: "POST",
+            body: searchParams
+        }).then((res) => {
+            return res.text();
+        }).then((text) => {
+            // console.log(text);
+            const responseJSON = JSON.parse(text);
+            // console.log(responseJSON);
+            const error = responseJSON.error;
+            switch (error) {
+                case "unauthorized":
+                    window.alert("Unauthorized");
+                    break;
+                default:
+                    break;
+            }
+            let ruleGradesContainer = document.querySelector(".rule-grades");
+            // let ruleGradesContainer = document.createElement("div");
+            // ruleGradesContainer.classList.add("rule-grades");
+            let sectionHeader = document.createElement("h3");
+            sectionHeader.innerText = "Κανόνες";
+            ruleGradesContainer.appendChild(sectionHeader);
+            for (let index = 0; index < Object.keys(responseJSON).length; index++) {
+                const element = responseJSON[index];
+                if (Object.keys(responseJSON)[index] !== "error") {
+                    // console.log(`${element.name}: ${element.grade}`);
+                    let ruleName = document.createElement("p");
+                    ruleName.innerText = element.name;
+                    // let ruleGrade = document.createElement("p");
+                    // ruleGrade.innerText = element.grade;
+
+                    let ruleProgress = document.createElement("div");
+                    ruleProgress.classList.add("rule-progress-bar");
+                    let ruleGrade = document.createElement("p");
+                    ruleProgress.appendChild(ruleGrade);
+                    ruleProgress.setAttribute("data-grade", Math.round(element.grade * 100) / 10);
+                    ruleProgress.style.setProperty("--conic-gradient-percentage", `${element.grade * 100}%`);
+                    let gradientColor = "";
+                    if (element.grade * 10 >= 7.5) {
+                        gradientColor = "green";
+                    } else if (element.grade * 10 >= 5) {
+                        gradientColor = "orange";
+                    } else {
+                        gradientColor = "red";
+                    }
+                    ruleProgress.style.setProperty("--conic-gradient-color", gradientColor);
+                    ruleGrade.innerText = Math.round(element.grade * 100) / 10;
+
+                    let rule = document.createElement("div");
+                    rule.classList.add("rule-grade");
+                    rule.appendChild(ruleName);
+                    // rule.appendChild(ruleGrade);
+                    rule.appendChild(ruleProgress);
+                    ruleGradesContainer.appendChild(rule);
+                }
+            }
+            // pageContainer.appendChild(ruleGradesContainer);
             // console.log(error);
         }).catch((err) => {
             console.log(err);
@@ -108,8 +185,9 @@ if (!isset($_SESSION["logged"])) {
                 default:
                     break;
             }
-            let questionGradesContainer = document.createElement("div");
-            questionGradesContainer.classList.add("question-grades");
+            let questionGradesContainer = document.querySelector(".question-grades");
+            // let questionGradesContainer = document.createElement("div");
+            // questionGradesContainer.classList.add("question-grades");
             let sectionHeader = document.createElement("h3");
             sectionHeader.innerText = "Ερωτήσεις";
             questionGradesContainer.appendChild(sectionHeader);
@@ -128,6 +206,17 @@ if (!isset($_SESSION["logged"])) {
                     questionProgress.appendChild(questionGrade);
                     questionProgress.setAttribute("data-grade", Math.round(element.grade * 100) / 10);
                     questionProgress.style.setProperty("--conic-gradient-percentage", `${element.grade * 100}%`);
+
+                    let gradientColor = "";
+                    if (element.grade * 10 >= 7.5) {
+                        gradientColor = "green";
+                    } else if (element.grade * 10 >= 5) {
+                        gradientColor = "orange";
+                    } else {
+                        gradientColor = "red";
+                    }
+                    questionProgress.style.setProperty("--conic-gradient-color", gradientColor);
+
                     questionGrade.innerText = Math.round(element.grade * 100) / 10;
 
                     let question = document.createElement("div");
@@ -138,7 +227,7 @@ if (!isset($_SESSION["logged"])) {
                     questionGradesContainer.appendChild(question);
                 }
             }
-            pageContainer.appendChild(questionGradesContainer);
+            // pageContainer.appendChild(questionGradesContainer);
             // console.log(error);
         }).catch((err) => {
             console.log(err);

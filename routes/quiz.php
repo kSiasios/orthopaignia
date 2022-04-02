@@ -1,6 +1,6 @@
 <?php
 session_start();
-$title = "Λογαριασμός";
+$title = "Quiz";
 $stylesheets =
     '<link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/quiz.css">

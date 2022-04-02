@@ -1,4 +1,5 @@
 .category-grades,
+.rule-grades,
 .question-grades {
   width: 100%;
   display: flex;
@@ -9,6 +10,7 @@
 }
 
 .category-grade,
+.rule-grade,
 .question-grade {
   width: 80%;
   max-width: 50em;
@@ -20,6 +22,7 @@
 }
 
 .category-progress-bar,
+.rule-progress-bar,
 .question-progress-bar {
   width: 4em;
   aspect-ratio: 1;
@@ -34,6 +37,7 @@
 }
 
 .category-progress-bar::before,
+.rule-progress-bar::before,
 .question-progress-bar::before {
   position: absolute;
   /* content: attr(data-grade); */
@@ -42,11 +46,12 @@
   height: 130%;
   border-radius: 50%;
   /* background: green; */
-  background: conic-gradient(red var(--conic-gradient-percentage, 0%), white 0);
+  background: conic-gradient(var(--conic-gradient-color, red) var(--conic-gradient-percentage, 0%), white 0);
   z-index: 4;
 }
 
 .category-progress-bar::after,
+.rule-progress-bar::after,
 .question-progress-bar::after {
   position: absolute;
   content: "";
