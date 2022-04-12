@@ -11,6 +11,7 @@
   border-radius: 1rem;
   padding: 1em;
   margin-block-end: 1em;
+  padding-block-start: 3em;
 }
 
 .rule-body {

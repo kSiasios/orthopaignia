@@ -40,3 +40,42 @@
   justify-content: center;
   gap: 1em;
 }
+
+.next-btns {
+  display: inline-flex;
+  flex-direction: row !important;
+  gap: var(--gap, 0.5em);
+}
+
+.story-images {
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.xenia,
+.bronco {
+  width: 100%;
+  max-width: 50em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-block: 3em;
+}
+
+.xenia img,
+.bronco img {
+  width: 100%;
+  max-width: 17em;
+}
+
+.bronco {
+  width: 50%;
+}
+
+.play-buttons {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gap, 0.5em);
+}

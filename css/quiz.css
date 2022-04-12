@@ -33,7 +33,7 @@
 .answer-container:focus-within,
 .answer-container:hover {
     background: var(--secondary-clr-dark);
-    color: white;
+    color: var(--hover-color);
 }
 
 .answer-container a{
@@ -46,5 +46,5 @@
 .answer-container a:hover,
 .answer-container a:focus {
     /* background: var(--secondary-clr-dark); */
-    color: white;
+    color: var(--hover-color);
 }

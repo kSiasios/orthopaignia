@@ -41,7 +41,7 @@
 
 .form-selector a:hover,
 .form-selector a:focus {
-  color: white;
+  color: var(--hover-color);
   background: var(--secondary-clr-dark);
 }
 
@@ -98,10 +98,10 @@
 
 .form-extras a:hover,
 .form-extras a:focus {
-  color: white;
+  color: var(--hover-color);
 }
 
 a.active {
   background: var(--secondary-clr-dark);
-  color: white;
+  color: var(--hover-color);
 }

@@ -63,19 +63,31 @@ if (!isset($_SESSION["logged"])) {
             true);
 
         function deleteAccount() {
-            fetch(`/${baseURL}/includes/deleteAccount.php`)
-                .then((res) => {
-                    return res.text();
+            Swal.fire({
+                    title: 'Σίγουρα;',
+                    text: 'Η διαδικασία είναι μη αναστρέψιμη!',
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ναι, σίγουρα',
+                    cancelButtonText: "Ακύρωση"
                 })
-                .then((text) => {
-                    let error = text.split("=")[1];
+                .then(() => {
+                    // fetch(`/${baseURL}/includes/deleteAccount.php`)
+                    //     .then((res) => {
+                    //         return res.text();
+                    //     })
+                    //     .then((text) => {
+                    //         let error = text.split("=")[1];
 
-                    if (error === "none")
-                        window.location = `/${baseURL}`;
-                    console.log(`Server Response: ${text}`);
-                })
-                .catch((err) => {
-                    console.error(`An error occured: ${err}`);
+                    //         if (error === "none")
+                    //             window.location = `/${baseURL}`;
+                    //         console.log(`Server Response: ${text}`);
+                    //     })
+                    //     .catch((err) => {
+                    //         console.error(`An error occured: ${err}`);
+                    //     });
                 });
         }
 

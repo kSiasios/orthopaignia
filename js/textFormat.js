@@ -4,6 +4,10 @@ function filterText(text) {
   let filteredText;
   // SPECIAL TEXT 1
   filteredText = text;
+  filteredText = filteredText.replaceAll(
+    "==>",
+    "<i class='fi fi-rr-arrow-right'>"
+  );
   filteredText = filteredText.replaceAll("/!!", "</span>");
   filteredText = filteredText.replaceAll("/**", "</span>");
   filteredText = filteredText.replaceAll("/$", "</span>");

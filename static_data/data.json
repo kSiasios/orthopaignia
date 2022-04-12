@@ -1,0 +1,365 @@
+{
+    "category-0": {
+        "text": "Πρώτη Κατηγορία",
+        "rules": {
+            "0": {
+                "name": "Κατάληξη σε <span class=\"special-text-1\">-ης</span>, <span class=\"special-text-1\">-η</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα αρσενικά που τελειώνουν σε <span class='special-text-1'>-ης</span>, γράγονται με ήτα. (η)</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">ο στρατιώτ<span class='special-text-1'>ης</span><br />ο σπουδαστ<span class='special-text-1'>ής</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα θηλυκά που τελειώνουν σε <span class='special-text-1'>-η</span>, γράγονται με ήτα. (η) </p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">η βρύσ<span class='special-text-1'>η</span><br />η γιορτ<span class='special-text-1'>ή</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "1": {
+                "name": "Πληθυντικός αριθμός σε <span class=\"special-text-2\">-οι</span> και <span class=\"special-text-6\">-εις</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλοι οι πληθυντικοί γράφονται με κάτι διπλό. Εάν η λέξη τελειώνει σε <span class='special-text-2'>-οι</span>, είναι όμικρον γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">οι άνθρωπ<span class='special-text-2'>οι</span><br />οι γιατρ<span class='special-text-2'>οί</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Αν τελειώνει σε <span class='special-text-6'>-εις</span>, είναι έψιλον γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">οι κουρ<span class='special-text-6'>εις</span><br />οι γνώσ<span class='special-text-6'>εις</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "2": {
+                "name": "Ουδέτερα και εξαιρέσεις",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλα τα ουδέτερα που τελειώνουν σε <span class='special-text-3'>-ι</span> γράφονται με γιώτα! Εκτός από τα παρακάτω:<br />1) δόρ<span class='special-text-6'>υ</span><br />2) δάκρ<span class='special-text-6'>υ</span><br />3) δίχτ<span class='special-text-6'>υ</span><br />4) οξ<span class='special-text-6'>ύ</span><br />5) βράδ<span class='special-text-6'>υ</span><br />6) στάχ<span class='special-text-6'>υ</span></p></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "3": {
+                "name": "Πληθυντικός ουδέτερων σε <span class=\"special-text-3\">-η</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλα τα ουδέτερα που τελειώνουν στον πληθυντικό αριθμό σε <span class='special-text-6'>-η</span>, αυτό είναι πάντα ήτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">τα δάσ<span class='special-text-6'>η</span><br />τα μέρ<span class='special-text-6'>η</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "4": {
+                "name": "Ουδέτερα που τελειώνοιυν σε <span class=\"special-text-7\">-ειο</span> και <span class=\"special-text-4\">-ιο</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ουδέτερα που τελειώνουν σε <span class='special-text-7'>-ειο</span>, γράφονται με έψιλον γιώτα, εάν:<br />1) το <span class='special-text-7'>-είο</span> τονίζεται<br />2) μπαίνουν σε πινακίδα</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">το κρεοπολ<span class='special-text-7'>είο</span><br />το σχολ<span class='special-text-7'>είο</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Διαφορετικά, γράφονται με γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">το πανεπιστήμ<span class='special-text-4'>ιο</span><br />το τεράδ<span class='special-text-4'>ιο</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "category-1": {
+        "text": "Δεύτερη Κατηγορία",
+        "rules": {
+            "0": {
+                "name": "Κατάληξη σε <span class=\"special-text-1\">-ισσα</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλα τα θηλυκά σε <span class='special-text-5'>-ισσα</span> γράφονται με γιώτα και δύο σίγμα. Εξαιρείται η Λάρ<span class='special-text-10'>ισ</span>α</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">η μάγ<span class='special-text-5'>ισσα</span><br />η μαγείρ<span class='special-text-5'>ισσα</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "1": {
+                "name": "Αριθμοί",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όπου ακούγεται το εννιά, η λέξη γράφεται με δύο <span class='special-text-9'>νν</span>.</p></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Γράφονται με μία λέξη μόνο οι αριθμοί από το 13 έως το 19.</p></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "2": {
+                "name": "Ερωτήσεις",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όταν ρωτάμε, βάζουμε ποιο. <br />Όταν συγκρίνουμε, βάζουμε πιο.</p></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όταν ρωτάμε στο τι, βάζουμε γιώτα.<br />Διαφορετικά, βάζουμε ήτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\"><span class='special-text-10'>Τι</span> κάνεις;<br />Έγραψα <span class='special-text-7'>τη</span> λέξη. </p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "category-2": {
+        "text": "Τρίτη Κατηγορία",
+        "rules": {
+            "0": {
+                "name": "Κλήση ρημάτων που τελειώνουν σε <span class=\"special-text-8\">-αι</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Εγώ κάθομ<span class='special-text-8'>αι</span><br />Εσύ κάθεσ<span class='special-text-8'>αι</span><br />Αυτός / Αυτή / Αυτό κάθετ<span class='special-text-8'>αι</span><br />Εμείς καθόμαστ<span class='special-text-3'>ε</span><br />Εσείς κάθεστ<span class='special-text-3'>ε</span><br />Αυτοί / Αυτές / Αυτά κάθοντ<span class='special-text-8'>αι</span><br /><br />Άρα: Εμείς, Εσείς <i class=\"fi fi-rr-arrow-right\"> <span class='special-text-3'>ε</span></p></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "1": {
+                "name": "Κλήση ρημάτων που τελειώνουν σε <span class=\"special-text-6\">-ω</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ρήματα πουτελειώνουν σε <span class='special-text-6'>-ω</span> γράφονται με ωμέγα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">Εγώ γράφ<span class='special-text-6'>/ω<span class='special-text-6'></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ρήματα πουτελειώνουν σε <span class='special-text-4'>-εις</span> γράφονται με έψιλον γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">Εσύ γράφ<span class='special-text-4'>εις</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ρήματα πουτελειώνουν σε <span class='special-text-10'>-ει</span> γράφονται με έψιλον γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">Αυτός γράφ<span class='special-text-10'>ει</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "category-3": {
+        "text": "Τέταρτη Κατηγορία",
+        "rules": {
+            "0": {
+                "name": "Κλήση ρημάτων που τελειώνουν σε <span class=\"special-text-8\">-αίνω</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ρήματα πουτελειώνουν σε <span class='special-text-2'>-αίνω</span> γράφονται με άλφα γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">ανεβ<span class='special-text-2'>αίνω</span><br />κατεβ<span class='special-text-2'>αίνω</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Εφαιρούνται τα ρήματα:<br />μ<span class='special-text-9'>ένω</span><br />δ<span class='special-text-9'>ένω</span><br />πλ<span class='special-text-9'>ένω</span><br />και τα παράγωγά τους, που γράφονται με έψιλον.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">ξεμ<span class='special-text-9'>ένω</span><br />ξεπλ<span class='special-text-9'>ένω</span><br />επιμ<span class='special-text-9'>ένω</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "1": {
+                "name": "Ουσιαστικά που τελειώνουν σε <span class=\"special-text-3\">-ωση</span>,<span class=\"special-text-10\">-ωμα</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ουσιαστικά που τελειώνουν σε <span class='special-text-3'>-ωση</span> ή <span class='special-text-10'>-ωμα</span>, ψάχνουμε να βρούμε αν προέρχονται από ρήμα που τελειώνει σε <span class='special-text-7'>-ώνω</span>.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">ανακύκλ<span class='special-text-3'>ωση</span> <i class=\"fi fi-rr-arrow-right\">ανακυκλ<span class='special-text-7'>ώνω</span><br />κούμπ<span class='special-text-10'>ωμα</span> => κουμπ<span class='special-text-7'>ώνω</span><br />πάτ<span class='special-text-10'>ωμα</span> => πατ<span class='special-text-7'>ώνω</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "category-4": {
+        "text": "Πέμπτη Κατηγορία",
+        "rules": {
+            "0": {
+                "name": "Ρήματα που τελειώνουν σε <span class=\"special-text-1\">-ίζω</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ρήματα που τελειώνουν σε <span class='special-text-1'>-ίζω</span> γράφονται με γιώτα.<br /><br />Εξαιρούνται τα ρήματα:<br />δακρ<span class='special-text-4'>ύζω</span><br />κατακλ<span class='special-text-4'>ύζω</span><br />αναβλ<span class='special-text-4'>ύζω</span><br />συγχ<span class='special-text-4'>ύζω</span><br /><br />δαν<span class='special-text-6'>είζω</span><br /><br />αθρ<span class='special-text-9'>οί</span><br /><br />πρ<span class='special-text-5'>ήζω</span></p></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "1": {
+                "name": "Καταλήξεις Αορίστου",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ρήματα που τελειώνουν σε <span class='special-text-1'>-ίζω</span>, στον αόριστο τελειώνουν σε <span class='special-text-2'>-ισα</span> και γράφονται με γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">γεμ<span class='special-text-1'>ίζω</span> <i class=\"fi fi-rr-arrow-right\"> γέμ<span class='special-text-2'>ισα</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλα τα υπόλοιπα τελειώνουν σε <span class='special-text-9'>-ησα</span> και γράφονται με ήτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">τιμωρ<span class='special-text-6'>ώ</span> ==> τιμώρ<span class='special-text-9'>ησα</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "2": {
+                "name": "Καταλήξεις ρημάτων που τελειώνουν σε <span class=\"special-text-4\">-ηκα</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όποιο ρήμα έχει κατάληξη<br /><span class='special-text-4'>-ηκα</span><br /><span class='special-text-4'>-ηκες</span><br /><span class='special-text-4'>-ηκε</span><br /><span class='special-text-4'>-ηκαμε</span><br /><span class='special-text-4'>-ηκατε</span><br /><span class='special-text-4'>-ηκαν</span><br />γράφεται με ήτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">ανέβ<span class='special-text-4'>ηκα</span><br />κατέβ<span class='special-text-4'>ηκαν</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "category-5": {
+        "text": "Έκτη Κατηγορία",
+        "rules": {
+            "0": {
+                "name": "Τα ρήματα <span class=\"special-text-1\">παίρνω</span> - <span class=\"special-text-3\">περνώ</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όταν έχω κάτι και <span class='special-text-1'>παίρνω</span> κάτι άλλο, γράφεται με άλφα γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\"><span class='special-text-1'>Παίρνω</span> την τσάντα μου.</p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Σε κάθε άλλη περίπτωση γράφεται με έψιλον.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\"><span class='special-text-3'>Περνώ</span> από το σχολείο μου.</p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "1": {
+                "name": "<span class=\"special-text-5\">-ώντας</span> ή <span class=\"special-text-10\">-οντας</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όταν το ω τονίζεται, τότε γράφεται με ωμέγα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">γελ<span class='special-text-5'>ώντας</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όταν το ο δεν τονίζεται, τότε γράφεται με όμικρον.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">κλαίγ<span class='special-text-10'>οντας</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "2": {
+                "name": "Οι καταλήξεις <span class='special-text-6'>-μένος</span><span class='special-text-6'>-μένη</span><span class='special-text-6'>-μένο</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Οι καταλήξεις <br /><span class='special-text-6'>-μένος</span><br /><span class='special-text-6'>-μένη</span><br /><span class='special-text-6'>-μένο</span><br />γράφονται με δύο μμ, όταν το ρ´ημα τελειώνει σε <span class='special-text-1'>π</span>, <span class='special-text-2'>β</span>, <span class='special-text-3'>φ</span>, <span class='special-text-4'>φτ</span>, <span class='special-text-5'>πτ</span>.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">βά<span class='special-text-3'>/φ<span class='special-text-3'>ω <i class=\"fi fi-rr-arrow-right\"> βα<span class='special-text-6'>μμένος</span><br />κό<span class='special-text-2'>β</span>ω ==> κο<span class='special-text-6'>μμένος</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Αλλιώς γράφονται με ένα μ.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">παγώ<span class='special-text-7'>ν</span>ω ==> παγω<span class='special-text-10'>μένος</span><br />τρομά<span class='special-text-8'>ζ</span>ω ==> τρομαγ<span class='special-text-10'>μένος</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "category-6": {
+        "text": "Έβδομη Κατηγορία",
+        "rules": {
+            "0": {
+                "name": "Επίθετα που τελειώνουν σε <span class=\"special-text-10\">-ινος</span>,<span class=\"special-text-10\">-ινη</span>,<span class=\"special-text-10\">-ινο</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα επίθετα που τελειώνουν σε<br /><span class='special-text-10'>-ινος</span><br /><span class='special-text-10'>-ινη</span><br /><span class='special-text-10'>-ινο</span><br />γράφονται με γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">μάλ<span class='special-text-10'>ινος</span><br />ξύλ<span class='special-text-10'>ινος</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Εξαιρούνται τα:<br />σκοτ<span class='special-text-9'>εινός</span><br />υγι<span class='special-text-9'>εινός</span><br />φωτ<span class='special-text-9'>εινός</span><br />ορ<span class='special-text-9'>εινός</span><br /><br />υπεύθ<span class='special-text-3'>υνος</span><br />επικίνδ<span class='special-text-3'>υνος</span></p></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "1": {
+                "name": "Επίθετα που τελειώνουν σε <span class=\"special-text-5\">-ικος</span>,<span class=\"special-text-5\">-ικη</span>,<span class=\"special-text-5\">-ικο</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα επίθετα που τελειώνουν σε<br /><span class='special-text-5'>-ικος</span><br /><span class='special-text-5'>-ικη</span><br /><span class='special-text-5'>-ικο</span><br />γράφονται με γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">επιθετ<span class='special-text-5'>ικός</span><br />σκεπτ<span class='special-text-5'>ική</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Εξαιρούνται τα:<br />θυλ<span class='special-text-4'>υκός</span><br /><br />δαν<span class='special-text-2'>εικός</span><br /><br />γλ<span class='special-text-3'>υκός</span></p></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "Ποια είναι η σωστή ορθογραφία της λέξης;",
+                        "answers": {
+                            "right-answer": "Ο δανεικός",
+                            "wrong-answer-0": "Ο δανικός"
+                        }
+                    }
+                }
+            },
+            "2": {
+                "name": "Επίθετα που τελειώνουν σε <span class=\"special-text-3\">-ιμος</span>,<span class=\"special-text-3\">-ιμη</span>,<span class=\"special-text-3\">-ιμο</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα επίθετα που τελειώνουν σε<br /><span class='special-text-3'>-ιμος</span><br /><span class='special-text-3'>-ιμη</span><br /><span class='special-text-3'>-ιμο</span><br />γράφονται με γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">φρόν<span class='special-text-3'>ιμος</span><br />μόν<span class='special-text-3'>-ιμος</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Εξαιρούνται τα:<br />πρόθ<span class='special-text-2'>υμος</span><br />ανών<span class='special-text-2'>υμος</span><br />εύθ<span class='special-text-2'>υμος</span><br /><br />επίσ<span class='special-text-8'>ημος</span><br />διάσ<span class='special-text-8'>ημος</span><br />περίφ<span class='special-text-8'>ημος</span><br /><br />έτ<span class='special-text-7'>οιμος</span></p></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "3": {
+                "name": "<span class=\"special-text-4\">πολλή</span> - <span class=\"special-text-1\">πολύ</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Μπροστά από τα θηλυκά ουσιαστικά βάζουμε <span class='special-text-4'>πολλή</span>.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\"><span class='special-text-4'>πολλή</span> ώρα<br /><span class='special-text-4'>πολλή</span> φακή</p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Μπροστά από όλα τα υπόλοιπα, βάζουμε <span class='special-text-1'>πολύ</span>.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\"><span class='special-text-1'>πολύ</span> καλός,<br /><span class='special-text-1'>πολύ</span> γρήγορη</p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

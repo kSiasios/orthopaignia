@@ -13,12 +13,16 @@ if (!isset($_SESSION["logged"])) {
     exit();
 }
 
-// require_once "../includes/functions.php";
+require_once "../includes/functions.php";
 
+$message = rand(0, 10);
+$encryptedMessage = encrypt($message, $alphabet, $letters);
+$decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
 // $encryptedMessage = encrypt($_SESSION["username"], $alphabet, $letters);
 // $decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
-// echo "<script>console.log('Encrypted Message: $encryptedMessage')</script>";
-// echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
+echo "<script>console.log('Default Message: $message')</script>";
+echo "<script>console.log('Encrypted Message: $encryptedMessage')</script>";
+echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
 
 ?>
 
