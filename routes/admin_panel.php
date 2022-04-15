@@ -44,9 +44,10 @@ if (!isset($_SESSION["isAdmin"])) {
                 <button class="blue" onclick="window.location = 'add_question.php';">Προσθήκη ερώτησης</button>
             </div>
 
-            <div class="flush-db">
+            <div class="db-functions">
                 <h2>Λειτουργίες Βάσης Δεδομένων</h2>
-                <button class="red" onclick="flushDatabase()">Άδειασμα Βάσης</button>
+                <button class="green-inverse" onclick="exportXLSX()">Export to Excel <i class="fi fi-br-download"></i></button>
+                <button class="red" onclick="flushDatabase()">Άδειασμα Βάσης <i class="fi fi-bs-trash"></i></button>
             </div>
         </div>
     </div>
@@ -168,7 +169,7 @@ if (!isset($_SESSION["isAdmin"])) {
         }
 
         function flushDatabase() {
-            console.log('FLUSHED');
+            // console.log('FLUSHED');
             const searchParams = new URLSearchParams();
             searchParams.append("submit", "submit");
             fetch(`/${baseURL}/includes/flushGrades.php`, {
@@ -179,6 +180,11 @@ if (!isset($_SESSION["isAdmin"])) {
             }).catch((error) => {
                 console.error(`${error}`);
             });
+        }
+
+        function exportXLSX() {
+            // console.log("XLSX Exporter");
+            window.location = `/${baseURL}/includes/exportXLSX.php`;
         }
 
         fetch(`/${baseURL}/includes/fetchCategories.php`).then((res) => {

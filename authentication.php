@@ -70,7 +70,7 @@ include './header.php';
                     </div>
                     <div class="form-submit">
                         <button value="submit" type="submit" name="submit">
-                            <p>Εγγραφή</p>
+                            Εγγραφή
                         </button>
                     </div>
                 </form>

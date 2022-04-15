@@ -8,6 +8,7 @@
   padding: 2em;
   line-height: 1.5;
   position: relative;
+  position: absolute;
 }
 
 .dialog::before {
@@ -50,9 +51,12 @@
 .story-images {
   display: inline-flex;
   align-items: flex-end;
+  max-height: 20em;
+  margin-block-start: 14em;
+  width: 100%;
 }
 
-.xenia,
+/* .xenia,
 .bronco {
   width: 100%;
   max-width: 50em;
@@ -60,16 +64,49 @@
   align-items: center;
   justify-content: center;
   margin-block: 3em;
+} */
+
+.xenia,
+.bronco {
+  height: 100%;
+  max-height: 50em;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-block: 3em;
+  width: 100%;
+}
+
+/* .xenia img,
+.bronco img {
+  width: 100%;
+  max-width: 17em;
+} */
+
+.xenia {
+  justify-content: flex-start;
+}
+
+.bronco {
+  justify-content: flex-end;
 }
 
 .xenia img,
 .bronco img {
-  width: 100%;
-  max-width: 17em;
+  height: 100%;
+  max-height: 17em;
 }
 
-.bronco {
+.bronco img {
+  max-height: 6em;
+}
+
+/* .bronco {
   width: 50%;
+} */
+
+.bronco {
+  height: 50%;
 }
 
 .play-buttons {
