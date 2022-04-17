@@ -1,0 +1,44 @@
+.answer-container {
+    width: 100%;
+    /* background: var(--secondary-clr); */
+    /* background: green; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 0.25em;
+
+}
+
+*[draggable="true"] {
+    cursor: pointer;
+}
+
+*[draggable="true"]:active {
+    /* background: green; */
+    opacity: 1;
+}
+
+.potential-answers {
+    display: inline-flex;
+    gap: var(--gap, 1em);
+    margin-block: 1em;
+}
+
+.empty {
+    background: var(--secondary-clr);
+    border-radius: 0.25em;
+    width: 5em;
+    height: 2.5em;
+}
+
+.hold {
+    /* background: var(--secondary-clr-dark); */
+}
+
+.hovered {
+    box-shadow: 0 .1em .5em var(--secondary-clr);
+}
+
+.invisible {
+    display: none;
+}

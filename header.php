@@ -30,7 +30,7 @@ if (!file("variables.env")) {
     <link rel="icon" type="image/x-icon" href="<?php echo $baseURL ?>/images/favicon.ico">
     <title>
         <?php echo $title ?>
-        - Σωστογραφία</title>
+        - Ορθοπαίγνια</title>
     <script>
         let baseURL = window.location.pathname.split("/")[1].replace(/(?:\r\n|\r|\n)/g, "");
     </script>

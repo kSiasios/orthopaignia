@@ -27,7 +27,7 @@ include './header.php';
     <div class="page-content">
         <div class="login-form">
             <div class="form-header">
-                <p>Σωστογραφία</p>
+                <p>Ορθοπαίγνια</p>
             </div>
             <div class="form-selector">
                 <a href="#" onclick="toggleForm('login')">Σύνδεση</a>
