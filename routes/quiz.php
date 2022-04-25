@@ -15,14 +15,25 @@ if (!isset($_SESSION["logged"])) {
 
 require_once "../includes/functions.php";
 
-$message = rand(0, 10);
-$encryptedMessage = encrypt($message, $alphabet, $letters);
-$decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
-// $encryptedMessage = encrypt($_SESSION["username"], $alphabet, $letters);
-// $decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
-echo "<script>console.log('Default Message: $message')</script>";
-echo "<script>console.log('Encrypted Message: $encryptedMessage')</script>";
-echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
+// $message = $_SESSION['username'];
+// // // $counter = 0;
+// // // for ($i = 0; $i < 90; $i++) {
+// // //     # code...
+// // //     $encryptedMessage = encrypt($message, $alphabet, $letters);
+// // //     $decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
+// // //     if ($decryptedMessage != $message) {
+// // //         # code...
+// // //         $counter++;
+// // //     }
+// // //     // sleep(0.03);
+// // //     sleep(1);
+// // // }
+// // // echo "<script>console.log('Wrong Encryptions / Decryptions: $counter')</script>";
+// $encryptedMessage = encrypt($message);
+// $decryptedMessage = decrypt($encryptedMessage);
+// echo "<script>console.log('Default Message: $message')</script>";
+// echo "<script>console.log('Encrypted Message: $encryptedMessage')</script>";
+// echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
 
 ?>
 
@@ -60,9 +71,24 @@ echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
         let questions;
         let currentQuestionIndex = 0;
         let score = 0;
+        let counter = 0;
+        console.log(counter);
+        setInterval(() => {
+            counter++;
+            // if (counter % 10 == 0) {
+            //     console.log(counter / 10);
+            // }
+        }, 100);
         const quizContainer = document.querySelector(".quiz-container");
         fetchQuestions(ofRule);
         // console.log(questions);
+
+        // let timer = Date.now();
+        // console.log(timer)
+        // let counter = 0;
+        // setInterval(() => {
+        //     counter++;
+        // }, 1);
 
         function fetchQuestions(ofRule) {
             const searchParams = new URLSearchParams();
@@ -182,7 +208,9 @@ echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
 
             questionResults.push(result);
             currentQuestionIndex++;
+            console.log(counter / 10);
             populateQuiz(currentQuestionIndex);
+            counter = 0;
         }
 
         function setQuestionGrades(results) {

@@ -2,14 +2,25 @@
 
 if (isset($_POST['submit'])) {
     // echo ("Username: " . $_POST["username"]);
+    // USER DATA
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
+    // STUDENT DATA
+    $studentName = $_POST["student-name"];
+    $studentLastName = $_POST["student-lastname"];
+    $studentGrade = $_POST["student-grade"];
 
     require_once "db.info.php";
     require_once "functions.php";
 
-    if (emptyInputRegister($username, $email, $password) !== false) {
+    // if (emptyInputRegister($username, $email, $password) !== false) {
+    //     // THERE ARE EMPTY INPUTS
+    //     echo ("error=emptyInput");
+    //     exit();
+    // }
+
+    if (emptyInputs([$username, $email, $password, $studentName, $studentLastName, $studentGrade]) !== false) {
         // THERE ARE EMPTY INPUTS
         echo ("error=emptyInput");
         exit();
@@ -34,7 +45,7 @@ if (isset($_POST['submit'])) {
     }
 
     // echo '<script>console.log("CREATING USER");</script>';
-    createUser($conn, $email, $username, $password);
+    createUser($conn, $email, $username, $password, $studentName, $studentLastName, $studentGrade);
 
     echo "error=none";
 

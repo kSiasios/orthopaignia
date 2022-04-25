@@ -19,6 +19,8 @@ function filterText(text) {
   filteredText = filteredText.replaceAll("/?", "</span>");
   filteredText = filteredText.replaceAll("/]", "</span>");
 
+  filteredText = filteredText.replaceAll("___", "<div class='empty'></div>");
+
   filteredText = filteredText.replaceAll("!!", "<span class='special-text-1'>");
   filteredText = filteredText.replaceAll("**", "<span class='special-text-2'>");
   filteredText = filteredText.replaceAll("$", "<span class='special-text-3'>");

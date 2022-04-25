@@ -23,6 +23,7 @@ include './header.php';
 <body>
     <?php
     //  include 'components\navbar.php'; 
+    // include 'includes/functions.php';
     ?>
     <div class="page-content">
         <div class="login-form">
@@ -52,21 +53,53 @@ include './header.php';
             </div>
             <div class="form-inputs register">
                 <form method="POST">
-                    <div class="input-container">
-                        <label for="username"><i class="fi fi-ss-user"></i></label>
-                        <input type="text" name="username" id="username-input register" placeholder="Όνομα Χρήστη" />
-                    </div>
-                    <div class="input-container">
-                        <label for="email"><i class="fi fi-ss-at"></i></label>
-                        <input type="email" name="email" id="email-input" placeholder="Ηλ. Ταχυδρομείο" />
-                    </div>
-                    <div class="input-container">
-                        <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="password" id="password-input register" placeholder="Κωδικός Πρόσβασης" />
-                    </div>
-                    <div class="input-container">
-                        <label for="password"><i class="fi fi-ss-key"></i></label>
-                        <input type="password" name="repeat-password" id="repeat-password-input" placeholder="Επανάληψη Κωδικού Πρόσβασης" />
+                    <div class="input-sections">
+                        <div class="authentication-data">
+                            <div class="section-header">
+                                <p class="header">Στοιχεία χρήστη</p>
+                            </div>
+                            <div class="input-container">
+                                <label for="username"><i class="fi fi-ss-user"></i></label>
+                                <input type="text" name="username" id="username-input register" placeholder="Όνομα Χρήστη" />
+                            </div>
+                            <div class="input-container">
+                                <label for="email"><i class="fi fi-ss-at"></i></label>
+                                <input type="email" name="email" id="email-input" placeholder="Ηλ. Ταχυδρομείο" />
+                            </div>
+                            <div class="input-container">
+                                <label for="password"><i class="fi fi-ss-key"></i></label>
+                                <input type="password" name="password" id="password-input register" placeholder="Κωδικός Πρόσβασης" />
+                            </div>
+                            <div class="input-container">
+                                <label for="password"><i class="fi fi-ss-key"></i></label>
+                                <input type="password" name="repeat-password" id="repeat-password-input" placeholder="Επανάληψη Κωδικού Πρόσβασης" />
+                            </div>
+                        </div>
+                        <div class="personal-data">
+                            <div class="section-header">
+                                <p class="header">Στοιχεία μαθητή</p>
+                            </div>
+                            <div class="input-container">
+                                <label for="student-name"><i class="fi fi-ss-user"></i></label>
+                                <input type="text" name="student-name" id="student-name-input register" placeholder="Όνομα Μαθητή" />
+                            </div>
+                            <div class="input-container">
+                                <label for="student-lastname"><i class="fi fi-ss-user"></i></label>
+                                <input type="text" name="student-lastname" id="student-lastname-input register" placeholder="Επώνυμο Μαθητή" />
+                            </div>
+                            <div class="input-container">
+                                <label for="student-grade"><i class="fi fi-sr-graduation-cap"></i></label>
+                                <!-- <input type="text" name="student-grade" id="student-grade-input register" placeholder="Τάξη" /> -->
+                                <select name="student-grade" id="student-grade">
+                                    <option value="none" disabled selected>Επιλέξτε τάξη</option>
+                                    <option value="3">Γ' τάξη</option>
+                                    <option value="4">Δ' τάξη</option>
+                                    <option value="5">Ε' τάξη</option>
+                                    <option value="6">ΣΤ' τάξη</option>
+                                    <option value="other">Δευτεροβάθμια εκπαίδευση</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-submit">
                         <button value="submit" type="submit" name="submit">

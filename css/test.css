@@ -24,6 +24,15 @@
     margin-block: 1em;
 }
 
+.potential-answer {
+    transition: var(--transition);
+}
+
+.potential-answer:hover,
+.potential-answer:focus {
+    box-shadow: 0 1em 1em -1em var(--underline);
+}
+
 .empty {
     background: var(--secondary-clr);
     border-radius: 0.25em;
@@ -36,7 +45,8 @@
 }
 
 .hovered {
-    box-shadow: 0 .1em .5em var(--secondary-clr);
+    /* box-shadow: 0 .1em .5em var(--secondary-clr); */
+    box-shadow: 0 1em 1em -1em var(--underline);
 }
 
 .invisible {

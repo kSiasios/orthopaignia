@@ -25,7 +25,12 @@ include '../header.php';
         <div class="form-wrapper">
 
             <div class="form-container">
-                <form action="">
+                <label for="choose-question-type">Τύπος Ερώτησης</label>
+                <select name="choose-question-type" id="choose-question-type" onchange="changeQuestionType()">
+                    <option value="multiple-choice">Multiple Choice</option>
+                    <option value="drag-drop" selected>Drag n' Drop</option>
+                </select>
+                <form action="" id="form-multiple-choice">
                     <div class="form-section">
                         <label for="question-text">Ερώτηση</label>
                         <input type="text" name="question-text" id="question-text">
@@ -51,9 +56,43 @@ include '../header.php';
                         <a class="button green" href="#" onclick="submitForm()">Ολοκλήρωση</a>
                     </div>
                 </form>
+                <form action="" id="form-drag-drop" style="display: none;">
+                    <div class="form-section">
+                        <label for="question-text">Ερώτηση</label>
+                        <input type="text" name="question-text" id="question-text">
+                    </div>
+                    <div class="form-section">
+                        <label for="question-answer-text">Δεδομένο Σκέλος Απάντησης</label>
+                        <input type="text" name="question-answer-text" id="question-answer-text">
+                    </div>
+                    <div class="form-section">
+                        <label for="question-rule">Αντίστοιχος Κανόνας</label>
+                        <!-- <input type="text" name="question-text" id="question-text"> -->
+                        <select name="question-rule" id="question-rule">
+                            <option value="" selected disabled>Επιλέξτε Κανόνα</option>
+                        </select>
+                    </div>
+                    <div class="form-section">
+                        <label for="right-answer">Σωστή Απάντηση</label>
+                        <input type="text" name="right-answer-text" id="right-answer">
+                    </div>
+                    <div class="form-section">
+                        <label for="wrong-answer-1">Λάθος Απάντηση</label>
+                        <input type="text" name="wrong-answer-1-text" class="wrong-answer" key="1">
+                    </div>
+                    <!-- <textarea name="question-text" id="question-text" cols="30" rows="10"></textarea> -->
+                    <div class="form-buttons">
+                        <a class="button" href="#" onclick="addAnswerInput()">Προσθήκη Απάντησης</a>
+                        <a class="button green" href="#" onclick="submitForm()">Ολοκλήρωση</a>
+                    </div>
+                </form>
             </div>
             <div class="format-helper">
                 <table>
+                    <tr>
+                        <td style="letter-spacing: 0.3em">___ <i class="fi fi-rr-arrow-right"></i></td>
+                        <td class="empty"></td>
+                    </tr>
                     <tr>
                         <td>!!κείμενο/!! <i class="fi fi-rr-arrow-right"></i></td>
                         <td class="special-text-1">κείμενο</td>
@@ -103,7 +142,9 @@ include '../header.php';
         let form = document.querySelector("form");
         let formButtons = document.querySelector(".form-buttons");
         // let submitFormBtn = document.querySelector(".form-buttons").lastElementChild;
-        const selectRule = document.querySelector("#question-rule");
+        // const selectRule = document.querySelector("#question-rule");
+        const multipleChoiceForm = document.querySelector("#form-multiple-choice");
+        const dragDropForm = document.querySelector("#form-drag-drop");
 
         function addAnswerInput() {
             let inputElement = document.createElement("input");
@@ -152,17 +193,35 @@ include '../header.php';
 
         function submitForm() {
             // console.log("Submitting form");
-            const questionText = document.querySelector("#question-text").value;
-            const rightAnswer = document.querySelector("#right-answer").value;
-            const wrongAnswers = document.querySelectorAll(".wrong-answer");
-            const ruleID = selectRule.value;
+            const questionType = document.querySelector("#choose-question-type").value;
+
+            let questionText; // = document.querySelector(".form-section #question-text").value;
+            let rightAnswer; // = document.querySelector("#right-answer").value;
+            let wrongAnswers; // = document.querySelectorAll(".wrong-answer");
+            let ruleID; // = selectRule.value;
+            const searchParams = new URLSearchParams();
+
+            if (questionType === "multiple-choice") {
+                questionText = document.querySelector("#form-multiple-choice .form-section #question-text").value;
+                rightAnswer = `<div draggable="true">${filterText(document.querySelector("#form-multiple-choice .form-section #right-answer").value)}</div>`;
+                wrongAnswers = document.querySelectorAll("#form-multiple-choice .form-section #wrong-answer");
+                ruleID = document.querySelectorAll("#form-multiple-choice .form-section #question-rule")
+            } else if (questionType === "drag-drop") {
+                questionText = document.querySelector("#form-drag-drop .form-section #question-text").value;
+                rightAnswer = document.querySelector("#form-drag-drop .form-section #right-answer").value;
+                wrongAnswers = document.querySelectorAll("#form-drag-drop .form-section #wrong-answer");
+                ruleID = document.querySelectorAll("#form-drag-drop .form-section #question-rule");
+
+                let givenAnswerSection = document.querySelector("#form-drag-drop .form-section #question-answer-text").value;
+                searchParams.append("question-given-answer-section", questionType);
+            }
 
             if (questionText === "" || rightAnswer === "" || ruleID === "") {
                 window.alert("Κάποια πεδία είναι κενά!");
                 return;
             }
             // console.log(questionText, rightAnswer);
-            const searchParams = new URLSearchParams();
+            searchParams.append("question-type", questionType);
             searchParams.append("question", questionText);
             searchParams.append("right-answer", rightAnswer);
             for (const [i, ans] of wrongAnswers.entries()) {
@@ -170,7 +229,12 @@ include '../header.php';
                     window.alert("Κάποια πεδία είναι κενά!");
                     return;
                 }
-                searchParams.append(`wrong-answer-${i}`, ans.value);
+                if (questionType === "multiple-choice") {
+                    searchParams.append(`wrong-answer-${i}`, ans.value);
+                    // filterText(document.querySelector("#form-multiple-choice .form-section #right-answer").value)
+                } else {
+                    searchParams.append(`wrong-answer-${i}`, `<div draggable="true">${filterText(ans.value)}</div>`);
+                }
             }
 
             searchParams.append("rule", ruleID);
@@ -202,6 +266,21 @@ include '../header.php';
                 .catch(function(error) {
                     console.log(error);
                 });
+        }
+
+        function changeQuestionType() {
+            const dropdownValue = document.querySelector("#choose-question-type").value;
+            console.log(`Question type: ${dropdownValue}`);
+            switch (dropdownValue) {
+                case "multiple-choice":
+                    multipleChoiceForm.style.display = "flex";
+                    dragDropForm.style.display = "none";
+                    break;
+                default:
+                    multipleChoiceForm.style.display = "none";
+                    dragDropForm.style.display = "flex";
+                    break;
+            }
         }
 
         fetch(`/${baseURL}/includes/fetchRulesOptions.php`)

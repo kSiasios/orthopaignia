@@ -5,6 +5,7 @@ if (isset($_POST['submit'])) {
     require_once "db.info.php";
     require_once "functions.php";
 
+    $questionType = $_POST["question-type"];
     $questionText = $_POST["question"];
     $rightAnswer = $_POST["right-answer"];
     $ruleID = $_POST["rule"];

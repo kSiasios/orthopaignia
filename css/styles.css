@@ -13,7 +13,7 @@ html {
   --primary-clr: #c4c4c4;
   --secondary-clr: #b2b2b2;
   --secondary-clr-dark: #6d6d6d;
-  --underline: rgba(0, 0, 0, 0.25);
+  --underline: rgba(0, 0, 0, 0.5);
   --hover-bg: rgba(0, 0, 0, 0.25);
   --hover-color: white;
 
@@ -461,4 +461,11 @@ input:disabled {
 
 .swal2-title {
   box-shadow: 0 0;
+}
+
+.empty {
+  background: var(--secondary-clr);
+  border-radius: 0.25em;
+  width: 5em;
+  height: 2.5em;
 }

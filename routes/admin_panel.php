@@ -19,6 +19,9 @@ if (!isset($_SESSION["isAdmin"])) {
     <?php include '../components/navbar.php'; ?>
     <div class="page-content">
         <div class="admin-panel-container">
+            <div class="user-data-container">
+                <h2>Δεδομένα Χρηστών</h2>
+            </div>
             <div class="filter">
                 <label for="filter-assets">Εμφάνηση</label>
                 <select onchange="filterAssets()" name="filter-assets" id="filter-assets">
@@ -46,8 +49,16 @@ if (!isset($_SESSION["isAdmin"])) {
 
             <div class="db-functions">
                 <h2>Λειτουργίες Βάσης Δεδομένων</h2>
-                <button class="green-inverse" onclick="exportXLSX()">Export to Excel <i class="fi fi-br-download"></i></button>
-                <button class="red" onclick="flushDatabase()">Άδειασμα Βάσης <i class="fi fi-bs-trash"></i></button>
+                <div class="db-functions-buttons">
+                    <div class="excel-exporter">
+                        <h4>Εξαγωγή δεδομένων σε αρχείο Microsoft Excel</h4>
+                        <button class="green-inverse" onclick="exportXLSX()">Export to Excel <i class="fi fi-br-download"></i></button>
+                    </div>
+                    <div class="db-flusher">
+                        <h4>Άδειασμα Βάσης Δεδομένων</h4>
+                        <button class="red" onclick="flushDatabase()">Άδειασμα Βάσης <i class="fi fi-bs-trash"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

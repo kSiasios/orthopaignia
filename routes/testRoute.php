@@ -34,7 +34,7 @@ echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
             <div class="answer">
                 <div class="answer-container">
                     ο στρατιώτ
-                    <div class="empty hovered">
+                    <div class="empty">
                     </div>
                 </div>
             </div>

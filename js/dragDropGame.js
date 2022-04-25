@@ -16,7 +16,6 @@ empty.addEventListener("drop", dragDrop);
 
 // Drag Functions
 function dragStart(event) {
-  //   console.log("drag started");
   this.classList.add("hold");
   setTimeout(() => {
     this.classList.add("invisible");
@@ -25,34 +24,25 @@ function dragStart(event) {
 }
 
 function dragEnd(event) {
-  //   console.log("drag ended");
   this.classList.remove("hold", "invisible");
 }
 
 function dragOver(event) {
   event.preventDefault();
-  //   console.log("drag over");
-  //   this.classList.add("hovered");
 }
 function dragEnter(event) {
   event.preventDefault();
   empty.classList.add("hovered");
-  //   console.log("drag enter");
 }
-function dragLeave() {
+function dragLeave(event) {
   empty.classList.remove("hovered");
-  //   console.log("drag leave");
+  empty.innerHTML = "";
+  answersContainer.appendChild(currentAnswer);
 }
 function dragDrop(event) {
-  //   console.log("drag drop");
-  console.log(event);
+  empty.classList.remove("hovered");
   const previousAnswer = event.target;
 
-  //   remove(previousAnswer);
-
-  //   console.log("Node to remove");
-  //   console.log(empty);
-  //   console.log(previousAnswer);
   if (empty != previousAnswer) {
     empty.removeChild(previousAnswer);
     answersContainer.appendChild(previousAnswer);
