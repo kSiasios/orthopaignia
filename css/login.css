@@ -125,7 +125,7 @@ select {
   border: 0px solid var(--primary-clr);
 border-radius: 0 0.25em 0.25em 0;
 cursor: pointer;
-padding: 0.5em 1em;
+padding: 0.5em;
 margin-inline-start: 0;
 background: var(--secondary-clr);
 margin: 0;
@@ -146,4 +146,15 @@ label {
 p.header {
   margin-block: 1em;
   text-align: center;
+}
+
+label.custom-label {
+  /* aspect-ratio:unset; */
+  width: max-content;
+  height: 100%;
+  background: var(--secondary-clr);
+  border-radius: 0;
+  padding: 0.5em;
+  white-space: nowrap;
+  font-size: 0.8em;
 }

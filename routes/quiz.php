@@ -18,11 +18,11 @@ require_once "../includes/functions.php";
 // $message = $_SESSION['username'];
 // // // $counter = 0;
 // // // for ($i = 0; $i < 90; $i++) {
-// // //     # code...
+// // //     
 // // //     $encryptedMessage = encrypt($message, $alphabet, $letters);
 // // //     $decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
 // // //     if ($decryptedMessage != $message) {
-// // //         # code...
+// // //         
 // // //         $counter++;
 // // //     }
 // // //     // sleep(0.03);

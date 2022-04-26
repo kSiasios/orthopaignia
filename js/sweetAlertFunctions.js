@@ -3,6 +3,7 @@ function sweetAlertWarning({
   text = "Η διαδικασία είναι μη αναστρέψιμη!",
   confirmText = "Ναι, σίγουρα",
   cancelText = "Ακύρωση",
+  redirect = "",
 } = {}) {
   Swal.fire({
     title: title,
@@ -14,19 +15,9 @@ function sweetAlertWarning({
     confirmButtonText: confirmText,
     // cancelButtonText: cancelText,
   }).then(() => {
-    // fetch(`/${baseURL}/includes/deleteAccount.php`)
-    //     .then((res) => {
-    //         return res.text();
-    //     })
-    //     .then((text) => {
-    //         let error = text.split("=")[1];
-    //         if (error === "none")
-    //             window.location = `/${baseURL}`;
-    //         console.log(`Server Response: ${text}`);
-    //     })
-    //     .catch((err) => {
-    //         console.error(`An error occured: ${err}`);
-    //     });
+    if (redirect != "") {
+      window.location = redirect;
+    }
   });
 }
 
@@ -35,6 +26,7 @@ function sweetAlertError({
   text = "Συνέβη ένα άγνωστο σφάλμα!",
   confirmText = "Εντάξει",
   cancelText = "Ακύρωση",
+  redirect = "",
 } = {}) {
   Swal.fire({
     title: title,
@@ -46,18 +38,8 @@ function sweetAlertError({
     confirmButtonText: confirmText,
     // cancelButtonText: cancelText,
   }).then(() => {
-    // fetch(`/${baseURL}/includes/deleteAccount.php`)
-    //     .then((res) => {
-    //         return res.text();
-    //     })
-    //     .then((text) => {
-    //         let error = text.split("=")[1];
-    //         if (error === "none")
-    //             window.location = `/${baseURL}`;
-    //         console.log(`Server Response: ${text}`);
-    //     })
-    //     .catch((err) => {
-    //         console.error(`An error occured: ${err}`);
-    //     });
+    if (redirect != "") {
+      window.location = redirect;
+    }
   });
 }

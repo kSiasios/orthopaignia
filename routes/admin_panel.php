@@ -21,6 +21,7 @@ if (!isset($_SESSION["isAdmin"])) {
         <div class="admin-panel-container">
             <div class="user-data-container">
                 <h2>Δεδομένα Χρηστών</h2>
+                <div id="users-data"></div>
             </div>
             <div class="filter">
                 <label for="filter-assets">Εμφάνηση</label>
@@ -70,6 +71,8 @@ if (!isset($_SESSION["isAdmin"])) {
         const quesContainer = (document.querySelector(".questions").querySelector(".questions-container"));
         const ques = (document.querySelector(".questions"));
         const dropdown = document.querySelector("select");
+
+        const usersContainer = document.querySelector("#users-data");
 
         function filterAssets() {
             // console.log(dropdown.value);
@@ -220,6 +223,27 @@ if (!isset($_SESSION["isAdmin"])) {
             return res.text();
         }).then((text) => {
             quesContainer.innerHTML = text;
+            // console.log(text);
+        }).catch((error) => {
+            console.error(`${error}`);
+        });
+
+        fetch(`/${baseURL}/includes/fetchUsersDataForAdmin.php`).then((res) => {
+            return res.text();
+        }).then((text) => {
+            // usersContainer.innerHTML = text;
+            const jsonArray = JSON.parse(text);
+            jsonArray.forEach(element => {
+                // console.log(element.firstName);
+                // usersContainer.innerHTML += element.firstName
+                // CREATE LINK FOR THE USER
+                const userLink = document.createElement("a");
+                userLink.setAttribute("href", `/${baseURL}/routes/user_info.php?user=${element.ID}`);
+                userLink.innerText = `${element.firstName} ${element.lastName}`;
+                userLink.classList.add("user-link");
+
+                usersContainer.appendChild(userLink);
+            });
             // console.log(text);
         }).catch((error) => {
             console.error(`${error}`);

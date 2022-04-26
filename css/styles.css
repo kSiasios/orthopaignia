@@ -293,16 +293,25 @@ form {
 }
 
 .green-inverse {
-  background: var(--bg) !important;
+  /* background: var(--bg) !important;
   color: rgb(0, 182, 106);
+  font-weight: bold;
+  box-shadow: inset 0 0 0 0.12em rgb(0, 182, 106); */
+
+  background:rgb(0, 182, 106) !important;
+  color: white;
   font-weight: bold;
   box-shadow: inset 0 0 0 0.12em rgb(0, 182, 106);
 }
 
 .green-inverse:focus,
 .green-inverse:hover {
-  background:rgb(0, 182, 106) !important;
+  /* background:rgb(0, 182, 106) !important;
   color: white;
+  font-weight: bold;
+  box-shadow: inset 0 0 0 0.12em rgb(0, 182, 106); */
+  background: var(--bg) !important;
+  color: rgb(0, 182, 106);
   font-weight: bold;
   box-shadow: inset 0 0 0 0.12em rgb(0, 182, 106);
 }

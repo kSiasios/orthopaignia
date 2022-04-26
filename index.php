@@ -139,7 +139,7 @@ include './header.php';
                     typeWriter(
                         storyLines[storyLineIndex].replaceAll(
                             "<name>",
-                            "<?php echo $_SESSION['username'] ?>"
+                            "<?php echo $_SESSION['firstname'] ?>"
                         ),
                         dialogText
                     );
@@ -159,7 +159,7 @@ include './header.php';
                         typeWriter(
                             storyLines[storyLineIndex][0].replaceAll(
                                 "<name>",
-                                "<?php echo $_SESSION['username'] ?>"
+                                "<?php echo $_SESSION['firstname'] ?>"
                             ),
                             dialogText
                         );
@@ -170,7 +170,7 @@ include './header.php';
                         typeWriter(
                             storyLines[storyLineIndex][1].replaceAll(
                                 "<name>",
-                                "<?php echo $_SESSION['username'] ?>"
+                                "<?php echo $_SESSION['firstname'] ?>"
                             ),
                             dialogText
                         );
@@ -179,7 +179,7 @@ include './header.php';
                         typeWriter(
                             storyLines[storyLineIndex].replaceAll(
                                 "<name>",
-                                "<?php echo $_SESSION['username'] ?>"
+                                "<?php echo $_SESSION['firstname'] ?>"
                             ),
                             dialogText
                         );
@@ -248,7 +248,7 @@ include './header.php';
                 typeWriter(
                     storyLines[Object.keys(storyLines).length - 1][0].replaceAll(
                         "<name>",
-                        "<?php echo $_SESSION['username'] ?>"
+                        "<?php echo $_SESSION['firstname'] ?>"
                     ),
                     dialogText
                 );

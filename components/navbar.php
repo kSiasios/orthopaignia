@@ -14,13 +14,15 @@ if (!file("variables.env")) {
     <!-- <a href="/sostografia/"><i class="fi fi-rr-arrow-small-left"></i></a> -->
     <ul class="closed">
         <li class="nav-link"><a href="<?php echo $baseURL ?>/">ΑΡΧΙΚΗ</a></li>
-        <li class="nav-link"><a href="<?php echo $baseURL ?>/routes/category.php">ΚΑΝΟΝΕΣ</a></li>
-        <li class="nav-link"><a href="<?php echo $baseURL ?>/routes/grades.php">ΒΑΘΜΟΛΟΓΙΑ</a></li>
-        <li class="nav-link"><a href="<?php echo $baseURL ?>/routes/account.php">ΛΟΓΑΡΙΑΣΜΟΣ</a></li>
         <?php
         if (isset($_SESSION["isAdmin"])) {
-            echo '<li class="nav-link"><a href="' . $baseURL . '/routes/admin_panel.php">ΔΙΑΧΕΙΡΗΣΗ</a></li>';
-        }
+            echo
+            '<li class="nav-link"><a href="' . $baseURL . '/routes/grades.php">ΒΑΘΜΟΛΟΓΙΑ</a></li>
+            <li class="nav-link"><a href="' . $baseURL . '/routes/category.php">ΚΑΝΟΝΕΣ</a></li>
+            <li class="nav-link"><a href="' . $baseURL . '/routes/admin_panel.php">ΔΙΑΧΕΙΡΗΣΗ</a></li>';
+        } ?>
+        <li class="nav-link"><a href="<?php echo $baseURL ?>/routes/account.php">ΛΟΓΑΡΙΑΣΜΟΣ</a></li>
+        <?php
         if (isset($_SESSION["logged"])) {
             echo '<li class="nav-link"><a href="#" onclick="logoutHandler()">ΑΠΟΣΥΝΔΕΣΗ</a></li>';
         }

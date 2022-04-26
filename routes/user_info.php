@@ -22,7 +22,6 @@ if (!isset($_GET['user']) || $_GET['user'] == "") {
 ?>
 
 <body>
-    <!-- <script src="<?php echo $baseURL ?>/js/fetchAdminData.js"></script> -->
     <?php include '../components/navbar.php'; ?>
     <div class="page-content">
 
@@ -46,8 +45,25 @@ if (!isset($_GET['user']) || $_GET['user'] == "") {
         }).then((res) => {
             return res.text();
         }).then((text) => {
-            document.querySelector(".page-content").innerHTML = text;
-            // console.log(text);
+            if (text.includes("error")) {
+                const error = text.split("=")[1];
+                switch (error) {
+                    case "none":
+                        window.location = `/${baseURL}`;
+                        break;
+                    case "noUsersFound":
+                        sweetAlertError({
+                            text: "Δεν βρέθηκε ο συγκεκριμένος χρήστης.",
+                            redirect: `/${baseURL}/routes/admin_panel.php`
+                        })
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                const jsonResponse = JSON.parse(text);
+                document.querySelector(".page-content").innerHTML = `${jsonResponse.firstName} ${jsonResponse.lastName} - ${jsonResponse.email}`;
+            }
         }).catch((error) => {
             console.error(`${error}`);
         });

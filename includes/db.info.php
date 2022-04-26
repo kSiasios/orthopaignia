@@ -3,7 +3,7 @@
 $serverName = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
-$dbName = "sostografia";
+$dbName = "orthopaignia_demo";
 
 $conn = mysqli_connect($serverName, $dbUsername, $dbPassword, $dbName);
 

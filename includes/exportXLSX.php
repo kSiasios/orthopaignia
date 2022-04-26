@@ -7,6 +7,7 @@ if (!isset($_SESSION['logged']) && !isset($_SESSION['isAdmin'])) {
     exit();
 }
 require_once "db.info.php";
+require_once "functions.php";
 
 function filterData(&$str)
 {
@@ -17,9 +18,9 @@ function filterData(&$str)
     }
 }
 
-$filename = "data_" . date('d-m-Y') . ".xls";
+$filename = "orthopaignia_data_" . date('d-m-Y') . ".xls";
 
-$fields = array("ID", "First Name", "Last Name", "Email", "Username");
+$fields = array("ID", "Όνομα", "Επώνυμο", "Email", "Όνομα Χρήστη", "Εκπαίδευση");
 
 $excelData = implode("\t", array_values($fields)) . "\n";
 
@@ -35,7 +36,7 @@ mysqli_stmt_execute($stmt);
 
 $resultData = mysqli_stmt_get_result($stmt);
 while ($row = mysqli_fetch_assoc($resultData)) {
-    $lineData = array($row["userID"], $row["userFirstName"], $row["userLastName"], $row["userEmail"], $row["userUsername"]);
+    $lineData = array($row["userID"], decrypt($row["userFirstName"]), decrypt($row["userLastName"]), decrypt($row["userEmail"]), decrypt($row["userUsername"]), convertEducationToReadable($row["userEducation"]));
     array_walk($lineData, 'filterData');
     $excelData .= implode("\t", array_values($lineData)) . "\n";
 }

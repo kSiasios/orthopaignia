@@ -99,6 +99,11 @@ include './header.php';
                                     <option value="other">Δευτεροβάθμια εκπαίδευση</option>
                                 </select>
                             </div>
+                            <!-- <div class="input-container">
+                                <label for="favourite-color"><i class="fi fi-br-fill"></i></label>
+                                <label class="custom-label" for="favourite-color">Αγαπημένο Χρώμα</label>
+                                <input type="color" name="favourite-color" id="favourite-color-input register" value="#ffffff" />
+                            </div> -->
                         </div>
                     </div>
                     <div class="form-submit">
@@ -111,9 +116,9 @@ include './header.php';
             </div>
 
             <div class="form-extras">
-                <div class="forgot-password">
+                <!-- <div class="forgot-password">
                     <p>Ξεχάσατε τον κωδικό σας; <a href="">Πατήστε εδώ</a></p>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -122,9 +127,12 @@ include './header.php';
         let registerForm = document.querySelector(".form-inputs.register");
         let loginForm = document.querySelector(".form-inputs.login");
 
+        // const colorPicker = document.querySelector("input[type='color']");
+        // let favouriteColor = "default";
+
         registerForm.addEventListener(
             "submit",
-            function(event) {
+            (event) => {
                 event.preventDefault();
                 submitRegister();
             },
@@ -133,7 +141,7 @@ include './header.php';
 
         loginForm.addEventListener(
             "submit",
-            function(event) {
+            (event) => {
                 event.preventDefault();
                 submitLogin();
             },
@@ -174,6 +182,10 @@ include './header.php';
                 registerLink.classList.add("active");
             }
         }
+
+        // colorPicker.addEventListener("change", () => {
+        //     favouriteColor = colorPicker.value;
+        // })
     </script>
     <script src="js/formHandler.js"></script>
 </body>

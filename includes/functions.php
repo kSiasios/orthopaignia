@@ -1,21 +1,11 @@
 <?php
-function emptyInputRegister($username, $email, $password)
+function emptyInputRegister($username, $email, $password, $studentName, $studentLastName, $studentGrade)
 {
-    if (empty($username) || empty($email) || empty($password))
+    if (empty($username) || empty($email) || empty($password) || empty($studentName) || empty($studentLastName) || empty($studentGrade))
         $result = true;
     else
         $result = false;
     return $result;
-}
-
-function emptyInputs(array $inputs)
-{
-    foreach ($inputs as $input) {
-        if (empty($input)) {
-            return true;
-        }
-    }
-    return false;
 }
 
 function invalidUID($username)
@@ -38,29 +28,41 @@ function invalidEmail($email)
 
 function uidExists($conn, $uid, $uemail)
 {
-    $sql = "SELECT * FROM users WHERE userUsername = ? OR userEmail = ?;";
+    $sql = "SELECT * FROM users;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../?error=stmtFailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "ss", $uid, $uemail);
+    // mysqli_stmt_bind_param($stmt, "ss", $uid, $uemail);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
-    if ($row = mysqli_fetch_assoc($resultData)) {
-        return $row;
-    } else {
-        $result = false;
-        return $result;
+    // if ($row = mysqli_fetch_assoc($resultData)) {
+    //     return $row;
+    // } else {
+    //     $result = false;
+    //     return $result;
+    // }
+
+    // $foundData = false;
+    // $resultData = selectFrom($conn, "users");
+    while ($row = mysqli_fetch_assoc($resultData)) {
+        // return $row;
+        if ($uid == decrypt($row["userUsername"]) || $uemail == decrypt(($row["userEmail"]))) {
+            // $foundData = true;
+            return $row;
+            // break;
+        }
     }
 
-    mysqli_stmt_close($stmt);
+    return false;
+    // mysqli_stmt_close($stmt);
 }
 
 function createUser($conn, $email, $username, $password, $studentName, $studentLastname, $studentGrade)
 {
-    $sql = "INSERT INTO users (userEmail, userUsername, userPassword) VALUES (?, ?, ?);";
+    $sql = "INSERT INTO users (userEmail, userUsername, userPassword, userFirstName, userLastName, userEducation) VALUES (?, ?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         echo ("error=stmtFailed");
@@ -74,9 +76,9 @@ function createUser($conn, $email, $username, $password, $studentName, $studentL
     $encryptedUsername = encrypt($username);
     $encryptedStudentName = encrypt($studentName);
     $encryptedStudentLastName = encrypt($studentLastname);
-    $encryptedStudentGrade = encrypt($studentGrade);
+    // $encryptedStudentGrade = encrypt($studentGrade);
 
-    mysqli_stmt_bind_param($stmt, "sss", $email, $username, $hash);
+    mysqli_stmt_bind_param($stmt, "ssssss", $encryptedEmail, $encryptedUsername, $hash, $encryptedStudentName, $encryptedStudentLastName, $studentGrade);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -89,6 +91,37 @@ function createUser($conn, $email, $username, $password, $studentName, $studentL
     echo ("error=none");
     exit();
 }
+// function createUser($conn, $email, $username, $password, $studentName, $studentLastname, $studentGrade)
+// {
+//     $sql = "INSERT INTO users (userEmail, userUsername, userPassword) VALUES (?, ?, ?);";
+//     $stmt = mysqli_stmt_init($conn);
+//     if (!mysqli_stmt_prepare($stmt, $sql)) {
+//         echo ("error=stmtFailed");
+//         exit();
+//     }
+
+//     // HASH PASSWORD
+//     $hash = password_hash($password, PASSWORD_DEFAULT);
+//     // ENCRYPT DATA
+//     $encryptedEmail = encrypt($email);
+//     $encryptedUsername = encrypt($username);
+//     $encryptedStudentName = encrypt($studentName);
+//     $encryptedStudentLastName = encrypt($studentLastname);
+//     $encryptedStudentGrade = encrypt($studentGrade);
+
+//     mysqli_stmt_bind_param($stmt, "sss", $email, $username, $hash);
+//     mysqli_stmt_execute($stmt);
+//     mysqli_stmt_close($stmt);
+
+//     if ($row = uidExists($conn, $username, $username)) {
+//         // USER EXISTS => CHECK PASSWORD
+//         // logUserIn();
+//         logUserIn($conn, $password, $row["userPassword"]);
+//     }
+
+//     echo ("error=none");
+//     exit();
+// }
 
 function logUserIn($conn, $pwd, $pwdHash)
 {
@@ -96,14 +129,41 @@ function logUserIn($conn, $pwd, $pwdHash)
         session_start();
         $_SESSION['logged'] = time();
 
-        // CHECK IF USER IS ADMIN
-        $sql = "SELECT * FROM administrators WHERE (SELECT userID FROM users WHERE userUsername = ? OR userEmail = ?) = administrators.userID;";
+        // GET USER ID
+        $sql = "SELECT * FROM users;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             echo ("error=adminFetchFailed");
             exit();
         }
-        mysqli_stmt_bind_param($stmt, "ss", $_POST['username'], $_POST['username']);
+        // mysqli_stmt_bind_param($stmt, "ss", $_POST['username'], $_POST['username']);
+        mysqli_stmt_execute($stmt);
+
+        $userID = -1;
+        $resultData = mysqli_stmt_get_result($stmt);
+        while ($row = mysqli_fetch_assoc($resultData)) {
+            if (decrypt($row["userUsername"]) == $_POST['username'] || decrypt($row["userEmail"]) == $_POST['username']) {
+
+                $userID = $row["userID"];
+                $_SESSION['username'] = decrypt($row['userUsername']);
+                $_SESSION['firstname'] = decrypt($row['userFirstName']);
+                $_SESSION['lastname'] = decrypt($row['userLastName']);
+            }
+        }
+
+        if ($userID == -1) {
+            echo "error=userNotFound";
+            exit();
+        }
+
+        // CHECK IF USER IS ADMIN
+        $sql = "SELECT * FROM administrators WHERE administrators.userID = ?;";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            echo ("error=adminFetchFailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "i", $userID);
         mysqli_stmt_execute($stmt);
 
         $resultData = mysqli_stmt_get_result($stmt);
@@ -111,28 +171,27 @@ function logUserIn($conn, $pwd, $pwdHash)
             $_SESSION['isAdmin'] = true;
         }
 
-        // GET USER'S USERNAME (MIGHT HAVE LOGGED IN USING EMAIL)
-        // CHECK IF USER IS ADMIN
-        $sql = "SELECT userUsername, userFirstName, userLastName FROM users WHERE userUsername = ? OR userEmail = ?;";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            echo ("error=userFetchFailed");
-            exit();
-        }
-        mysqli_stmt_bind_param($stmt, "ss", $_POST['username'], $_POST['username']);
-        mysqli_stmt_execute($stmt);
+        // // GET USER'S USERNAME (MIGHT HAVE LOGGED IN USING EMAIL)
+        // $sql = "SELECT userUsername, userFirstName, userLastName FROM users WHERE userUsername = ? OR userEmail = ?;";
+        // $stmt = mysqli_stmt_init($conn);
+        // if (!mysqli_stmt_prepare($stmt, $sql)) {
+        //     echo ("error=userFetchFailed");
+        //     exit();
+        // }
+        // mysqli_stmt_bind_param($stmt, "ss", $_POST['username'], $_POST['username']);
+        // mysqli_stmt_execute($stmt);
 
-        $resultData = mysqli_stmt_get_result($stmt);
-        if ($row = mysqli_fetch_assoc($resultData)) {
-            // if ($row["userFirstName"] === "")
-            //     $_SESSION['username'] = $row['userUsername'];
-            // else
-            //     $_SESSION['username'] = $row['userFirstName'];
+        // $resultData = mysqli_stmt_get_result($stmt);
+        // if ($row = mysqli_fetch_assoc($resultData)) {
+        //     // if ($row["userFirstName"] === "")
+        //     //     $_SESSION['username'] = $row['userUsername'];
+        //     // else
+        //     //     $_SESSION['username'] = $row['userFirstName'];
 
-            $_SESSION['username'] = $row['userUsername'];
-            $_SESSION['firstname'] = $row['userFirstName'];
-            $_SESSION['lastname'] = $row['userLastName'];
-        }
+        //     $_SESSION['username'] = decrypt($row['userUsername']);
+        //     $_SESSION['firstname'] = decrypt($row['userFirstName']);
+        //     $_SESSION['lastname'] = decrypt($row['userLastName']);
+        // }
 
         // print_r($_SESSION);
         // echo ("error=none");
@@ -275,8 +334,9 @@ function randomChars($num)
 //     return $final_message;
 // }
 
-$key = randomChars(256);
-echo "<script>console.log('key: $key')</script>";
+// $key = randomChars(256);
+$key = "OrthopaigniaSecureKeyForEncryptionDecryption";
+// echo "<script>console.log('key: $key')</script>";
 
 function encrypt($message)
 {
@@ -317,7 +377,7 @@ function decrypt($message)
 
 function getUserID($conn, $credential)
 {
-    $sql = "SELECT userID FROM users WHERE userUsername = ? OR userEmail = ?;";
+    $sql = "SELECT * FROM users;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         echo ("error=adminFetchFailed");
@@ -326,16 +386,19 @@ function getUserID($conn, $credential)
     mysqli_stmt_bind_param($stmt, "ii", $credential, $credential);
     mysqli_stmt_execute($stmt);
     $resultData = mysqli_stmt_get_result($stmt);
-    if ($row = mysqli_fetch_assoc($resultData)) {
+    while ($row = mysqli_fetch_assoc($resultData)) {
         // if ($row["userFirstName"] === "")
         //     $_SESSION['username'] = $row['userUsername'];
         // else
         //     $_SESSION['username'] = $row['userFirstName'];
+        if ($credential == decrypt($row["userUsername"]) || $credential == decrypt($row["userEmail"])) {
 
-        return $row["userID"];
-    } else {
-        return false;
+            return $row["userID"];
+        }
     }
+    //  else {
+    return false;
+    // }
     mysqli_stmt_close($stmt);
 }
 
@@ -584,3 +647,53 @@ function updateGradePerCategory($conn, $categoryID, $userID)
     mysqli_stmt_execute($stmtUpdate);
     mysqli_stmt_close($stmtGetPrevGrade);
 }
+
+function convertEducationToReadable($level)
+{
+    switch ($level) {
+        case '3':
+            return "Γ' Δημοτικού";
+            break;
+        case '4':
+            return "Δ' Δημοτικού";
+            break;
+        case '5':
+            return "Ε' Δημοτικού";
+            break;
+        case '6':
+            return "ΣΤ' Δημοτικού";
+            break;
+        case 'other':
+            return "Δευτεροβάθμια";
+            break;
+
+        default:
+            return "error";
+            break;
+    }
+}
+
+// function selectFrom($conn, $table)
+// {
+//     $sql = "SELECT * FROM ?;";
+//     $stmt = mysqli_stmt_init($conn);
+//     if (!mysqli_stmt_prepare($stmt, $sql)) {
+//         header("location: ../?error=stmtFailed");
+//         exit();
+//     }
+//     mysqli_stmt_bind_param($stmt, "s", $table);
+//     mysqli_stmt_execute($stmt);
+
+//     $resultData = mysqli_stmt_get_result($stmt);
+
+//     return $resultData;
+
+//     // if ($row = mysqli_fetch_assoc($resultData)) {
+//     //     return $row;
+//     // } else {
+//     //     $result = false;
+//     //     return $result;
+//     // }
+
+//     mysqli_stmt_close($stmt);
+// }

@@ -27,3 +27,18 @@
   flex-direction: column;
   gap: var(--gap, 0.5em);
 }
+
+.user-link {
+  width: 100%;
+  padding: 1em;
+  margin-block: 1em;
+  background: var(--primary-clr);
+  border-radius: 0.25em;
+  transition: var(--transition);
+}
+
+.user-link:hover,
+.user-link:focus {
+  background: var(--secondary-clr-dark);
+  color: var(--hover-color);
+}
