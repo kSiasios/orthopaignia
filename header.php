@@ -4,8 +4,6 @@ if (!file("variables.env")) {
 } else {
     $baseURL = file("variables.env")[0];
 }
-// $baseURL
-// echo "<script>console.log($baseURL)</script>";
 ?>
 <!DOCTYPE html>
 <html lang="en">

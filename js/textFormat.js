@@ -1,5 +1,3 @@
-// console.log("Text formatter loaded!");
-
 function filterText(text) {
   let filteredText;
   // SPECIAL TEXT 1

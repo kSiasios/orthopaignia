@@ -9,31 +9,10 @@ include '../header.php';
 
 if (!isset($_SESSION["logged"])) {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: " . $baseURL . "/");
     exit();
 }
 
 require_once "../includes/functions.php";
-
-// $message = $_SESSION['username'];
-// // // $counter = 0;
-// // // for ($i = 0; $i < 90; $i++) {
-// // //     
-// // //     $encryptedMessage = encrypt($message, $alphabet, $letters);
-// // //     $decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
-// // //     if ($decryptedMessage != $message) {
-// // //         
-// // //         $counter++;
-// // //     }
-// // //     // sleep(0.03);
-// // //     sleep(1);
-// // // }
-// // // echo "<script>console.log('Wrong Encryptions / Decryptions: $counter')</script>";
-// $encryptedMessage = encrypt($message);
-// $decryptedMessage = decrypt($encryptedMessage);
-// echo "<script>console.log('Default Message: $message')</script>";
-// echo "<script>console.log('Encrypted Message: $encryptedMessage')</script>";
-// echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
 
 ?>
 
@@ -75,20 +54,9 @@ require_once "../includes/functions.php";
         console.log(counter);
         setInterval(() => {
             counter++;
-            // if (counter % 10 == 0) {
-            //     console.log(counter / 10);
-            // }
         }, 100);
         const quizContainer = document.querySelector(".quiz-container");
         fetchQuestions(ofRule);
-        // console.log(questions);
-
-        // let timer = Date.now();
-        // console.log(timer)
-        // let counter = 0;
-        // setInterval(() => {
-        //     counter++;
-        // }, 1);
 
         function fetchQuestions(ofRule) {
             const searchParams = new URLSearchParams();
@@ -103,7 +71,6 @@ require_once "../includes/functions.php";
             }).then((res) => {
                 return res.text();
             }).then((text) => {
-                // console.log(text);
                 questions = text;
                 populateQuiz(currentQuestionIndex);
 
@@ -115,13 +82,22 @@ require_once "../includes/functions.php";
         function populateQuiz(questionIndex) {
             const questionsJSON = JSON.parse(questions);
             delete questionsJSON["error"];
+
             if (!Object.keys(questionsJSON)[questionIndex]) {
-                // console.log("END!");
                 quizContainer.innerHTML = "";
                 let scoreElement = document.createElement("h2");
                 scoreElement.innerText = `Το σκορ σου: ${score}`;
                 quizContainer.appendChild(scoreElement);
                 setQuestionGrades(questionResults);
+
+                // If score is equal to the amount of questions fetched,
+                // The player have answered all the questions correctly
+                // Move on to the next quiz
+                if (score == Object.keys(questionsJSON).length) {
+                    sessionStorage.setItem("quizIndex", parseInt(sessionStorage.getItem("quizIndex")) + 1);
+                }
+                // Else, redirect to the corresponding rules
+
                 return;
             }
 
@@ -129,7 +105,6 @@ require_once "../includes/functions.php";
 
 
             let wantedKey = Object.keys(questionsJSON)[questionIndex];
-            // console.log(`WantedKey: ${wantedKey}, Question Index: ${questionIndex}`);
 
             const element = questionsJSON[wantedKey];
 
@@ -151,8 +126,6 @@ require_once "../includes/functions.php";
             for (const elementKey in element) {
                 if (Object.hasOwnProperty.call(element, elementKey)) {
                     const childElement = element[elementKey];
-                    // console.log(elementKey !== "text");
-                    // console.log(`Key: ${elementKey}, Value: ${childElement}`);
                     if (elementKey !== "text") {
                         const question = [];
                         question.push(elementKey, childElement);
@@ -170,7 +143,6 @@ require_once "../includes/functions.php";
                 answer.setAttribute("href", "#");
                 answer.setAttribute("id", index);
                 answer.addEventListener("click", (e) => {
-                    // console.log(`ID: ${answer.getAttribute("id")}`);
                     answerQuestion(wantedKey, elem[1]);
                 })
                 answer.innerText = elem[1];
@@ -185,24 +157,15 @@ require_once "../includes/functions.php";
 
         function answerQuestion(questionIndex, answerText) {
             const questionsJSON = JSON.parse(questions);
-            // delete questionsJSON["error"];
 
-            // console.log(`Question ID: ${questionIndex} => Answer: ${answerText}`);
-            // console.log(questionsJSON[questionIndex]);
             const result = [];
             let rightAnswer = questionsJSON[questionIndex]["answer-0"];
-            // console.log(rightAnswer);
-            // let needle = haystack;
-            // console.log(`Needle: ${needle["answer-0"]}`);
-            // console.log(needle['answer-0']);
             result.push(questionsJSON[questionIndex]["text"]);
             if (rightAnswer === answerText) {
-                // console.log("FOUND IT!");
                 score++;
 
                 result.push(1);
             } else {
-                // console.log("NOPE :(");
                 result.push(0);
             }
 
@@ -225,7 +188,6 @@ require_once "../includes/functions.php";
                 method: "POST",
                 body: searchParams
             }).then((res) => {
-                // console.log(text);
                 return res.text();
             }).then((text) => {
                 const error = JSON.parse(text).error;

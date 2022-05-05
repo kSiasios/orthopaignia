@@ -25,5 +25,3 @@ while ($row = mysqli_fetch_assoc($resultData)) {
 
 echo $returnTxt;
 exit();
-
-// return [];

@@ -115,7 +115,6 @@ include '../header.php';
         let form = document.querySelector("form");
         let formButtons = document.querySelector(".form-buttons");
         let selectCategory = document.querySelector("#rule-category");
-        // let submitFormBtn = document.querySelector(".form-buttons").lastElementChild;
         let exportedHTML;
 
         function addSectionInput() {
@@ -150,14 +149,12 @@ include '../header.php';
             labelElement1.setAttribute("for", `rule-section-${formSectionCount + 1}-text`);
             labelElement1.innerText = "Κείμενο Τμήματος";
             inputElement1.setAttribute("name", `rule-section-${formSectionCount + 1}-text`);
-            // inputElement1.setAttribute("type", "text");
             inputElement1.setAttribute("key", `${formSectionCount + 1}`);
             inputElement1.classList.add("rule-section-text");
 
             labelElement2.setAttribute("for", `rule-section-${formSectionCount + 1}-example`);
             labelElement2.innerText = "Παράδειγμα Τμήματος";
             inputElement2.setAttribute("name", `rule-section-${formSectionCount + 1}-example`);
-            // inputElement2.setAttribute("type", "text");
             inputElement2.setAttribute("key", `${formSectionCount + 1}`);
             inputElement2.classList.add("rule-section-example");
 
@@ -179,37 +176,7 @@ include '../header.php';
         }
 
         function submitForm() {
-            // const ruleName = document.querySelector("#rule-name").value;
-            // const ruleCategory = selectCategory.value;
-            // const ruleSections = document.querySelectorAll(".rule-form-section");
-
-            // const ruleSectionText = [];
-            // const ruleSectionExample = [];
-
-            // const searchParams = new URLSearchParams();
-
-            // searchParams.append("submit", "submit");
-
-            // let textStr = "";
-            // for (const rule of ruleSections) {
-            //     const text = rule.querySelector(".rule-section-text");
-            //     const example = rule.querySelector(".rule-section-example");
-            //     textStr += '<div class="rule"><div class="rule-section">';
-            //     if (text) {
-            //         ruleSectionText.push(filterText(text.value));
-            //         textStr += `<p class="rule-text">${filterText(text.value)}</p>`;
-            //     }
-            //     if (example && example.value != "") {
-            //         ruleSectionExample.push(filterText(example.value));
-            //         textStr += `<div class="rule-example"><p class="rule-example-header">Παράδειγμα</p><p class="example">${filterText(example.value)}</p></div>`;
-            //     }
-            //     textStr += '</div></div>';
-            // }
             const returnedData = getFormData();
-
-            // searchParams.append("rule-name", ruleName);
-            // searchParams.append("rule-category", ruleCategory);
-            // searchParams.append("rule-text", textStr);
             searchParams.append("rule-name", returnedData[0]);
             searchParams.append("rule-category", returnedData[1]);
             searchParams.append("rule-text", returnedData[2]);
@@ -251,10 +218,6 @@ include '../header.php';
             const ruleSectionText = [];
             const ruleSectionExample = [];
 
-            // const searchParams = new URLSearchParams();
-
-            // searchParams.append("submit", "submit");
-
             let textStr = "";
             for (const rule of ruleSections) {
                 const text = rule.querySelector(".rule-section-text");
@@ -278,7 +241,6 @@ include '../header.php';
             return res.text();
         }).then((text) => {
             selectCategory.innerHTML += text;
-            // console.log(text);
         }).catch((error) => {
             console.error(`${error}`);
         });

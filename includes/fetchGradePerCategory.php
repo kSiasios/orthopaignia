@@ -15,7 +15,6 @@ if (!isset($_POST['submit']) || !isset($_POST['user'])) {
     exit();
 }
 
-// $userCredentials = $_POST['user'];
 $userID = getUserID($conn, $_POST['user']);
 
 if (!$userID) {
@@ -44,7 +43,6 @@ while ($row = mysqli_fetch_assoc($resultData)) {
     $stmtGetCatInfo = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmtGetCatInfo, $sqlGetCatInfo)) {
         echo ('{"error": "stmtFailed"}');
-        // header("location: ../?error=stmtFailed");
         exit();
     }
     mysqli_stmt_bind_param($stmtGetCatInfo, "i", $row["categoryID"]);
@@ -52,7 +50,6 @@ while ($row = mysqli_fetch_assoc($resultData)) {
 
     $resultInfoData = mysqli_stmt_get_result($stmtGetCatInfo);
     if ($rowCatInfo = mysqli_fetch_assoc($resultInfoData)) {
-        // return $rowCatInfo;
         $returnData .= '"' . $index . '":{"name":"' . $rowCatInfo["categoryName"] . '","grade":"' . $row["grade"] . '"},';
     }
 

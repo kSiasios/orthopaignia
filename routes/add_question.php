@@ -5,7 +5,6 @@ if (!(isset($_SESSION['logged']) && isset($_SESSION['isAdmin']))) {
     // IF USERS IS NOT LOGGED IN OR
     // IS LOGGED IN AND IS NOT ADMIN,
     // EXIT
-    // header("location: $baseURL/");
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
     exit();
 }
@@ -139,18 +138,25 @@ include '../header.php';
     </div>
     <script src="<?php echo $baseURL ?>/js/textFormat.js"></script>
     <script>
-        let form = document.querySelector("form");
-        let formButtons = document.querySelector(".form-buttons");
-        // let submitFormBtn = document.querySelector(".form-buttons").lastElementChild;
-        // const selectRule = document.querySelector("#question-rule");
+        let formButtons;
         const multipleChoiceForm = document.querySelector("#form-multiple-choice");
         const dragDropForm = document.querySelector("#form-drag-drop");
 
-        function addAnswerInput() {
+        changeQuestionType();
+
+        function addAnswerInput(questionType) {
+            let form;
+            if (questionType == "multiple-choice") {
+                form = multipleChoiceForm;
+                formButtons = multipleChoiceForm.querySelector(".form-buttons");
+            } else {
+                form = dragDropForm;
+                formButtons = dragDropForm.querySelector(".form-buttons");
+            }
             let inputElement = document.createElement("input");
             let labelElement = document.createElement("label");
 
-            let wrongAnswersCount = document.querySelectorAll("#wrong-answer").length;
+            let wrongAnswersCount = form.querySelectorAll("#wrong-answer").length;
 
             inputElement.setAttribute("type", "text");
             inputElement.classList.add("wrong-answer");
@@ -192,13 +198,12 @@ include '../header.php';
         }
 
         function submitForm() {
-            // console.log("Submitting form");
             const questionType = document.querySelector("#choose-question-type").value;
 
-            let questionText; // = document.querySelector(".form-section #question-text").value;
-            let rightAnswer; // = document.querySelector("#right-answer").value;
-            let wrongAnswers; // = document.querySelectorAll(".wrong-answer");
-            let ruleID; // = selectRule.value;
+            let questionText;
+            let rightAnswer;
+            let wrongAnswers;
+            let ruleID;
             const searchParams = new URLSearchParams();
 
             if (questionType === "multiple-choice") {
@@ -220,7 +225,6 @@ include '../header.php';
                 window.alert("Κάποια πεδία είναι κενά!");
                 return;
             }
-            // console.log(questionText, rightAnswer);
             searchParams.append("question-type", questionType);
             searchParams.append("question", questionText);
             searchParams.append("right-answer", rightAnswer);
@@ -231,7 +235,6 @@ include '../header.php';
                 }
                 if (questionType === "multiple-choice") {
                     searchParams.append(`wrong-answer-${i}`, ans.value);
-                    // filterText(document.querySelector("#form-multiple-choice .form-section #right-answer").value)
                 } else {
                     searchParams.append(`wrong-answer-${i}`, `<div draggable="true">${filterText(ans.value)}</div>`);
                 }
@@ -248,17 +251,10 @@ include '../header.php';
                 })
                 .then(function(text) {
                     let error = text.split("=")[1];
-                    // console.log(`Error code: ${error}`);
                     switch (error) {
                         case "none":
                             window.location = `/${baseURL}/routes/admin_panel.php`;
                             break;
-                            //     case "userDoesNotExist":
-                            //         window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
-                            //         break;
-                            //     case "wrongPassword":
-                            //         window.alert("Ο κωδικός που δώσατε είναι λάθος!");
-                            //         break;
                         default:
                             break;
                     }
@@ -289,7 +285,6 @@ include '../header.php';
             })
             .then((text) => {
                 selectRule.innerHTML += text;
-                // console.log(text);
             }).catch((error) => {
                 console.error(`${error}`);
             });

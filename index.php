@@ -166,7 +166,6 @@ include './header.php';
                     } else if (answer === false) {
                         nextDialogBtn.parentElement.style.display = "none";
                         dialogBtns.style.flexDirection = "row";
-                        // nextDialogBtn.remove();
                         typeWriter(
                             storyLines[storyLineIndex][1].replaceAll(
                                 "<name>",

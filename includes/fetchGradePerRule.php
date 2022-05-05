@@ -15,7 +15,6 @@ if (!isset($_POST['submit']) || !isset($_POST['user'])) {
     exit();
 }
 
-// $userCredentials = $_POST['user'];
 $userID = getUserID($conn, $_POST['user']);
 if (!$userID) {
     echo '{"error": "userNotFound"}';

@@ -8,7 +8,6 @@ include '../header.php';
 
 if (!isset($_SESSION["logged"])) {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: " . $baseURL . "/");
     exit();
 }
 
@@ -49,9 +48,7 @@ if (!isset($_SESSION["logged"])) {
         }).then((res) => {
             return res.text();
         }).then((text) => {
-            // console.log(text);
             const responseJSON = JSON.parse(text);
-            // console.log(responseJSON);
             const error = responseJSON.error;
             switch (error) {
                 case "unauthorized":
@@ -60,8 +57,6 @@ if (!isset($_SESSION["logged"])) {
                 default:
                     break;
             }
-            // let categoryGradesContainer = document.createElement("div");
-            // categoryGradesContainer.classList.add("category-grades");
             let categoryGradesContainer = document.querySelector(".category-grades");
             let sectionHeader = document.createElement("h3");
             sectionHeader.innerText = "Κατηγορίες";
@@ -69,7 +64,6 @@ if (!isset($_SESSION["logged"])) {
             for (let index = 0; index < Object.keys(responseJSON).length; index++) {
                 const element = responseJSON[index];
                 if (Object.keys(responseJSON)[index] !== "error") {
-                    // console.log(`${element.name}: ${element.grade}`);
                     let categoryName = document.createElement("p");
                     categoryName.innerText = element.name;
 
@@ -94,13 +88,10 @@ if (!isset($_SESSION["logged"])) {
                     let category = document.createElement("div");
                     category.classList.add("category-grade");
                     category.appendChild(categoryName);
-                    // category.appendChild(categoryGrade);
                     category.appendChild(categoryProgress);
                     categoryGradesContainer.appendChild(category);
                 }
             }
-            // pageContainer.appendChild(categoryGradesContainer);
-            // console.log(error);
         }).catch((err) => {
             console.log(err);
         })
@@ -111,9 +102,7 @@ if (!isset($_SESSION["logged"])) {
         }).then((res) => {
             return res.text();
         }).then((text) => {
-            // console.log(text);
             const responseJSON = JSON.parse(text);
-            // console.log(responseJSON);
             const error = responseJSON.error;
             switch (error) {
                 case "unauthorized":
@@ -123,20 +112,14 @@ if (!isset($_SESSION["logged"])) {
                     break;
             }
             let ruleGradesContainer = document.querySelector(".rule-grades");
-            // let ruleGradesContainer = document.createElement("div");
-            // ruleGradesContainer.classList.add("rule-grades");
             let sectionHeader = document.createElement("h3");
             sectionHeader.innerText = "Κανόνες";
             ruleGradesContainer.appendChild(sectionHeader);
             for (let index = 0; index < Object.keys(responseJSON).length; index++) {
                 const element = responseJSON[index];
                 if (Object.keys(responseJSON)[index] !== "error") {
-                    // console.log(`${element.name}: ${element.grade}`);
                     let ruleName = document.createElement("p");
                     ruleName.innerText = element.name;
-                    // let ruleGrade = document.createElement("p");
-                    // ruleGrade.innerText = element.grade;
-
                     let ruleProgress = document.createElement("div");
                     ruleProgress.classList.add("rule-progress-bar");
                     let ruleGrade = document.createElement("p");
@@ -157,13 +140,10 @@ if (!isset($_SESSION["logged"])) {
                     let rule = document.createElement("div");
                     rule.classList.add("rule-grade");
                     rule.appendChild(ruleName);
-                    // rule.appendChild(ruleGrade);
                     rule.appendChild(ruleProgress);
                     ruleGradesContainer.appendChild(rule);
                 }
             }
-            // pageContainer.appendChild(ruleGradesContainer);
-            // console.log(error);
         }).catch((err) => {
             console.log(err);
         })
@@ -174,9 +154,7 @@ if (!isset($_SESSION["logged"])) {
         }).then((res) => {
             return res.text();
         }).then((text) => {
-            // console.log(text);
             const responseJSON = JSON.parse(text);
-            // console.log(responseJSON);
             const error = responseJSON.error;
             switch (error) {
                 case "unauthorized":
@@ -186,20 +164,14 @@ if (!isset($_SESSION["logged"])) {
                     break;
             }
             let questionGradesContainer = document.querySelector(".question-grades");
-            // let questionGradesContainer = document.createElement("div");
-            // questionGradesContainer.classList.add("question-grades");
             let sectionHeader = document.createElement("h3");
             sectionHeader.innerText = "Ερωτήσεις";
             questionGradesContainer.appendChild(sectionHeader);
             for (let index = 0; index < Object.keys(responseJSON).length; index++) {
                 const element = responseJSON[index];
                 if (Object.keys(responseJSON)[index] !== "error") {
-                    // console.log(`${element.name}: ${element.grade}`);
                     let questionName = document.createElement("p");
                     questionName.innerText = element.name;
-                    // let questionGrade = document.createElement("p");
-                    // questionGrade.innerText = element.grade;
-
                     let questionProgress = document.createElement("div");
                     questionProgress.classList.add("question-progress-bar");
                     let questionGrade = document.createElement("p");
@@ -222,13 +194,10 @@ if (!isset($_SESSION["logged"])) {
                     let question = document.createElement("div");
                     question.classList.add("question-grade");
                     question.appendChild(questionName);
-                    // question.appendChild(questionGrade);
                     question.appendChild(questionProgress);
                     questionGradesContainer.appendChild(question);
                 }
             }
-            // pageContainer.appendChild(questionGradesContainer);
-            // console.log(error);
         }).catch((err) => {
             console.log(err);
         })

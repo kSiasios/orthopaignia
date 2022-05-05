@@ -22,19 +22,11 @@ $resultData = mysqli_stmt_get_result($stmt);
 $returnTxt .= "{";
 $index = 0;
 while ($row = mysqli_fetch_assoc($resultData)) {
-    // $returnTxt .= "{'ruleName': '" . $row['ruleName'] . "', 'ruleID': '" . $row['ruleID'] . "', 'ruleText': '" . str_replace("'", "\"", $row['ruleText']) . "'}, ";
     $returnTxt .= "\"" . $index . "\": {\"ruleName\": \"" . $row['ruleName'] . "\", \"ruleID\": \"" . $row['ruleID'] . "\", \"ruleText\": \"" . str_replace("\"", "'", $row['ruleText']) . "\"}, ";
-    // $returnTxt .= "{ruleName: " . $row['ruleName'] . ", ruleID: " . $row['ruleID'] . ", ruleText: " . str_replace("'", "\"", $row['ruleText']) . "}, ";
-    // $returnTxt .= "{ruleName: " . $row['ruleName'] . ", ruleID: " . $row['ruleID'] . ", ruleText: " . str_replace("'", "\"", $row['ruleText']) . "}, ";
     $index++;
 }
 
-// echo rtrim($returnTxt, ", ");
-// $returnTxt .= rtrim($returnTxt, ", ") . "}";
 $returnTxt = rtrim($returnTxt, ", ") . "}";
-// $returnTxt .= "}";
 
 echo $returnTxt;
 exit();
-
-// return [];

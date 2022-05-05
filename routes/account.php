@@ -9,7 +9,6 @@ include '../header.php';
 
 if (!isset($_SESSION["logged"])) {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: " . $baseURL . "/");
     exit();
 }
 ?>
@@ -73,35 +72,15 @@ if (!isset($_SESSION["logged"])) {
                     confirmButtonText: 'Ναι, σίγουρα',
                     cancelButtonText: "Ακύρωση"
                 })
-                .then(() => {
-                    // fetch(`/${baseURL}/includes/deleteAccount.php`)
-                    //     .then((res) => {
-                    //         return res.text();
-                    //     })
-                    //     .then((text) => {
-                    //         let error = text.split("=")[1];
-
-                    //         if (error === "none")
-                    //             window.location = `/${baseURL}`;
-                    //         console.log(`Server Response: ${text}`);
-                    //     })
-                    //     .catch((err) => {
-                    //         console.error(`An error occured: ${err}`);
-                    //     });
-                });
+                .then(() => {});
         }
 
         function updateUserInfo() {
-            // console.log("updating user info");
             const userInfoData = new FormData(userInfoForm);
 
             const searchParams = new URLSearchParams();
 
             for (const pair of userInfoData) {
-                // if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
-                //     window.alert("Κάποια πεδία είναι κενά!");
-                //     return;
-                // }
                 searchParams.append(pair[0], pair[1]);
             }
 
@@ -118,14 +97,12 @@ if (!isset($_SESSION["logged"])) {
                     let error = text.split("=")[1];
                     switch (error) {
                         case "none":
-                            // console.log("Updated Successfully");
                             location.reload();
                             break;
                         default:
                             console.log("Not Updated");
                             break;
                     }
-                    // console.log(`Response text: ${text}`);
                 })
                 .catch((error) => {
                     console.log(`${error}`);
@@ -163,14 +140,11 @@ if (!isset($_SESSION["logged"])) {
                     let error = text.split("=")[1];
                     switch (error) {
                         case "none":
-                            // location.reload();
                             break;
                         case "userNotFound":
-                            // location.reload();
                             window.alert("Δεν βρέθηκε ο χρήστης!");
                             break;
                         case "wrongPassword":
-                            // location.reload();
                             window.alert("Ο παλιός κωδικός που δώσατε είναι λάθος!");
                             break;
                         default:

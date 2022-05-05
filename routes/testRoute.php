@@ -9,20 +9,10 @@ include '../header.php';
 
 if (!isset($_SESSION["logged"])) {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: " . $baseURL . "/");
     exit();
 }
 
 require_once "../includes/functions.php";
-
-$message = rand(0, 10);
-$encryptedMessage = encrypt($message, $alphabet, $letters);
-$decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
-// $encryptedMessage = encrypt($_SESSION["username"], $alphabet, $letters);
-// $decryptedMessage = decrypt($encryptedMessage, $alphabet, $letters);
-echo "<script>console.log('Default Message: $message')</script>";
-echo "<script>console.log('Encrypted Message: $encryptedMessage')</script>";
-echo "<script>console.log('Decrypted Message: $decryptedMessage')</script>";
 
 ?>
 

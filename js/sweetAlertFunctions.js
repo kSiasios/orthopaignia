@@ -9,11 +9,9 @@ function sweetAlertWarning({
     title: title,
     text: text,
     icon: "warning",
-    // showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: confirmText,
-    // cancelButtonText: cancelText,
   }).then(() => {
     if (redirect != "") {
       window.location = redirect;
@@ -32,11 +30,9 @@ function sweetAlertError({
     title: title,
     text: text,
     icon: "error",
-    // showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: confirmText,
-    // cancelButtonText: cancelText,
   }).then(() => {
     if (redirect != "") {
       window.location = redirect;

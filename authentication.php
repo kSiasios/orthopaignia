@@ -5,14 +5,6 @@ if (isset($_SESSION['logged'])) {
     exit();
 }
 
-// $env_array = getenv();
-// echo "<script>console.log('$env_array')</script>";
-// foreach ($env_array as $key=>$value)
-// {
-//     // echo "$key => $value <br />";
-//     echo "<script>console.log('$key => $value')</script>";
-// }
-
 $title = "Σύνδεση";
 $stylesheets =
     '<link rel="stylesheet" href="css/styles.css">
@@ -21,10 +13,6 @@ include './header.php';
 ?>
 
 <body>
-    <?php
-    //  include 'components\navbar.php'; 
-    // include 'includes/functions.php';
-    ?>
     <div class="page-content">
         <div class="login-form">
             <div class="form-header">
@@ -127,9 +115,6 @@ include './header.php';
         let registerForm = document.querySelector(".form-inputs.register");
         let loginForm = document.querySelector(".form-inputs.login");
 
-        // const colorPicker = document.querySelector("input[type='color']");
-        // let favouriteColor = "default";
-
         registerForm.addEventListener(
             "submit",
             (event) => {
@@ -182,10 +167,6 @@ include './header.php';
                 registerLink.classList.add("active");
             }
         }
-
-        // colorPicker.addEventListener("change", () => {
-        //     favouriteColor = colorPicker.value;
-        // })
     </script>
     <script src="js/formHandler.js"></script>
 </body>

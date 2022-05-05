@@ -9,13 +9,11 @@ include '../header.php';
 
 if (!isset($_SESSION["isAdmin"])) {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: $baseURL/");
     exit();
 }
 
 if (!isset($_GET['user']) || $_GET['user'] == "") {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: $baseURL/");
     exit();
 }
 

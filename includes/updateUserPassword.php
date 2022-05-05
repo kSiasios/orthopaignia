@@ -54,25 +54,6 @@ if (isset($_POST['submit'])) {
     }
 
     mysqli_stmt_close($stmt);
-    // $firstName = $_POST["firstname"];
-    // $lastName = $_POST["lastname"];
-
-    // $sql = "UPDATE users SET userFirstName = ?, userLastName = ? WHERE userUsername = ?";
-
-    // $stmt = mysqli_stmt_init($conn);
-    // if (!mysqli_stmt_prepare($stmt, $sql)) {
-    //     echo ("error=stmtFailed");
-    //     exit();
-    // }
-
-    // mysqli_stmt_bind_param($stmt, "sss", $firstName, $lastName, $_SESSION["username"]);
-
-    // mysqli_stmt_execute($stmt);
-    // mysqli_stmt_close($stmt);
-
-    // $_SESSION["firstname"] = $firstName;
-    // $_SESSION["lastname"] = $lastName;
-
 } else {
     echo ("error=accessDenied");
     exit();

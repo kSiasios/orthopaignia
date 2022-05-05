@@ -9,7 +9,6 @@ include '../header.php';
 
 if (!isset($_SESSION["isAdmin"])) {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: $baseURL/");
     exit();
 }
 ?>
@@ -75,7 +74,6 @@ if (!isset($_SESSION["isAdmin"])) {
         const usersContainer = document.querySelector("#users-data");
 
         function filterAssets() {
-            // console.log(dropdown.value);
             switch (dropdown.value) {
                 case "category":
                     cats.style.display = "block";
@@ -101,7 +99,6 @@ if (!isset($_SESSION["isAdmin"])) {
         }
 
         function deleteRule(index) {
-            // console.log(`DELETING RULE ${index}`);
             const searchParams = new URLSearchParams();
 
             searchParams.append("submit", "submit");
@@ -116,11 +113,9 @@ if (!isset($_SESSION["isAdmin"])) {
                 const error = text.split("=")[1];
                 switch (error) {
                     case "none":
-                        // console.log("Hooray!");
                         location.reload();
                         break;
                     default:
-                        // console.log("Error!?");
                         break;
                 }
             }).catch((error) => {
@@ -144,7 +139,6 @@ if (!isset($_SESSION["isAdmin"])) {
                 const error = text.split("=")[1];
                 switch (error) {
                     case "none":
-                        // console.log("Hooray!");
                         location.reload();
                         break;
                     default:
@@ -156,7 +150,6 @@ if (!isset($_SESSION["isAdmin"])) {
         }
 
         function deleteQuestion(index) {
-            // console.log(`DELETING QUESTION ${index}`);
             const searchParams = new URLSearchParams();
 
             searchParams.append("submit", "submit");
@@ -171,7 +164,6 @@ if (!isset($_SESSION["isAdmin"])) {
                 const error = text.split("=")[1];
                 switch (error) {
                     case "none":
-                        // console.log("Hooray!");
                         location.reload();
                         break;
                     default:
@@ -183,7 +175,6 @@ if (!isset($_SESSION["isAdmin"])) {
         }
 
         function flushDatabase() {
-            // console.log('FLUSHED');
             const searchParams = new URLSearchParams();
             searchParams.append("submit", "submit");
             fetch(`/${baseURL}/includes/flushGrades.php`, {
@@ -197,7 +188,6 @@ if (!isset($_SESSION["isAdmin"])) {
         }
 
         function exportXLSX() {
-            // console.log("XLSX Exporter");
             window.location = `/${baseURL}/includes/exportXLSX.php`;
         }
 
@@ -205,7 +195,6 @@ if (!isset($_SESSION["isAdmin"])) {
             return res.text();
         }).then((text) => {
             catsContainer.innerHTML = text;
-            // console.log(text);
         }).catch((error) => {
             console.error(`${error}`);
         });
@@ -214,7 +203,6 @@ if (!isset($_SESSION["isAdmin"])) {
             return res.text();
         }).then((text) => {
             rulesContainer.innerHTML = text;
-            // console.log(text);
         }).catch((error) => {
             console.error(`${error}`);
         });
@@ -223,7 +211,6 @@ if (!isset($_SESSION["isAdmin"])) {
             return res.text();
         }).then((text) => {
             quesContainer.innerHTML = text;
-            // console.log(text);
         }).catch((error) => {
             console.error(`${error}`);
         });
@@ -231,11 +218,8 @@ if (!isset($_SESSION["isAdmin"])) {
         fetch(`/${baseURL}/includes/fetchUsersDataForAdmin.php`).then((res) => {
             return res.text();
         }).then((text) => {
-            // usersContainer.innerHTML = text;
             const jsonArray = JSON.parse(text);
             jsonArray.forEach(element => {
-                // console.log(element.firstName);
-                // usersContainer.innerHTML += element.firstName
                 // CREATE LINK FOR THE USER
                 const userLink = document.createElement("a");
                 userLink.setAttribute("href", `/${baseURL}/routes/user_info.php?user=${element.ID}`);
@@ -244,7 +228,6 @@ if (!isset($_SESSION["isAdmin"])) {
 
                 usersContainer.appendChild(userLink);
             });
-            // console.log(text);
         }).catch((error) => {
             console.error(`${error}`);
         });

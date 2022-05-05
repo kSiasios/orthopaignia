@@ -1,7 +1,6 @@
 <?php
 
 if (isset($_POST['submit'])) {
-    // echo ("Username: " . $_POST["username"]);
     $categoryText = $_POST["category-text"];
 
     require_once "db.info.php";

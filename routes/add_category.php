@@ -87,7 +87,6 @@ include '../header.php';
                             window.alert(`Υπήρξε ένα ασυνήθιστο λάθος: ${error}`);
                             break;
                     }
-                    // console.log(`Response Text: ${text}`);
                 })
                 .catch(function(error) {
                     console.log(error);

@@ -33,12 +33,12 @@
     box-shadow: 0 1em 1em -1em var(--underline);
 }
 
-.empty {
+/* .empty {
     background: var(--secondary-clr);
     border-radius: 0.25em;
     width: 5em;
     height: 2.5em;
-}
+} */
 
 .hold {
     /* background: var(--secondary-clr-dark); */

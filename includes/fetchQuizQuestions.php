@@ -12,7 +12,6 @@ if (!isset($_POST["submit"])) {
     exit();
 }
 
-// echo "HERE 1<br/>";
 
 require_once "db.info.php";
 
@@ -60,7 +59,8 @@ if (isset($_POST["ruleID"])) {
     }
 
     $returnData .= '}';
-} else {    // FETCH ALL QUESTIONS
+} else {
+    // FETCH ALL QUESTIONS
     $sql = "SELECT * FROM questions;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {

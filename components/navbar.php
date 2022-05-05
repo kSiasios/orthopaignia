@@ -4,8 +4,6 @@ if (!file("variables.env")) {
 } else {
     $baseURL = file("variables.env")[0];
 }
-// echo "<script>console.log('Base URL:" . str_replace("\n", "", $baseURL) . "')</script>";
-// echo $baseURL;
 
 ?>
 
@@ -26,9 +24,6 @@ if (!file("variables.env")) {
         if (isset($_SESSION["logged"])) {
             echo '<li class="nav-link"><a href="#" onclick="logoutHandler()">ΑΠΟΣΥΝΔΕΣΗ</a></li>';
         }
-        //  else {
-        //     echo '<li class="nav-link"><a href="/sostografia/">ΣΥΝΔΕΣΗ</a></li>';
-        // }
         ?>
     </ul>
     <a href="#" class="hamburger closed"><i class="fi fi-rr-menu-burger"></i></a>
@@ -36,25 +31,19 @@ if (!file("variables.env")) {
 
 
 <script>
-    // console.log(window.location.pathname);
-
     let links = document.querySelectorAll("nav ul li");
 
     switch (window.location.pathname) {
         case `${baseURL}/`:
-            // console.log("HOME PAGE");
             links[0].classList.add("active");
             break;
         case `${baseURL}/index.php`:
-            // console.log("HOME PAGE");
             links[0].classList.add("active");
             break;
         case `${baseURL}/routes/category.php`:
-            // console.log("HOME PAGE");
             links[1].classList.add("active");
             break;
         case `${baseURL}/routes/account.php`:
-            // console.log("HOME PAGE");
             links[3].classList.add("active");
             break;
         default:
@@ -65,7 +54,6 @@ if (!file("variables.env")) {
     const navUl = document.querySelector("nav").querySelector("ul");
     const closeIcon = '<i class="fi fi-rr-cross"></i>';
     const openIcon = '<i class="fi fi-rr-menu-burger"></i>';
-    // console.log(hamburgerBtn);
     hamburgerBtn.addEventListener("click", (e) => {
         hamburger();
     });

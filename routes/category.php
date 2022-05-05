@@ -8,7 +8,6 @@ $stylesheets =
 include '../header.php';
 if (!isset($_SESSION["logged"])) {
     echo "<script>window.location = '" . str_replace("\n", "", $baseURL) . "'</script>";
-    // header("location: " . $baseURL . "/");
     exit();
 }
 ?>
@@ -66,7 +65,6 @@ if (!isset($_SESSION["logged"])) {
         </div>
     </div>
     <script>
-        // let ruleHeader = document.querySelector(".rule-header").querySelector("p");
         const ruleBody = document.querySelector(".rule-body");
         const buttons = document.querySelector(".buttons-container");
         let rulesObj;
@@ -75,37 +73,9 @@ if (!isset($_SESSION["logged"])) {
         fetch(`/${baseURL}/includes/fetchRulesHTML.php`).then((res) => {
             return res.text();
         }).then((text) => {
-            // console.log(`|${text}|`);
             const jsonObj = JSON.parse(text);
-            // console.log(jsonObj);
             rulesObj = jsonObj;
-            // for (const element in jsonObj) {
-            //     console.log(`${element.ruleID}: ${element.ruleName}`);
-            // }
-
-            // for (const element of jsonObj) {
-            //     console.log(`${element.ruleID}: ${element.ruleName}`);
-            // }
-            // for (let index = 0; index < Object.keys(jsonObj).length; index++) {
-            //     const element = jsonObj[index];
-            //     // console.log("LOLO");
-            //     // console.log(ruleHeader.innerText);
-            //     // console.log(element);
-            //     // console.log(index);
-            //     // // console.log(`${element.ruleID}: ${element.ruleName}`);
-            //     // // ruleHeader.innerText = element.ruleName;
-            //     // buttons.remove();
-            //     // ruleBody.innerHTML += element.ruleText;
-            //     // let ruleHeader = document.querySelector(".rule-header").querySelector("p");
-            //     // ruleHeader.innerText = element.ruleName;
-
-            //     // ruleBody.appendChild(buttons);
-            //     updateRule(0);
-            // }
             updateRule(ruleIndex);
-            // for (const element of jsonObj) {
-            //     console.log(`${element.ruleID}: ${element.ruleName}`);
-            // }
         }).catch((error) => {
             console.log(error);
         });

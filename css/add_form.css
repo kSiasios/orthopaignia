@@ -53,6 +53,19 @@ form {
   border-radius: 1em;
 }
 
+.format-helper tr {
+  margin-block: 0.5em;
+}
+
+.format-helper tr td:first {
+  /* width: 80px; */
+  text-align: end;
+}
+
+.format-helper tr td:last-child {
+  width: 80px;
+}
+
 .section-header {
   width: 100%;
   display: inline-flex;

@@ -16,6 +16,7 @@ html {
   --underline: rgba(0, 0, 0, 0.5);
   --hover-bg: rgba(0, 0, 0, 0.25);
   --hover-color: white;
+  --special-text-color: white;
 
   --btn-clr: white;
 
@@ -368,59 +369,79 @@ h2 {
   padding: 0.3em;
   border-radius: 0.25em;
   line-height: 1.8;
-  color: var(--hover-color);
+  color: var(--special-text-color);
   text-shadow: 1px 1px black;
   min-width: 75px;
   min-height: 40px;
+
+  text-shadow: none;
+  font-weight: 700;
+
+  /* text-shadow: 
+  0px 1px var(--special-text-color),
+  0px -1px var(--special-text-color),
+  -1px 0px var(--special-text-color),
+  1px 0px var(--special-text-color); */
+
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15);
 }
 
 .special-text-0 {
-  color: var(--text-clr);
+  --special-text-color: white;
   /* background: #69b1f5; */
   /* color: var(--hover-color); */
   text-shadow: none;
 }
 
 .special-text-1 {
-  /* color: #69b1f5; */
-  background: #69b1f5;
+  --special-text-color: #69b1f5;
+  /* background: #69b1f5; */
   /* color: var(--hover-color); */
 }
 .special-text-2 {
   /* color: #5cbf7d; */
-  background: #5cbf7d;
+  /* background: #5cbf7d; */
+  --special-text-color: #5cbf7d;
 }
 .special-text-3 {
   /* color: #ffd730; */
-  background: #ffd730;
+  /* background: #ffd730; */
+  --special-text-color: #ffd730;
 }
 .special-text-4 {
   /* color: #ff9643; */
-  background: #ff9643;
+  /* background: #ff9643; */
+  --special-text-color: #ff9643;
 }
 .special-text-5 {
   /* color: #ff2a00; */
-  background: #ff2a00;
+  /* background: #ff2a00; */
+  --special-text-color: #ff2a00;
 }
 .special-text-6 {
   /* color: #ae00ff; */
-  background: #ae00ff;
+  /* background: #ae00ff; */
+  --special-text-color: #ae00ff;
 }
 .special-text-7 {
   /* color: #0c00b0; */
-  background: #0c00b0;
+  /* background: #0c00b0; */
+  --special-text-color: #0c00b0;
 }
 .special-text-8 {
   /* color: #bf5e34; */
-  background: #bf5e34;
+  /* background: #bf5e34; */
+  --special-text-color: #bf5e34;
 }
 .special-text-9 {
   /* color: #ff6ceb; */
-  background: #ff6ceb;
+  /* background: #ff6ceb; */
+  --special-text-color: #ff6ceb;
 }
 .special-text-10 {
   /* color: #27b8b0; */
-  background: #27b8b0;
+  /* background: #27b8b0; */
+  --special-text-color: #27b8b0;
 }
 
 tr {
@@ -473,7 +494,7 @@ input:disabled {
 }
 
 .empty {
-  background: var(--secondary-clr);
+  background: #eee;
   border-radius: 0.25em;
   width: 5em;
   height: 2.5em;

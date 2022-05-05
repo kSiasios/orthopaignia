@@ -3,7 +3,6 @@
 session_start();
 
 if (!isset($_SESSION['logged']) && !isset($_SESSION['isAdmin'])) {
-    // header("location: " . $baseURL);
     echo "error=unauthorized";
     exit();
 }
@@ -12,7 +11,6 @@ require_once "db.info.php";
 
 
 if (!isset($_POST['submit']) || !isset($_POST['questionID'])) {
-    // header("location: " . $baseURL);
     echo "error=notEnoughVariables";
     exit();
 }
