@@ -9,7 +9,7 @@ if (!isset($_SESSION['logged']) && !isset($_SESSION['isAdmin'])) {
 
 require_once "db.info.php";
 
-$sql = "SELECT * FROM rule;";
+$sql = "SELECT * FROM rules;";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
     echo ("error=stmtFailed");
@@ -19,9 +19,13 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 mysqli_stmt_execute($stmt);
 
 $resultData = mysqli_stmt_get_result($stmt);
+$returnData = array();
 while ($row = mysqli_fetch_assoc($resultData)) {
-    $returnTxt = $returnTxt . "<div class='rule'><p class='rule-name'>" . $row['ruleName'] . "</p><button class='red' onclick='deleteRule(" . $row['ruleID'] . ")'>Διαγραφή</button></div>";
+    // $returnTxt = $returnTxt . "<div class='rule'><p class='rule-name'>" . $row['ruleName'] . "</p><button class='red' onclick='deleteRule(" . $row['ruleID'] . ")'>Διαγραφή</button></div>";
+    array_push($returnData, $row);
 }
 
-echo $returnTxt;
+$jsonData = json_encode($returnData);
+
+echo $jsonData;
 exit();

@@ -22,7 +22,6 @@ if (isset($_POST['submit'])) {
     // CREATE QUESTION
     // GET QUESTION ID
     $sqlCreateQuestion = "INSERT INTO questions(questionText, ruleID) VALUES (?, ?);";
-    //   SELECT * FROM questions WHERE questionText = ?;";
     $stmtCreateQuestion = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmtCreateQuestion, $sqlCreateQuestion)) {
@@ -58,7 +57,6 @@ if (isset($_POST['submit'])) {
     // CREATE RIGHT ANSWER
     // GET THE ID OF THE RIGHT ANSWER
     $sqlCreateRightAnswer = "INSERT INTO answers(answerText, questionID) VALUES (?, ?);";
-    // SELECT answerID FROM answers WHERE answerText = ?;";
     $stmtCreateRightAnswer = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmtCreateRightAnswer, $sqlCreateRightAnswer)) {
         echo ("error=stmtFailed");
@@ -78,7 +76,6 @@ if (isset($_POST['submit'])) {
 
     mysqli_stmt_bind_param($stmtGetRightAnswerID, "s", $rightAnswer);
     mysqli_stmt_execute($stmtGetRightAnswerID);
-    // mysqli_stmt_close($stmtGetRightAnswerID);
 
     $resultAnswerID = mysqli_stmt_get_result($stmtGetRightAnswerID);
     if ($row2 = mysqli_fetch_assoc($resultAnswerID)) {

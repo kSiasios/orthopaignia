@@ -279,14 +279,34 @@ include '../header.php';
             }
         }
 
-        fetch(`/${baseURL}/includes/fetchRulesOptions.php`)
-            .then((res) => {
-                return res.text();
-            })
-            .then((text) => {
-                selectRule.innerHTML += text;
-            }).catch((error) => {
-                console.error(`${error}`);
+        // fetch(`/${baseURL}/includes/fetchRulesOptions.php`)
+        //     .then((res) => {
+        //         return res.text();
+        //     })
+        //     .then((text) => {
+        //         selectRule.innerHTML += text;
+        //     }).catch((error) => {
+        //         console.error(`${error}`);
+        //     });
+        fetch(`/${baseURL}/includes/fetchRules.php`).then((res) => {
+            return res.json();
+        }).then((jsonArray) => {
+            jsonArray.forEach(element => {
+                // "<option value='" . $row['ruleID'] . "'>"
+                //      . $row['ruleName'] . 
+                //  "</option>";
+
+
+                const option = document.createElement("option");
+                option.classList.add("rule");
+                option.innerText = element.ruleName
+                option.setAttribute("value", element.ruleID)
+
+                selectRule.appendChild(option);
+
             });
+        }).catch((error) => {
+            console.error(`${error}`);
+        });
     </script>
     <?php include '../components/footer.php'; ?>

@@ -70,11 +70,21 @@ if (!isset($_SESSION["logged"])) {
         let rulesObj;
         let ruleIndex = 0;
 
-        fetch(`/${baseURL}/includes/fetchRulesHTML.php`).then((res) => {
-            return res.text();
-        }).then((text) => {
-            const jsonObj = JSON.parse(text);
-            rulesObj = jsonObj;
+        // fetch(`/${baseURL}/includes/fetchRulesHTML.php`).then((res) => {
+        //     return res.text();
+        // }).then((text) => {
+        //     const jsonObj = JSON.parse(text);
+        //     rulesObj = jsonObj;
+        //     updateRule(ruleIndex);
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
+        fetch(`/${baseURL}/includes/fetchRules.php`).then((res) => {
+            return res.json();
+        }).then((jsonArray) => {
+            // const jsonObj = JSON.parse(text);
+            // rulesObj = jsonObj;
+            rulesObj = jsonArray;
             updateRule(ruleIndex);
         }).catch((error) => {
             console.log(error);

@@ -1,5 +1,3 @@
-<!-- TO DELETE -->
-
 <?php
 session_start();
 
@@ -11,7 +9,7 @@ if (!(isset($_SESSION['logged']) && isset($_SESSION["isAdmin"]))) {
     exit();
 }
 
-$title = "Προσθήκη Κατηγορίας";
+$title = "Προσθήκη Αξιολόγησης";
 $stylesheets =
     '<link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/add_form.css">
@@ -25,8 +23,8 @@ include '../header.php';
         <div class="form-container">
             <form>
                 <div class="form-section">
-                    <label for="category-text">Όνομα Κατηγορίας</label>
-                    <input type="text" name="category-text" id="category-text">
+                    <label for="quiz-text">Όνομα Αξιολόγησης</label>
+                    <input type="text" name="quiz-text" id="quiz-text">
                 </div>
                 <div class="form-buttons">
                     <a class="button green" href="#" onclick="submitForm()">Ολοκλήρωση</a>
@@ -35,9 +33,9 @@ include '../header.php';
         </div>
     </div>
     <script>
-        let categoryForm = document.querySelector(".form-container");
+        let quizForm = document.querySelector(".form-container");
 
-        categoryForm.addEventListener(
+        quizForm.addEventListener(
             "submit",
             function(event) {
                 event.preventDefault();
@@ -65,7 +63,7 @@ include '../header.php';
 
             searchParams.append("submit", "submit");
 
-            fetch(`/${baseURL}/includes/newCategoryHandler.php`, {
+            fetch(`/${baseURL}/includes/newQuizHandler.php`, {
                     method: "POST",
                     body: searchParams,
                 })
@@ -82,8 +80,8 @@ include '../header.php';
                         case "stmtFailed":
                             window.alert("Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.");
                             break;
-                        case "categoryAlreadyExists":
-                            window.alert("Υπάρχει ήδη κατηγορία με αυτό το όνομα.");
+                        case "quizAlreadyExists":
+                            window.alert("Υπάρχει ήδη αξιολόγηση με αυτό το όνομα.");
                             break;
                         default:
                             window.alert(`Υπήρξε ένα ασυνήθιστο λάθος: ${error}`);

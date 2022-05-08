@@ -45,7 +45,14 @@ require_once "../includes/functions.php";
                         } else {
                             echo "'';\n";
                         }
-                        ?>
+                        ?>;
+
+        if (!localStorage.getItem("quizProgress")) {
+            localStorage.setItem("quizProgress", 0);
+        }
+
+        const forQuiz = localStorage.getItem("quizProgress");
+
         const questionResults = [];
         let questions;
         let currentQuestionIndex = 0;
@@ -56,13 +63,34 @@ require_once "../includes/functions.php";
             counter++;
         }, 100);
         const quizContainer = document.querySelector(".quiz-container");
-        fetchQuestions(ofRule);
+        // fetchQuestions(ofRule);
+        fetchQuestions(forQuiz);
 
-        function fetchQuestions(ofRule) {
+        // function fetchQuestions(ofRule) {
+        //     const searchParams = new URLSearchParams();
+        //     searchParams.append("submit", "submit");
+        //     if (ofRule !== "") {
+        //         searchParams.append("ruleID", ofRule);
+        //     }
+
+        //     fetch(`/${baseURL}/includes/fetchQuizQuestions.php`, {
+        //         method: "POST",
+        //         body: searchParams
+        //     }).then((res) => {
+        //         return res.text();
+        //     }).then((text) => {
+        //         questions = text;
+        //         populateQuiz(currentQuestionIndex);
+
+        //     }).catch((err) => {
+        //         console.error(err);
+        //     });
+        // }
+        function fetchQuestions(forQuiz) {
             const searchParams = new URLSearchParams();
             searchParams.append("submit", "submit");
-            if (ofRule !== "") {
-                searchParams.append("ruleID", ofRule);
+            if (forQuiz !== "") {
+                searchParams.append("quizID", forQuiz);
             }
 
             fetch(`/${baseURL}/includes/fetchQuizQuestions.php`, {

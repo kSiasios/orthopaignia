@@ -28,10 +28,17 @@ include '../header.php';
                         <input type="text" name="rule-name" id="rule-name">
                     </div>
                     <!-- DROPDOWN TO SELECT CORRESPONDING CATEGORY -->
-                    <div class="form-section">
+                    <!-- <div class="form-section">
                         <label for="rule-category">Κατηγορία Κανόνα</label>
                         <select name="rule-category" id="rule-category">
                             <option value="" selected disabled>Επιλέξτε Κατηγορία</option>
+                        </select>
+                    </div> -->
+                    <!-- DROPDOWN TO SELECT CORRESPONDING QUIZ -->
+                    <div class="form-section">
+                        <label for="rule-quiz">Αντίστοιχη Αξιολόγηση</label>
+                        <select name="rule-quiz" id="rule-quiz">
+                            <option value="" selected disabled>Επιλέξτε Αξιολόγηση</option>
                         </select>
                     </div>
                     <!-- DYNAMIC SECTIONS THAT HAVE A TEXT SECTION EXPLAINING THE RULE AND AN EXAMPLE SECTION 
@@ -114,7 +121,8 @@ include '../header.php';
     <script>
         let form = document.querySelector("form");
         let formButtons = document.querySelector(".form-buttons");
-        let selectCategory = document.querySelector("#rule-category");
+        // let selectCategory = document.querySelector("#rule-category");
+        let selectQuiz = document.querySelector("#rule-quiz");
         let exportedHTML;
 
         function addSectionInput() {
@@ -176,10 +184,25 @@ include '../header.php';
         }
 
         function submitForm() {
+
             const returnedData = getFormData();
+
+            if (returnedData[0] == "" || returnedData[1] == "" || returnedData[2] == "") {
+                sweetAlertWarning({
+                    title: "Προσοχή!",
+                    text: "Κάποια πεδία είναι κενά!",
+                    confirmText: "Εντάξει",
+                });
+                return;
+            }
+
+            const searchParams = new URLSearchParams();
+
             searchParams.append("rule-name", returnedData[0]);
-            searchParams.append("rule-category", returnedData[1]);
+            searchParams.append("rule-quiz", returnedData[1]);
             searchParams.append("rule-text", returnedData[2]);
+
+            searchParams.append("submit", "submit");
 
             exportedHTML = searchParams;
 
@@ -195,11 +218,36 @@ include '../header.php';
                         case "none":
                             window.location = `/${baseURL}/routes/admin_panel.php`;
                             break;
-                        case "userDoesNotExist":
-                            window.alert("Δεν υπάρχει χρήστης με αυτό το όνομα / email.");
+                        case "accessDenied":
+                            sweetAlertError({
+                                text: "Δεν έχετε πρόσβαση σε αυτή τη σελίδα!",
+                                confirmText: "Εντάξει",
+                                cancelText: "Ακύρωση",
+                                redirect: `/${baseURL}`
+                            })
                             break;
-                        case "wrongPassword":
-                            window.alert("Ο κωδικός που δώσατε είναι λάθος!");
+                        case "quizNotProvided":
+                            sweetAlertWarning({
+                                title: "Προσοχή!",
+                                text: "Κάποια πεδία είναι κενά!",
+                                confirmText: "Εντάξει",
+                            });
+                            break;
+                        case "quizNotFound":
+                            sweetAlertError({
+                                text: "Δεν βρέθηκε η αξιολόγηση!",
+                                confirmText: "Εντάξει",
+                                cancelText: "Ακύρωση"
+                            })
+                            break;
+                        case "stmtFailed":
+                            break;
+                        case "ruleAlreadyExists":
+                            sweetAlertWarning({
+                                title: "Προσοχή!",
+                                text: "Αυτός ο κανόνας υπάρχει ήδη!",
+                                confirmText: "Εντάξει",
+                            });
                             break;
                         default:
                             break;
@@ -212,7 +260,8 @@ include '../header.php';
 
         function getFormData() {
             const ruleName = document.querySelector("#rule-name").value;
-            const ruleCategory = selectCategory.value;
+            // const ruleCategory = selectCategory.value;
+            const ruleQuiz = selectQuiz.value;
             const ruleSections = document.querySelectorAll(".rule-form-section");
 
             const ruleSectionText = [];
@@ -234,13 +283,31 @@ include '../header.php';
                 textStr += '</div></div>';
             }
 
-            return [ruleName, ruleCategory, textStr];
+            // return [ruleName, ruleCategory, textStr];
+            return [ruleName, ruleQuiz, textStr];
         }
 
-        fetch(`/${baseURL}/includes/fetchCategoriesOptions.php`).then((res) => {
-            return res.text();
-        }).then((text) => {
-            selectCategory.innerHTML += text;
+        // fetch(`/${baseURL}/includes/fetchCategoriesOptions.php`).then((res) => {
+        //     return res.text();
+        // }).then((text) => {
+        //     selectCategory.innerHTML += text;
+        // }).catch((error) => {
+        //     console.error(`${error}`);
+        // });
+        fetch(`/${baseURL}/includes/fetchQuizzes.php`).then((res) => {
+            return res.json();
+        }).then((jsonArray) => {
+            jsonArray.forEach(element => {
+                // "<option value='" . $row['categoryID'] . "'>
+                //     " . $row['categoryName'] . "
+                // </option>";
+                const option = document.createElement("option");
+                option.setAttribute("value", element.quizID);
+                option.innerText = element.quizTitle;
+
+                selectQuiz.appendChild(option);
+
+            });
         }).catch((error) => {
             console.error(`${error}`);
         });

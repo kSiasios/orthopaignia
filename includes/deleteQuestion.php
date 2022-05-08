@@ -29,17 +29,17 @@ mysqli_stmt_bind_param($stmtDeleteAnswers, "i", $questionID);
 mysqli_stmt_execute($stmtDeleteAnswers);
 mysqli_stmt_close($stmtDeleteAnswers);
 
-$sqlDeleteGrades = "DELETE FROM gradeperquestion WHERE questionID = ?;";
-$stmtDeleteGrades = mysqli_stmt_init($conn);
+// $sqlDeleteGrades = "DELETE FROM gradeperquestion WHERE questionID = ?;";
+// $stmtDeleteGrades = mysqli_stmt_init($conn);
 
-if (!mysqli_stmt_prepare($stmtDeleteGrades, $sqlDeleteGrades)) {
-    echo ("error=stmtFailed");
-    exit();
-}
+// if (!mysqli_stmt_prepare($stmtDeleteGrades, $sqlDeleteGrades)) {
+//     echo ("error=stmtFailed");
+//     exit();
+// }
 
-mysqli_stmt_bind_param($stmtDeleteGrades, "i", $questionID);
-mysqli_stmt_execute($stmtDeleteGrades);
-mysqli_stmt_close($stmtDeleteGrades);
+// mysqli_stmt_bind_param($stmtDeleteGrades, "i", $questionID);
+// mysqli_stmt_execute($stmtDeleteGrades);
+// mysqli_stmt_close($stmtDeleteGrades);
 
 $sqlDeleteQuestion = "DELETE FROM questions WHERE questionID = ?;";
 $stmtDeleteQuestion = mysqli_stmt_init($conn);
