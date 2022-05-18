@@ -129,50 +129,51 @@ function logUserIn($conn, $pwd, $pwdHash)
     }
 }
 
-function deleteRulesFunction($conn, $ruleID)
+function deleteRule($conn, $ruleID)
 {
-    $sqlGetQuestions = "SELECT * FROM questions WHERE questions.ruleID = ?;";
-    $stmtGetQuestions = mysqli_stmt_init($conn);
+    // $sqlGetQuestions = "SELECT * FROM questions WHERE questions.ruleID = ?;";
+    // $stmtGetQuestions = mysqli_stmt_init($conn);
 
-    if (!mysqli_stmt_prepare($stmtGetQuestions, $sqlGetQuestions)) {
-        echo ("error=stmtFailed");
-        exit();
-    }
+    // if (!mysqli_stmt_prepare($stmtGetQuestions, $sqlGetQuestions)) {
+    //     echo ("error=stmtFailed");
+    //     exit();
+    // }
 
-    mysqli_stmt_bind_param($stmtGetQuestions, "i", $ruleID);
-    mysqli_stmt_execute($stmtGetQuestions);
+    // mysqli_stmt_bind_param($stmtGetQuestions, "i", $ruleID);
+    // mysqli_stmt_execute($stmtGetQuestions);
 
-    $resultData = mysqli_stmt_get_result($stmtGetQuestions);
-    while ($row = mysqli_fetch_assoc($resultData)) {
-        // FOREACH QUESTION, DELETE ALL ANSWERS
-        $sqlDeleteAnswers = "DELETE FROM answers WHERE questionID = ?;";
-        $stmtDeleteAnswers = mysqli_stmt_init($conn);
+    // $resultData = mysqli_stmt_get_result($stmtGetQuestions);
+    // while ($row = mysqli_fetch_assoc($resultData)) {
+    //     // FOREACH QUESTION, DELETE ALL ANSWERS
+    //     // $sqlDeleteAnswers = "DELETE FROM answers WHERE questionID = ?;";
+    //     // $stmtDeleteAnswers = mysqli_stmt_init($conn);
 
-        if (!mysqli_stmt_prepare($stmtDeleteAnswers, $sqlDeleteAnswers)) {
-            echo ("error=stmtFailed");
-            exit();
-        }
+    //     // if (!mysqli_stmt_prepare($stmtDeleteAnswers, $sqlDeleteAnswers)) {
+    //     //     echo ("error=stmtFailed");
+    //     //     exit();
+    //     // }
 
-        mysqli_stmt_bind_param($stmtDeleteAnswers, "i", $row["questionID"]);
-        mysqli_stmt_execute($stmtDeleteAnswers);
-        mysqli_stmt_close($stmtDeleteAnswers);
+    //     // mysqli_stmt_bind_param($stmtDeleteAnswers, "i", $row["questionID"]);
+    //     // mysqli_stmt_execute($stmtDeleteAnswers);
+    //     // mysqli_stmt_close($stmtDeleteAnswers);
 
-        // DELETE ALL QUESTIONS THAT USE THIS RULE
-        $sqlDeleteQuestion = "DELETE FROM questions WHERE questionID = ?;";
-        $stmtDeleteQuestion = mysqli_stmt_init($conn);
+    //     // // DELETE ALL QUESTIONS THAT USE THIS RULE
+    //     // $sqlDeleteQuestion = "DELETE FROM questions WHERE questionID = ?;";
+    //     // $stmtDeleteQuestion = mysqli_stmt_init($conn);
 
-        if (!mysqli_stmt_prepare($stmtDeleteQuestion, $sqlDeleteQuestion)) {
-            echo ("error=stmtFailed");
-            exit();
-        }
+    //     // if (!mysqli_stmt_prepare($stmtDeleteQuestion, $sqlDeleteQuestion)) {
+    //     //     echo ("error=stmtFailed");
+    //     //     exit();
+    //     // }
 
-        mysqli_stmt_bind_param($stmtDeleteQuestion, "i", $row["questionID"]);
-        mysqli_stmt_execute($stmtDeleteQuestion);
-        mysqli_stmt_close($stmtDeleteQuestion);
-    }
+    //     // mysqli_stmt_bind_param($stmtDeleteQuestion, "i", $row["questionID"]);
+    //     // mysqli_stmt_execute($stmtDeleteQuestion);
+    //     // mysqli_stmt_close($stmtDeleteQuestion);
+    //     deleteQuestion($conn, $row["questionID"]);
+    // }
 
     // DELETE RULE
-    $sqlDeleteRule = "DELETE FROM rule WHERE ruleID = ?;";
+    $sqlDeleteRule = "DELETE FROM rules WHERE ruleID = ?;";
     $stmtDeleteRule = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmtDeleteRule, $sqlDeleteRule)) {
@@ -184,6 +185,155 @@ function deleteRulesFunction($conn, $ruleID)
     mysqli_stmt_execute($stmtDeleteRule);
     mysqli_stmt_close($stmtDeleteRule);
 }
+
+function deleteQuestion($conn, $questionID)
+{
+    // $sqlDeleteAnswers = "DELETE FROM answers WHERE questionID = ?;";
+    // $stmtDeleteAnswers = mysqli_stmt_init($conn);
+
+    // if (!mysqli_stmt_prepare($stmtDeleteAnswers, $sqlDeleteAnswers)) {
+    //     echo ("error=stmtFailed");
+    //     exit();
+    // }
+
+    // mysqli_stmt_bind_param($stmtDeleteAnswers, "i", $questionID);
+    // mysqli_stmt_execute($stmtDeleteAnswers);
+    // mysqli_stmt_close($stmtDeleteAnswers);
+
+    $sqlGetAnswers = "SELECT * FROM answers WHERE questionsID = ?;";
+    $stmtGetAnswers = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmtGetAnswers, $sqlGetAnswers)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtGetAnswers, "i", $questionID);
+    mysqli_stmt_execute($stmtGetAnswers);
+
+    $resultData = mysqli_stmt_get_result($stmtGetAnswers);
+    while ($row = mysqli_fetch_assoc($resultData)) {
+        deleteAnswer($conn, $row["answerID"]);
+    }
+
+    // DELETE ALL QUESTIONS THAT USE THIS RULE
+    $sqlDeleteQuestion = "DELETE FROM questions WHERE questionID = ?;";
+    $stmtDeleteQuestion = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmtDeleteQuestion, $sqlDeleteQuestion)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtDeleteQuestion, "i", $questionID);
+    mysqli_stmt_execute($stmtDeleteQuestion);
+    mysqli_stmt_close($stmtDeleteQuestion);
+}
+
+function deleteAnswer($conn, $answerID)
+{
+    $sqlDeleteAnswers = "DELETE FROM answers WHERE answerID = ?;";
+    $stmtDeleteAnswers = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmtDeleteAnswers, $sqlDeleteAnswers)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtDeleteAnswers, "i", $answerID);
+    mysqli_stmt_execute($stmtDeleteAnswers);
+    mysqli_stmt_close($stmtDeleteAnswers);
+}
+
+function deleteEvaluation($conn, $evalID)
+{
+    // DELETE CONNECTED GRADES
+    // $sqlDeleteGrades = "DELETE FROM grades WHERE evaluationID = ?;";
+    // $stmtDeleteGrades = mysqli_stmt_init($conn);
+    // if (!mysqli_stmt_prepare($stmtDeleteGrades, $sqlDeleteGrades)) {
+    //     echo ("error=deleteGradesFailed");
+    //     exit();
+    // }
+    // mysqli_stmt_bind_param($stmtDeleteGrades, "i", $evalID);
+    // mysqli_stmt_execute($stmtDeleteGrades);
+    // mysqli_stmt_close($stmtDeleteGrades);
+    $sqlGetGrades = "SELECT * FROM grades WHERE evaluationID = ?;";
+    $stmtGetGrades = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmtGetGrades, $sqlGetGrades)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtGetGrades, "i", $evalID);
+    mysqli_stmt_execute($stmtGetGrades);
+
+    $resultData = mysqli_stmt_get_result($stmtGetGrades);
+    while ($row = mysqli_fetch_assoc($resultData)) {
+        deleteGrade($conn, $row["gradeID"]);
+    }
+
+    mysqli_stmt_close($stmtGetGrades);
+
+    // DELETE EVALUATION
+    $sqlDeleteEval = "DELETE FROM evaluations WHERE evaluationID = ?;";
+    $stmtDeleteEval = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtDeleteEval, $sqlDeleteEval)) {
+        echo ("error=deleteEvaluationsFailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmtDeleteEval, "i", $evalID);
+    mysqli_stmt_execute($stmtDeleteEval);
+    mysqli_stmt_close($stmtDeleteEval);
+}
+
+function deleteGrade($conn, $gradeID)
+{
+    $sqlDeleteGrades = "DELETE FROM grades WHERE gradeID = ?;";
+    $stmtDeleteGrades = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtDeleteGrades, $sqlDeleteGrades)) {
+        echo ("error=deleteGradesFailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmtDeleteGrades, "i", $gradeID);
+    mysqli_stmt_execute($stmtDeleteGrades);
+    mysqli_stmt_close($stmtDeleteGrades);
+}
+
+function deleteEvaluationsForUser($conn, $userID)
+{
+    $sqlUserEval = "SELECT * FROM evaluations WHERE userID = ?;";
+    $stmtUserEval = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtUserEval, $sqlUserEval)) {
+        echo ("error=evaluationsDeletionFailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmtUserEval, "i", $userID);
+    mysqli_stmt_execute($stmtUserEval);
+
+    $evaluations = mysqli_stmt_get_result($stmtUserEval);
+    while ($rowEval = mysqli_fetch_assoc($evaluations)) {
+        deleteEvaluation($conn, $rowEval["evaluationID"]);
+    }
+}
+
+function deleteEvaluationsForQuiz($conn, $quizID)
+{
+    $sqlUserEval = "SELECT * FROM evaluations WHERE quizID = ?;";
+    $stmtUserEval = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtUserEval, $sqlUserEval)) {
+        echo ("error=evaluationsDeletionFailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmtUserEval, "i", $quizID);
+    mysqli_stmt_execute($stmtUserEval);
+
+    $evaluations = mysqli_stmt_get_result($stmtUserEval);
+    while ($rowEval = mysqli_fetch_assoc($evaluations)) {
+        deleteEvaluation($conn, $rowEval["evaluationID"]);
+    }
+}
+
 
 $alphabet = " !\"#$%&()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~}";
 
@@ -484,4 +634,23 @@ function convertEducationToReadable($level)
             return "error";
             break;
     }
+}
+
+function checkForeignKey($conn, $check)
+{
+    if ($check) {
+        # code...
+        $sql = "SET FOREIGN_KEY_CHECKS = 1;";
+    } else {
+        $sql = "SET FOREIGN_KEY_CHECKS = 0;";
+    }
+
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 }

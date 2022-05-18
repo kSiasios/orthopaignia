@@ -25,6 +25,7 @@ if (!file("variables.env")) {
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?php echo $baseURL ?>/js/sweetAlertFunctions.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=9EndP8Cp"></script>
     <link rel="icon" type="image/x-icon" href="<?php echo $baseURL ?>/images/favicon.ico">
     <title>
         <?php echo $title ?>

@@ -312,10 +312,41 @@ if (!isset($_SESSION["isAdmin"])) {
             console.error(`${error}`);
         });
 
+        // fetch(`/${baseURL}/includes/fetchQuestions.php`).then((res) => {
+        //     return res.text();
+        // }).then((text) => {
+        //     quesContainer.innerHTML = text;
+        // }).catch((error) => {
+        //     console.error(`${error}`);
+        // });
         fetch(`/${baseURL}/includes/fetchQuestions.php`).then((res) => {
-            return res.text();
-        }).then((text) => {
-            quesContainer.innerHTML = text;
+            return res.json();
+        }).then((jsonArray) => {
+
+            jsonArray.forEach(element => {
+                // "<div class='question'>
+                // <p class='question-text'>" . $row['questionText'] . "</p>
+                // <button class='red' onclick='deleteQuestion(" . $row['questionID'] . ")'>Διαγραφή</button>
+                // </div>";
+                const div = document.createElement("div");
+                div.classList.add("question");
+
+                const paragraph = document.createElement("p");
+                paragraph.classList.add("question-text");
+                paragraph.innerText = element.questionText;
+
+                const button = document.createElement("button");
+                button.classList.add("red");
+                button.addEventListener("click", () => {
+                    deleteQuestion(element.questionID);
+                })
+                button.innerText = "Διαγραφή";
+
+                div.appendChild(paragraph);
+                div.appendChild(button);
+
+                quesContainer.appendChild(div);
+            });
         }).catch((error) => {
             console.error(`${error}`);
         });

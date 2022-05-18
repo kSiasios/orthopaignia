@@ -16,9 +16,10 @@ if (!isset($_POST['submit'])) {
 }
 
 
-$sql = "DELETE FROM gradepercategory;";
-$sql2 = "DELETE FROM gradeperquestion;";
-$sql3 = "DELETE FROM gradeperrule;";
+$sql = "DELETE FROM grades;";
+// $sql = "DELETE FROM gradepercategory;";
+// $sql2 = "DELETE FROM gradeperquestion;";
+// $sql3 = "DELETE FROM gradeperrule;";
 
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -28,18 +29,18 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 
-$stmt2 = mysqli_stmt_init($conn);
-if (!mysqli_stmt_prepare($stmt2, $sql2)) {
-    echo ('{"error": "stmtFailed"}');
-    exit();
-}
-mysqli_stmt_execute($stmt2);
-mysqli_stmt_close($stmt2);
+// $stmt2 = mysqli_stmt_init($conn);
+// if (!mysqli_stmt_prepare($stmt2, $sql2)) {
+//     echo ('{"error": "stmtFailed"}');
+//     exit();
+// }
+// mysqli_stmt_execute($stmt2);
+// mysqli_stmt_close($stmt2);
 
-$stmt3 = mysqli_stmt_init($conn);
-if (!mysqli_stmt_prepare($stmt3, $sql3)) {
-    echo ('{"error": "stmtFailed"}');
-    exit();
-}
-mysqli_stmt_execute($stmt3);
-mysqli_stmt_close($stmt3);
+// $stmt3 = mysqli_stmt_init($conn);
+// if (!mysqli_stmt_prepare($stmt3, $sql3)) {
+//     echo ('{"error": "stmtFailed"}');
+//     exit();
+// }
+// mysqli_stmt_execute($stmt3);
+// mysqli_stmt_close($stmt3);

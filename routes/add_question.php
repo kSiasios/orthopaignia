@@ -34,11 +34,18 @@ include '../header.php';
                         <label for="question-text">Ερώτηση</label>
                         <input type="text" name="question-text" id="question-text">
                     </div>
+                    <!-- <div class="form-section"> -->
+                    <!-- <label for="question-rule">Αντίστοιχος Κανόνας</label> -->
+                    <!-- <input type="text" name="question-text" id="question-text"> -->
+                    <!-- <select name="question-rule" id="question-rule"> -->
+                    <!-- <option value="" selected disabled>Επιλέξτε Κανόνα</option> -->
+                    <!-- </select> -->
+                    <!-- </div> -->
                     <div class="form-section">
-                        <label for="question-rule">Αντίστοιχος Κανόνας</label>
+                        <label for="question-quiz">Αντίστοιχη Αξιολόγηση</label>
                         <!-- <input type="text" name="question-text" id="question-text"> -->
-                        <select name="question-rule" id="question-rule">
-                            <option value="" selected disabled>Επιλέξτε Κανόνα</option>
+                        <select name="question-quiz" id="question-quiz">
+                            <option value="" selected disabled>Επιλέξτε Αξιολόγηση</option>
                         </select>
                     </div>
                     <div class="form-section">
@@ -64,11 +71,18 @@ include '../header.php';
                         <label for="question-answer-text">Δεδομένο Σκέλος Απάντησης</label>
                         <input type="text" name="question-answer-text" id="question-answer-text">
                     </div>
+                    <!-- <div class="form-section"> -->
+                    <!-- <label for="question-rule">Αντίστοιχος Κανόνας</label> -->
+                    <!-- <input type="text" name="question-text" id="question-text"> -->
+                    <!-- <select name="question-rule" id="question-rule"> -->
+                    <!-- <option value="" selected disabled>Επιλέξτε Κανόνα</option> -->
+                    <!-- </select> -->
+                    <!-- </div> -->
                     <div class="form-section">
-                        <label for="question-rule">Αντίστοιχος Κανόνας</label>
+                        <label for="question-quiz">Αντίστοιχη Αξιολόγηση</label>
                         <!-- <input type="text" name="question-text" id="question-text"> -->
-                        <select name="question-rule" id="question-rule">
-                            <option value="" selected disabled>Επιλέξτε Κανόνα</option>
+                        <select name="question-quiz" id="question-quiz">
+                            <option value="" selected disabled>Επιλέξτε Αξιολόγηση</option>
                         </select>
                     </div>
                     <div class="form-section">
@@ -142,6 +156,8 @@ include '../header.php';
         const multipleChoiceForm = document.querySelector("#form-multiple-choice");
         const dragDropForm = document.querySelector("#form-drag-drop");
 
+        let selectQuiz;
+
         changeQuestionType();
 
         function addAnswerInput(questionType) {
@@ -156,7 +172,7 @@ include '../header.php';
             let inputElement = document.createElement("input");
             let labelElement = document.createElement("label");
 
-            let wrongAnswersCount = form.querySelectorAll("#wrong-answer").length;
+            let wrongAnswersCount = form.querySelectorAll(".wrong-answer").length;
 
             inputElement.setAttribute("type", "text");
             inputElement.classList.add("wrong-answer");
@@ -203,25 +219,37 @@ include '../header.php';
             let questionText;
             let rightAnswer;
             let wrongAnswers;
-            let ruleID;
+            // let ruleID;
+            let quizID;
             const searchParams = new URLSearchParams();
 
             if (questionType === "multiple-choice") {
-                questionText = document.querySelector("#form-multiple-choice .form-section #question-text").value;
-                rightAnswer = `<div draggable="true">${filterText(document.querySelector("#form-multiple-choice .form-section #right-answer").value)}</div>`;
-                wrongAnswers = document.querySelectorAll("#form-multiple-choice .form-section #wrong-answer");
-                ruleID = document.querySelectorAll("#form-multiple-choice .form-section #question-rule")
+                questionText = multipleChoiceForm.querySelector(".form-section #question-text").value;
+                // rightAnswer = `<div draggable="true">${filterText(multipleChoiceForm.querySelector(".form-section #right-answer").value)}</div>`;
+                rightAnswer = multipleChoiceForm.querySelector(".form-section #right-answer").value;
+                wrongAnswers = multipleChoiceForm.querySelectorAll(".form-section .wrong-answer");
+                // ruleID = document.querySelectorAll("#form-multiple-choice .form-section #question-rule")
+                quizID = multipleChoiceForm.querySelector(".form-section #question-quiz").value;
             } else if (questionType === "drag-drop") {
-                questionText = document.querySelector("#form-drag-drop .form-section #question-text").value;
-                rightAnswer = document.querySelector("#form-drag-drop .form-section #right-answer").value;
-                wrongAnswers = document.querySelectorAll("#form-drag-drop .form-section #wrong-answer");
-                ruleID = document.querySelectorAll("#form-drag-drop .form-section #question-rule");
+                questionText = `${dragDropForm.querySelector(".form-section #question-text").value}`;
+                // rightAnswer = dragDropForm.querySelector(".form-section #right-answer").value;
+                rightAnswer = `<div draggable='true'>${filterText(dragDropForm.querySelector(".form-section #right-answer").value)}</div>`;
 
-                let givenAnswerSection = document.querySelector("#form-drag-drop .form-section #question-answer-text").value;
-                searchParams.append("question-given-answer-section", questionType);
+                wrongAnswers = dragDropForm.querySelectorAll(".form-section .wrong-answer");
+                // ruleID = document.querySelectorAll("#form-drag-drop .form-section #question-rule");
+                quizID = dragDropForm.querySelector(".form-section #question-quiz").value;
+
+                let givenAnswerSection = dragDropForm.querySelector(".form-section #question-answer-text").value;
+                // searchParams.append("question-given-answer-section", questionType);
+
+                questionText = `${questionText} \n ${filterText(givenAnswerSection)}`;
             }
 
-            if (questionText === "" || rightAnswer === "" || ruleID === "") {
+            if (questionText === "" ||
+                rightAnswer === "" ||
+                // ruleID === ""
+                quizID === ""
+            ) {
                 window.alert("Κάποια πεδία είναι κενά!");
                 return;
             }
@@ -236,11 +264,12 @@ include '../header.php';
                 if (questionType === "multiple-choice") {
                     searchParams.append(`wrong-answer-${i}`, ans.value);
                 } else {
-                    searchParams.append(`wrong-answer-${i}`, `<div draggable="true">${filterText(ans.value)}</div>`);
+                    searchParams.append(`wrong-answer-${i}`, `<div draggable='true'>${filterText(ans.value)}</div>`);
                 }
             }
 
-            searchParams.append("rule", ruleID);
+            // searchParams.append("rule", ruleID);
+            searchParams.append("quizID", quizID);
             searchParams.append("submit", "submit");
 
             fetch(`/${baseURL}/includes/newQuestionHandler.php`, {
@@ -254,6 +283,41 @@ include '../header.php';
                     switch (error) {
                         case "none":
                             window.location = `/${baseURL}/routes/admin_panel.php`;
+                            break;
+                        case "noWrongAnswers":
+                            // window.location = `/${baseURL}/routes/admin_panel.php`;
+                            sweetAlertError(
+                                text = "Δεν έχετε δώσει λάθος απαντήσεις!",
+                                // redirect = ``;
+                            );
+                            break;
+                        case "rightAnswerNotCreatedOrNoID":
+                            // window.location = `/${baseURL}/routes/admin_panel.php`;
+                            sweetAlertError(
+                                text = "Υπήρξε πρόβλημα στη δημιουργία της σωστής απάντησης!",
+                                // redirect = ``;
+                            );
+                            break;
+                        case "emptyInputs":
+                            // window.location = `/${baseURL}/routes/admin_panel.php`;
+                            sweetAlertError(
+                                text = "Κάποια πεδία είναι κενά!",
+                                // redirect = ``;
+                            );
+                            break;
+                        case "questionNotCreatedOrNoID":
+                            // window.location = `/${baseURL}/routes/admin_panel.php`;
+                            sweetAlertError(
+                                text = "Υπήρξε πρόβλημα στη δημιουργία της ερώτησης!",
+                                // redirect = ``;
+                            );
+                            break;
+                        case "accessDenied":
+                            // window.location = `/${baseURL}/routes/admin_panel.php`;
+                            sweetAlertError(
+                                text = "Δεν έχετε πρόσβαση σε αυτή τη λειτουργία!",
+                                // redirect = ``;
+                            );
                             break;
                         default:
                             break;
@@ -271,10 +335,12 @@ include '../header.php';
                 case "multiple-choice":
                     multipleChoiceForm.style.display = "flex";
                     dragDropForm.style.display = "none";
+                    selectQuiz = multipleChoiceForm.querySelector("select#question-quiz");
                     break;
                 default:
                     multipleChoiceForm.style.display = "none";
                     dragDropForm.style.display = "flex";
+                    selectQuiz = dragDropForm.querySelector("select#question-quiz");
                     break;
             }
         }
@@ -288,21 +354,38 @@ include '../header.php';
         //     }).catch((error) => {
         //         console.error(`${error}`);
         //     });
-        fetch(`/${baseURL}/includes/fetchRules.php`).then((res) => {
+
+        // fetch(`/${baseURL}/includes/fetchRules.php`).then((res) => {
+        //     return res.json();
+        // }).then((jsonArray) => {
+        //     jsonArray.forEach(element => {
+        //         // "<option value='" . $row['ruleID'] . "'>"
+        //         //      . $row['ruleName'] . 
+        //         //  "</option>";
+
+
+        //         const option = document.createElement("option");
+        //         option.classList.add("rule");
+        //         option.innerText = element.ruleName
+        //         option.setAttribute("value", element.ruleID)
+
+        //         selectRule.appendChild(option);
+
+        //     });
+        // }).catch((error) => {
+        //     console.error(`${error}`);
+        // });
+        fetch(`/${baseURL}/includes/fetchQuizzes.php`).then((res) => {
             return res.json();
         }).then((jsonArray) => {
             jsonArray.forEach(element => {
-                // "<option value='" . $row['ruleID'] . "'>"
-                //      . $row['ruleName'] . 
-                //  "</option>";
-
-
                 const option = document.createElement("option");
-                option.classList.add("rule");
-                option.innerText = element.ruleName
-                option.setAttribute("value", element.ruleID)
+                option.classList.add("quiz");
+                option.innerText = element.quizTitle
+                option.setAttribute("value", element.quizID)
 
-                selectRule.appendChild(option);
+                // selectRule.appendChild(option);
+                selectQuiz.appendChild(option);
 
             });
         }).catch((error) => {

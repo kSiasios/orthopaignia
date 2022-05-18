@@ -19,9 +19,8 @@ if (!isset($_POST['submit']) || !isset($_POST['quizID'])) {
 $quizID = $_POST['quizID'];
 
 // DELETE CONNECTED RULES
-// FOREACH RULE, DELETE CONNECTED QUESTIONS AND GRADE
 
-$sqlGetRules = "SELECT * FROM rule WHERE rule.quizID = ?;";
+$sqlGetRules = "SELECT * FROM rules WHERE quizID = ?;";
 $stmtGetRules = mysqli_stmt_init($conn);
 
 if (!mysqli_stmt_prepare($stmtGetRules, $sqlGetRules)) {
@@ -35,28 +34,66 @@ mysqli_stmt_execute($stmtGetRules);
 $resultData = mysqli_stmt_get_result($stmtGetRules);
 while ($row = mysqli_fetch_assoc($resultData)) {
     // FOREACH RULE, DELETE RULE
-    deleteRulesFunction($conn, $row["ruleID"]);
+    deleteRule($conn, $row["ruleID"]);
 }
 
 // DELETE CONNECTED EVALUATIONS
 //      DELETE CONNECTED GRADES
 
+deleteEvaluationsForQuiz($conn, $quizID);
+
+// $sqlGetEvals = "SELECT * FROM evaluations WHERE quizID = ?;";
+// $stmtGetEvals = mysqli_stmt_init($conn);
+
+// if (!mysqli_stmt_prepare($stmtGetEvals, $sqlGetEvals)) {
+//     echo ("error=stmtFailed");
+//     exit();
+// }
+
+// mysqli_stmt_bind_param($stmtGetEvals, "i", $quizID);
+// mysqli_stmt_execute($stmtGetEvals);
+
+// $resultData = mysqli_stmt_get_result($stmtGetEvals);
+// while ($row = mysqli_fetch_assoc($resultData)) {
+//     // FOREACH EVALUATION, DELETE CONNECTED GARDES
+//     deleteRulesFunction($conn, $row["ruleID"]);
+// }
+
+
 // DELETE CONNECTED QUESTIONS
 //      DELETE CONNECTED ANSWERS
+$sqlGetQuestions = "SELECT * FROM questions WHERE quizID = ?;";
+$stmtGetQuestions = mysqli_stmt_init($conn);
 
-// DELETE CONNECTED RULES
-
-$sqlDeleteGrades = "DELETE FROM gradepercategory WHERE categoryID = ?;";
-$stmtDeleteGrades = mysqli_stmt_init($conn);
-
-if (!mysqli_stmt_prepare($stmtDeleteGrades, $sqlDeleteGrades)) {
+if (!mysqli_stmt_prepare($stmtGetQuestions, $sqlGetQuestions)) {
     echo ("error=stmtFailed");
     exit();
 }
 
-mysqli_stmt_bind_param($stmtDeleteGrades, "i", $categoryID);
-mysqli_stmt_execute($stmtDeleteGrades);
-mysqli_stmt_close($stmtDeleteGrades);
+mysqli_stmt_bind_param($stmtGetQuestions, "i", $quizID);
+mysqli_stmt_execute($stmtGetQuestions);
+
+$resultData = mysqli_stmt_get_result($stmtGetQuestions);
+while ($row = mysqli_fetch_assoc($resultData)) {
+    // FOREACH EVALUATION, DELETE CONNECTED GARDES
+    deleteQuestion($conn, $row["questionID"]);
+}
+
+mysqli_stmt_close($stmtGetQuestions);
+
+// DELETE CONNECTED RULES
+
+// $sqlDeleteGrades = "DELETE FROM gradepercategory WHERE categoryID = ?;";
+// $stmtDeleteGrades = mysqli_stmt_init($conn);
+
+// if (!mysqli_stmt_prepare($stmtDeleteGrades, $sqlDeleteGrades)) {
+//     echo ("error=stmtFailed");
+//     exit();
+// }
+
+// mysqli_stmt_bind_param($stmtDeleteGrades, "i", $categoryID);
+// mysqli_stmt_execute($stmtDeleteGrades);
+// mysqli_stmt_close($stmtDeleteGrades);
 
 $sqlDeleteQuiz = "DELETE FROM quizzes WHERE quizID = ?;";
 $stmtDeleteQuiz = mysqli_stmt_init($conn);

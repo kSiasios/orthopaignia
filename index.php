@@ -143,6 +143,10 @@ include './header.php';
                         ),
                         dialogText
                     );
+                    responsiveVoice.speak(`${storyLines[storyLineIndex].replaceAll(
+                                        "<name>",
+                                        "<?php echo $_SESSION['firstname'] ?>"
+                                    )}`, "Greek Female");
                 } else {
                     answerBtns.style.display = "none";
                     dialogBtns.style.display = "flex";
@@ -163,6 +167,10 @@ include './header.php';
                             ),
                             dialogText
                         );
+                        responsiveVoice.speak(`${storyLines[storyLineIndex][0].replaceAll(
+                                        "<name>",
+                                        "<?php echo $_SESSION['firstname'] ?>"
+                                    )}`, "Greek Female");
                     } else if (answer === false) {
                         nextDialogBtn.parentElement.style.display = "none";
                         dialogBtns.style.flexDirection = "row";
@@ -173,6 +181,10 @@ include './header.php';
                             ),
                             dialogText
                         );
+                        responsiveVoice.speak(`${storyLines[storyLineIndex][1].replaceAll(
+                                            "<name>",
+                                            "<?php echo $_SESSION['firstname'] ?>"
+                                        )}`, "Greek Female");
 
                     } else {
                         typeWriter(
@@ -182,6 +194,10 @@ include './header.php';
                             ),
                             dialogText
                         );
+                        responsiveVoice.speak(`${storyLines[storyLineIndex].replaceAll(
+                                        "<name>",
+                                        "<?php echo $_SESSION['firstname'] ?>"
+                                    )}`, "Greek Female");
                     }
 
                 }
@@ -251,6 +267,10 @@ include './header.php';
                     ),
                     dialogText
                 );
+                responsiveVoice.speak(`${storyLines[Object.keys(storyLines).length - 1][0].replaceAll(
+                                        "<name>",
+                                        "<?php echo $_SESSION['firstname'] ?>"
+                                    )}`, "Greek Female");
             }
         }
     </script>

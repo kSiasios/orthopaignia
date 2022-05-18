@@ -72,7 +72,47 @@ if (!isset($_SESSION["logged"])) {
                     confirmButtonText: 'Ναι, σίγουρα',
                     cancelButtonText: "Ακύρωση"
                 })
-                .then(() => {});
+                .then(() => {
+                    const searchParams = new URLSearchParams();
+                    searchParams.append("submit", "submit");
+
+                    fetch(`/${baseURL}/includes/deleteAccount.php`, {
+                            method: "POST",
+                            body: searchParams,
+                        })
+                        .then(function(response) {
+                            return response.text();
+                        })
+                        .then(function(text) {
+                            let error = text.split("=")[1];
+                            switch (error) {
+                                case "none":
+                                    location.reload();
+                                    break;
+                                case "notLoggedOrNoUsername":
+                                    sweetAlertError(
+                                        text = "Δεν έχετε πρόσβαση σε αυτή τη σελίδα!",
+                                        redirect = `/${baseURL}`
+                                    );
+                                    break;
+                                case "evaluationsDeletionFailed":
+                                    sweetAlertError();
+                                    break;
+                                case "administratorsDeletionFailed":
+                                    location.reload();
+                                    break;
+                                case "userDeletionFailed":
+                                    location.reload();
+                                    break;
+                                default:
+                                    console.log(`Not Updated: ${error}`);
+                                    break;
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(`${error}`);
+                        });
+                });
         }
 
         function updateUserInfo() {

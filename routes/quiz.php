@@ -40,16 +40,27 @@ require_once "../includes/functions.php";
         </div>
     </div>
     <script>
-        const ofRule = <?php if (isset($_GET["ruleID"])) {
-                            echo "'" . $_GET["ruleID"] . "';\n";
+        const ofQuiz = <?php if (isset($_GET["quiz"])) {
+                            echo "'" . $_GET["quiz"] . "';\n";
                         } else {
                             echo "'';\n";
                         }
                         ?>;
 
-        if (!localStorage.getItem("quizProgress")) {
-            localStorage.setItem("quizProgress", 0);
+        // if (!localStorage.getItem("quizProgress")) {
+        //     localStorage.setItem("quizProgress", ofQuiz);
+        // }
+
+        <?php if (isset($_GET["quiz"])) {
+            echo 'localStorage.setItem("quizProgress", ofQuiz)';
+        } else {
+            echo "";
         }
+        ?>;
+
+        // localStorage.setItem("quizProgress", ofQuiz);
+
+
 
         const forQuiz = localStorage.getItem("quizProgress");
 
@@ -99,17 +110,33 @@ require_once "../includes/functions.php";
             }).then((res) => {
                 return res.text();
             }).then((text) => {
-                questions = text;
+                questions = replaceSpecialCharacters(text);
                 populateQuiz(currentQuestionIndex);
-
             }).catch((err) => {
                 console.error(err);
             });
+            // fetch(`/${baseURL}/includes/fetchQuestions.php`, {
+            //     method: "POST",
+            //     body: searchParams
+            // }).then((res) => {
+            //     return res.json();
+            // }).then((jsonArray) => {
+            //     console.log(jsonArray);
+            //     // jsonArray.forEach(element => {
+            //     //     console.log(element);
+            //     // });
+            //     questions = text;
+            // //     populateQuiz(currentQuestionIndex);
+            // }).catch((err) => {
+            //     console.error(err);
+            // });
         }
 
         function populateQuiz(questionIndex) {
             const questionsJSON = JSON.parse(questions);
             delete questionsJSON["error"];
+
+            console.log(questionsJSON);
 
             if (!Object.keys(questionsJSON)[questionIndex]) {
                 quizContainer.innerHTML = "";
@@ -139,8 +166,28 @@ require_once "../includes/functions.php";
             const quizQuestion = document.createElement("div");
             quizQuestion.classList.add("quiz-question");
             const quizQuestionText = document.createElement("p");
-            quizQuestionText.innerText = element.text;
+            quizQuestionText.innerHTML = element.text;
             quizQuestion.appendChild(quizQuestionText);
+
+            // Test text to speech
+            // let speech = new SpeechSynthesis();
+            // speech.lang = "el";
+
+            // speech.volume = 10;
+
+            // responsiveVoice.speak("Γειά σου μπαρμπαδούλα", "Greek Female");
+
+            quizQuestionText.addEventListener("click", (event) => {
+                console.log("SPEAK");
+                // speech.text = quizQuestionText.value;
+                // window.speechSynthesis.speak(speech);
+                // console.log(event.target.innerText);
+                responsiveVoice.speak(`${event.target.innerText}`, "Greek Female");
+            });
+
+
+
+            // End Test text to speech
 
             quizContainer.appendChild(quizQuestion);
 
@@ -173,7 +220,7 @@ require_once "../includes/functions.php";
                 answer.addEventListener("click", (e) => {
                     answerQuestion(wantedKey, elem[1]);
                 })
-                answer.innerText = elem[1];
+                answer.innerHTML = elem[1];
                 answerContainer.appendChild(answer);
                 quizAnswers.appendChild(answerContainer);
 
@@ -232,5 +279,23 @@ require_once "../includes/functions.php";
                 console.log(error);
             })
         }
+    </script>
+    <script src="<?php echo $baseURL ?>/js/dragDropGame.js"></script>
+    <script>
+        // // Test text to speech
+        // let speech = new SpeechSynthesisUtterance();
+        // speech.lang = "el";
+
+        // let questionTxt;
+
+        // while (questionTxt == null) {
+        //     questionTxt = document.querySelector(".quiz-question p");
+        //     // if (questionTxt != null) {
+        //     questionTxt.addEventListener("click", () => {
+        //         speech.text = questionTxt.value;
+        //         window.speechSynthesis.speak(speech);
+        //     });
+        //     // }
+        // }
     </script>
     <?php include '../components/footer.php'; ?>

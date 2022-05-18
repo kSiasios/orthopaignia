@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
         exit();
     } else {
 
-        // CHECK IF RULE'S CATEGORY EXISTS
+        // CHECK IF RULE'S QUIZ EXISTS
         mysqli_stmt_close($stmt);
         $sqlCheckQuiz = "SELECT * FROM quizzes WHERE quizID = ?;";
         $stmtCheckQuiz = mysqli_stmt_init($conn);

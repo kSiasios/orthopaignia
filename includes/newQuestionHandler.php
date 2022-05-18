@@ -8,12 +8,17 @@ if (isset($_POST['submit'])) {
     $questionType = $_POST["question-type"];
     $questionText = $_POST["question"];
     $rightAnswer = $_POST["right-answer"];
-    $ruleID = $_POST["rule"];
+    // $ruleID = $_POST["rule"];
+    $quizID = $_POST["quizID"];
 
     $questionID;
     $answerID;
 
-    if (!($questionText != "" && $rightAnswer != "" && $ruleID != "")) {
+    // if (!($questionText != "" && $rightAnswer != "" && $ruleID != "")) {
+    //     echo "error=emptyInputs";
+    //     exit();
+    // }
+    if (!($questionText != "" && $rightAnswer != "" && $quizID != "")) {
         echo "error=emptyInputs";
         exit();
     }
@@ -21,7 +26,7 @@ if (isset($_POST['submit'])) {
     // ----------------------------------------------------------------------------------------------
     // CREATE QUESTION
     // GET QUESTION ID
-    $sqlCreateQuestion = "INSERT INTO questions(questionText, ruleID) VALUES (?, ?);";
+    $sqlCreateQuestion = "INSERT INTO questions(questionText, quizID) VALUES (?, ?);";
     $stmtCreateQuestion = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmtCreateQuestion, $sqlCreateQuestion)) {
@@ -29,7 +34,8 @@ if (isset($_POST['submit'])) {
         exit();
     }
 
-    mysqli_stmt_bind_param($stmtCreateQuestion, "si", $questionText, $ruleID);
+    // mysqli_stmt_bind_param($stmtCreateQuestion, "si", $questionText, $ruleID);
+    mysqli_stmt_bind_param($stmtCreateQuestion, "si", $questionText, $quizID);
     mysqli_stmt_execute($stmtCreateQuestion);
     mysqli_stmt_close($stmtCreateQuestion);
 
@@ -122,7 +128,9 @@ if (isset($_POST['submit'])) {
     mysqli_stmt_close($stmtCreateWrongAnswers);
     // ----------------------------------------------------------------------------------------------
     // UPDATE QUESTION TO PROVIDE THE RIGHT ANSWER ID
-    $sqlUpdateQuestion = "UPDATE questions SET answerID = ? WHERE questionID = ?;";
+    checkForeignKey($conn, false);
+
+    $sqlUpdateQuestion = "UPDATE questions SET rightAnswer = ? WHERE questionID = ?;";
     $stmtUpdateQuestion = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmtUpdateQuestion, $sqlUpdateQuestion)) {
         echo ("error=stmtFailed");
@@ -132,6 +140,8 @@ if (isset($_POST['submit'])) {
     mysqli_stmt_bind_param($stmtUpdateQuestion, "ii", $answerID, $questionID);
     mysqli_stmt_execute($stmtUpdateQuestion);
     mysqli_stmt_close($stmtUpdateQuestion);
+
+    checkForeignKey($conn, true);
 
     echo "error=none";
 } else {

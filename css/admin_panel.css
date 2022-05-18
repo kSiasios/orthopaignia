@@ -29,6 +29,17 @@
   gap: var(--gap, 0.5em);
 }
 
+.db-functions div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap, 0.5em);
+}
+
+.db-functions div button {
+  width: 100%;
+  max-width: 12.5rem;
+}
+
 .user-link {
   width: 100%;
   padding: 1em;

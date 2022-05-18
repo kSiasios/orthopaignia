@@ -1,5 +1,8 @@
 <?php
 
+//  <!-- TO DELETE -->
+
+
 session_start();
 
 if (!isset($_SESSION["logged"])) {

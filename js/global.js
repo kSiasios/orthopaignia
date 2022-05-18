@@ -15,3 +15,30 @@ function logoutHandler() {
       console.log(error);
     });
 }
+
+function replaceSpecialCharacters(str) {
+  return str.replaceAll('"', '"');
+}
+
+function convertEducationToReadable(level) {
+  switch (level) {
+    case "3":
+      return "Γ' Δημοτικού";
+      break;
+    case "4":
+      return "Δ' Δημοτικού";
+      break;
+    case "5":
+      return "Ε' Δημοτικού";
+      break;
+    case "6":
+      return "ΣΤ' Δημοτικού";
+      break;
+    case "other":
+      return "Δευτεροβάθμια";
+      break;
+    default:
+      return "error";
+      break;
+  }
+}
