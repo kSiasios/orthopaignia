@@ -1,11 +1,9 @@
-// TO DELETE
-
 <?php
 session_start();
 $title = "Κανόνες";
 $stylesheets =
     '<link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/category.css">';
+    <link rel="stylesheet" href="../css/rules.css">';
 
 include '../header.php';
 if (!isset($_SESSION["logged"])) {
@@ -72,20 +70,16 @@ if (!isset($_SESSION["logged"])) {
         let rulesObj;
         let ruleIndex = 0;
 
-        // fetch(`/${baseURL}/includes/fetchRulesHTML.php`).then((res) => {
-        //     return res.text();
-        // }).then((text) => {
-        //     const jsonObj = JSON.parse(text);
-        //     rulesObj = jsonObj;
-        //     updateRule(ruleIndex);
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-        fetch(`/${baseURL}/includes/fetchRules.php`).then((res) => {
+        const searchParams = new URLSearchParams();
+        searchParams.append("submit", "submit");
+        searchParams.append("quizIndex", "<?php echo $_GET['index'] ?>");
+
+        fetch(`/${baseURL}/includes/fetchRules.php`, {
+            method: "POST",
+            body: searchParams,
+        }).then((res) => {
             return res.json();
         }).then((jsonArray) => {
-            // const jsonObj = JSON.parse(text);
-            // rulesObj = jsonObj;
             rulesObj = jsonArray;
             updateRule(ruleIndex);
         }).catch((error) => {

@@ -392,4 +392,5 @@ include '../header.php';
             console.error(`${error}`);
         });
     </script>
+    <script src="<?php echo $baseURL ?>/js/testingFile.js"></script>
     <?php include '../components/footer.php'; ?>

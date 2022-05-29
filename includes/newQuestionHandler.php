@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
     // ----------------------------------------------------------------------------------------------
     // CREATE QUESTION
     // GET QUESTION ID
-    $sqlCreateQuestion = "INSERT INTO questions(questionText, quizID) VALUES (?, ?);";
+    $sqlCreateQuestion = "INSERT INTO questions(questionText, quizID, questionType) VALUES (?, ?, ?);";
     $stmtCreateQuestion = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmtCreateQuestion, $sqlCreateQuestion)) {
@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
     }
 
     // mysqli_stmt_bind_param($stmtCreateQuestion, "si", $questionText, $ruleID);
-    mysqli_stmt_bind_param($stmtCreateQuestion, "si", $questionText, $quizID);
+    mysqli_stmt_bind_param($stmtCreateQuestion, "sis", $questionText, $quizID, $questionType);
     mysqli_stmt_execute($stmtCreateQuestion);
     mysqli_stmt_close($stmtCreateQuestion);
 

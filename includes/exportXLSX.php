@@ -36,7 +36,15 @@ mysqli_stmt_execute($stmt);
 
 $resultData = mysqli_stmt_get_result($stmt);
 while ($row = mysqli_fetch_assoc($resultData)) {
-    $lineData = array($row["userID"], decrypt($row["userFirstName"]), decrypt($row["userLastName"]), decrypt($row["userEmail"]), decrypt($row["userUsername"]), convertEducationToReadable($row["userEducation"]));
+    // FETCH DATA FOR EACH INDIVIDUAL
+    $lineData = array(
+        $row["userID"],
+        decrypt($row["userFirstName"]),
+        decrypt($row["userLastName"]),
+        decrypt($row["userEmail"]),
+        decrypt($row["userUsername"]),
+        convertEducationToReadable($row["userEducation"])
+    );
     array_walk($lineData, 'filterData');
     $excelData .= implode("\t", array_values($lineData)) . "\n";
 }

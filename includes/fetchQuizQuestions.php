@@ -20,7 +20,7 @@ require_once "db.info.php";
 
 $returnData = '{"error":"none"';
 
-echo ($_POST["testArray"]);
+// echo ($_POST["testArray"]);
 
 // if (isset($_POST["ruleID"])) {
 //     $ruleID = $_POST["ruleID"];
@@ -81,6 +81,7 @@ if (isset($_POST["quizID"])) {
     while ($row = mysqli_fetch_assoc($resultData)) {
         // FETCH ANSWERS FOREACH QUESTION
         $returnData .= ',"question-' . $index . '":{"text":"' . $row["questionText"] . '"';
+        $returnData .= ',"type":"' . $row["questionType"] . '"';
         $answerIndex = 0;
         $sqlFetchWrongAnswers = "SELECT * FROM answers WHERE questionID = ?;";
         $stmtFetchWrongAnswers = mysqli_stmt_init($conn);
@@ -118,6 +119,7 @@ if (isset($_POST["quizID"])) {
 
     while ($row = mysqli_fetch_assoc($resultData)) {
         $returnData .= ', "question-' . $index . '":{"text":"' . $row["questionText"] . '"';
+        $returnData .= ',"type":"' . $row["questionType"] . '"';
         $answerIndex = 0;
 
         $sqlFetchWrongAnswers = "SELECT * FROM answers WHERE questionID = ?;";

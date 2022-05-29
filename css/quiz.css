@@ -9,6 +9,7 @@
 .quiz-question {
     padding: 0.5em 1em;
 }
+
 .quiz-question,
 .quiz-answers {
     width: 100%;
@@ -30,13 +31,14 @@
     border-radius: 0.25em;
 
 }
+
 .answer-container:focus-within,
 .answer-container:hover {
     background: var(--secondary-clr-dark);
     color: var(--hover-color);
 }
 
-.answer-container a{
+.answer-container a {
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -47,4 +49,10 @@
 .answer-container a:focus {
     /* background: var(--secondary-clr-dark); */
     color: var(--hover-color);
+}
+
+.quiz-answers div[draggable="true"] {
+    cursor: grab;
+    width: 100%;
+    padding: 1em;
 }

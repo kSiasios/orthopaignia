@@ -9,11 +9,21 @@ if (!isset($_SESSION['logged']) && !isset($_SESSION['isAdmin'])) {
 
 require_once "db.info.php";
 
-$sql = "SELECT * FROM rules;";
-$stmt = mysqli_stmt_init($conn);
-if (!mysqli_stmt_prepare($stmt, $sql)) {
-    echo ("error=stmtFailed");
-    exit();
+if (isset($_POST["quizIndex"])) {
+    $sql = "SELECT * FROM rules WHERE quizID = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        echo ("error=administratorsDeletionFailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "i", $_POST["quizIndex"]);
+} else {
+    $sql = "SELECT * FROM rules;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        echo ("error=stmtFailed");
+        exit();
+    }
 }
 
 mysqli_stmt_execute($stmt);

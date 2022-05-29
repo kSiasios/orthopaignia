@@ -333,7 +333,7 @@ if (!isset($_SESSION["isAdmin"])) {
 
                 const paragraph = document.createElement("p");
                 paragraph.classList.add("question-text");
-                paragraph.innerText = element.questionText;
+                paragraph.innerText = element.questionText.split("<")[0];
 
                 const button = document.createElement("button");
                 button.classList.add("red");
@@ -351,15 +351,41 @@ if (!isset($_SESSION["isAdmin"])) {
             console.error(`${error}`);
         });
 
-        fetch(`/${baseURL}/includes/fetchUsersDataForAdmin.php`).then((res) => {
+        // fetch(`/${baseURL}/includes/fetchUsersDataForAdmin.php`).then((res) => {
+        //     return res.text();
+        // }).then((text) => {
+        //     const jsonArray = JSON.parse(text);
+        //     jsonArray.forEach(element => {
+        //         // CREATE LINK FOR THE USER
+        //         const userLink = document.createElement("a");
+        //         userLink.setAttribute("href", `/${baseURL}/routes/user_info.php?user=${element.ID}`);
+        //         userLink.innerText = `${element.firstName} ${element.lastName}`;
+        //         userLink.classList.add("user-link");
+
+        //         usersContainer.appendChild(userLink);
+        //     });
+        // }).catch((error) => {
+        //     console.error(`${error}`);
+        // });
+
+
+        const searchParams = new URLSearchParams();
+        searchParams.append("multiple", "true");
+
+        fetch(`/${baseURL}/includes/fetchUserData.php`, {
+            method: "POST",
+            body: searchParams,
+        }).then((res) => {
+            // console.log(res.text());
             return res.text();
         }).then((text) => {
             const jsonArray = JSON.parse(text);
+            console.log(jsonArray);
             jsonArray.forEach(element => {
                 // CREATE LINK FOR THE USER
                 const userLink = document.createElement("a");
-                userLink.setAttribute("href", `/${baseURL}/routes/user_info.php?user=${element.ID}`);
-                userLink.innerText = `${element.firstName} ${element.lastName}`;
+                userLink.setAttribute("href", `/${baseURL}/routes/user_info.php?user=${element.user.userID}`);
+                userLink.innerText = `${element.user.userFirstName} ${element.user.userLastName}`;
                 userLink.classList.add("user-link");
 
                 usersContainer.appendChild(userLink);

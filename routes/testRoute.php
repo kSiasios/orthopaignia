@@ -1,3 +1,5 @@
+<!-- TO DELETE -->
+
 <?php
 session_start();
 $title = "Quiz";

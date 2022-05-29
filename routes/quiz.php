@@ -40,63 +40,22 @@ require_once "../includes/functions.php";
         </div>
     </div>
     <script>
-        const ofQuiz = <?php if (isset($_GET["quiz"])) {
-                            echo "'" . $_GET["quiz"] . "';\n";
-                        } else {
-                            echo "'';\n";
-                        }
-                        ?>;
-
-        // if (!localStorage.getItem("quizProgress")) {
-        //     localStorage.setItem("quizProgress", ofQuiz);
-        // }
-
-        <?php if (isset($_GET["quiz"])) {
-            echo 'localStorage.setItem("quizProgress", ofQuiz)';
-        } else {
-            echo "";
-        }
-        ?>;
-
-        // localStorage.setItem("quizProgress", ofQuiz);
-
-
-
         const forQuiz = localStorage.getItem("quizProgress");
+
+        console.log(`forQuiz: ${forQuiz}`)
 
         const questionResults = [];
         let questions;
         let currentQuestionIndex = 0;
         let score = 0;
         let counter = 0;
-        console.log(counter);
+        // console.log(counter);
         setInterval(() => {
             counter++;
         }, 100);
         const quizContainer = document.querySelector(".quiz-container");
-        // fetchQuestions(ofRule);
         fetchQuestions(forQuiz);
 
-        // function fetchQuestions(ofRule) {
-        //     const searchParams = new URLSearchParams();
-        //     searchParams.append("submit", "submit");
-        //     if (ofRule !== "") {
-        //         searchParams.append("ruleID", ofRule);
-        //     }
-
-        //     fetch(`/${baseURL}/includes/fetchQuizQuestions.php`, {
-        //         method: "POST",
-        //         body: searchParams
-        //     }).then((res) => {
-        //         return res.text();
-        //     }).then((text) => {
-        //         questions = text;
-        //         populateQuiz(currentQuestionIndex);
-
-        //     }).catch((err) => {
-        //         console.error(err);
-        //     });
-        // }
         function fetchQuestions(forQuiz) {
             const searchParams = new URLSearchParams();
             searchParams.append("submit", "submit");
@@ -115,28 +74,14 @@ require_once "../includes/functions.php";
             }).catch((err) => {
                 console.error(err);
             });
-            // fetch(`/${baseURL}/includes/fetchQuestions.php`, {
-            //     method: "POST",
-            //     body: searchParams
-            // }).then((res) => {
-            //     return res.json();
-            // }).then((jsonArray) => {
-            //     console.log(jsonArray);
-            //     // jsonArray.forEach(element => {
-            //     //     console.log(element);
-            //     // });
-            //     questions = text;
-            // //     populateQuiz(currentQuestionIndex);
-            // }).catch((err) => {
-            //     console.error(err);
-            // });
         }
 
         function populateQuiz(questionIndex) {
+            // Call drag-drop function to initialize element references
+            initializeElements();
+
             const questionsJSON = JSON.parse(questions);
             delete questionsJSON["error"];
-
-            console.log(questionsJSON);
 
             if (!Object.keys(questionsJSON)[questionIndex]) {
                 quizContainer.innerHTML = "";
@@ -150,9 +95,10 @@ require_once "../includes/functions.php";
                 // Move on to the next quiz
                 if (score == Object.keys(questionsJSON).length) {
                     sessionStorage.setItem("quizIndex", parseInt(sessionStorage.getItem("quizIndex")) + 1);
+                    return;
                 }
                 // Else, redirect to the corresponding rules
-
+                window.location = `/${baseURL}/routes/rules.php?index=${localStorage.getItem("quizProgress")}`;
                 return;
             }
 
@@ -169,73 +115,105 @@ require_once "../includes/functions.php";
             quizQuestionText.innerHTML = element.text;
             quizQuestion.appendChild(quizQuestionText);
 
-            // Test text to speech
-            // let speech = new SpeechSynthesis();
-            // speech.lang = "el";
-
-            // speech.volume = 10;
-
-            // responsiveVoice.speak("Γειά σου μπαρμπαδούλα", "Greek Female");
-
             quizQuestionText.addEventListener("click", (event) => {
-                console.log("SPEAK");
-                // speech.text = quizQuestionText.value;
-                // window.speechSynthesis.speak(speech);
-                // console.log(event.target.innerText);
                 responsiveVoice.speak(`${event.target.innerText}`, "Greek Female");
             });
-
-
-
-            // End Test text to speech
+            quizQuestionText.style.cursor = "help";
 
             quizContainer.appendChild(quizQuestion);
 
             const quizAnswers = document.createElement("div");
             quizAnswers.classList.add("quiz-answers");
 
-            const questionsArray = [];
+            const answersArray = [];
 
 
             let index = 0;
             for (const elementKey in element) {
                 if (Object.hasOwnProperty.call(element, elementKey)) {
                     const childElement = element[elementKey];
-                    if (elementKey !== "text") {
-                        const question = [];
-                        question.push(elementKey, childElement);
-                        questionsArray.push(question);
+                    if (elementKey !== "text" && elementKey !== "type") {
+                        const answer = [];
+                        answer.push(elementKey, childElement);
+                        answersArray.push(answer);
                     }
                 }
             }
 
-            const shuffledQuestions = questionsArray.sort((a, b) => 0.5 - Math.random());
+            const shuffledAnswers = answersArray.sort((a, b) => 0.5 - Math.random());
 
-            shuffledQuestions.forEach((elem) => {
+            shuffledAnswers.forEach((elem) => {
                 const answerContainer = document.createElement("div")
                 answerContainer.classList.add("answer-container");
-                const answer = document.createElement("a");
-                answer.setAttribute("href", "#");
-                answer.setAttribute("id", index);
-                answer.addEventListener("click", (e) => {
-                    answerQuestion(wantedKey, elem[1]);
-                })
-                answer.innerHTML = elem[1];
-                answerContainer.appendChild(answer);
-                quizAnswers.appendChild(answerContainer);
+                let answer;
 
-                index++;
+                if (element["type"] == "drag-drop") {
+                    answer = new DOMParser().parseFromString(elem[1], "text/html").body.firstElementChild;
+                    quizAnswers.appendChild(answer);
+                    index++;
+                }
+                if (element["type"] == "multiple-choice") {
+                    answer = document.createElement("a");
+                    answer.setAttribute("href", "#");
+                    answer.setAttribute("id", index);
+                    answer.addEventListener("click", (e) => {
+                        answerQuestion(wantedKey, elem[1]);
+                    })
+                    answer.innerHTML = elem[1];
+                    answerContainer.appendChild(answer);
+                    quizAnswers.appendChild(answerContainer);
+
+                    index++;
+                }
+
             });
 
+
             quizContainer.appendChild(quizAnswers);
+
+            // if the question is drag drop, add button to confirm answer
+            if (element["type"] == "drag-drop") {
+                const confirmButton = document.createElement("button");
+                confirmButton.classList.add("green");
+                confirmButton.innerText = "LOLOLOLOLO";
+                confirmButton.addEventListener("click", () => {
+                    if (document.querySelector(".empty").innerHTML == "") {
+                        // console.log(`Current Answer: No answer`);
+                        sweetAlertWarning({
+                            title: "Προσοχή!",
+                            text: "Δεν έχει απαντήσει στην ερώτηση!",
+                            confirmText: "Εντάξει",
+                        });
+                        return;
+                    }
+                    // console.log(`Current Answer: ${currentAnswer.innerText}`);
+                    answerQuestion(wantedKey, currentAnswer.innerText);
+                });
+
+                quizContainer.appendChild(confirmButton);
+            }
         }
 
         function answerQuestion(questionIndex, answerText) {
             const questionsJSON = JSON.parse(questions);
 
             const result = [];
-            let rightAnswer = questionsJSON[questionIndex]["answer-0"];
+            let rightAnswer;
+
+            rightAnswer = questionsJSON[questionIndex]["answer-0"];
+
+            // console.log(questionsJSON[questionIndex])
+            if (questionsJSON[questionIndex].type === "drag-drop") {
+                const answerTemp = document.createElement("div");
+                answerTemp.innerHTML = questionsJSON[questionIndex]["answer-0"];
+                // rightAnswer = questionsJSON[questionIndex]["answer-0"];
+                rightAnswer = answerTemp.innerText;
+                // document.body.appendChild(answerTemp);
+                // console.log(answerTemp.innerText);
+            }
+
             result.push(questionsJSON[questionIndex]["text"]);
+            // console.log(`Comparison: ${rightAnswer} === ${answerText}`);
             if (rightAnswer === answerText) {
                 score++;
 
@@ -245,8 +223,12 @@ require_once "../includes/functions.php";
             }
 
             questionResults.push(result);
+
+            // console.log("Result: \n");
+            // console.log(questionResults);
+
             currentQuestionIndex++;
-            console.log(counter / 10);
+            // console.log(counter / 10);
             populateQuiz(currentQuestionIndex);
             counter = 0;
         }
@@ -255,9 +237,12 @@ require_once "../includes/functions.php";
             const searchParams = new URLSearchParams();
 
             searchParams.append("submit", "submit");
-            searchParams.append("results", results.map((elem) => {
-                return elem.join("~")
-            }).join("|"));
+            // searchParams.append("results", results.map((elem) => {
+            //     return elem.join("~")
+            // }).join("|"));
+            searchParams.append("results", JSON.stringify(questionResults));
+
+            // console.log(JSON.stringify(questionResults));
 
             fetch(`/${baseURL}/includes/setQuestionsGrades.php`, {
                 method: "POST",
@@ -281,21 +266,4 @@ require_once "../includes/functions.php";
         }
     </script>
     <script src="<?php echo $baseURL ?>/js/dragDropGame.js"></script>
-    <script>
-        // // Test text to speech
-        // let speech = new SpeechSynthesisUtterance();
-        // speech.lang = "el";
-
-        // let questionTxt;
-
-        // while (questionTxt == null) {
-        //     questionTxt = document.querySelector(".quiz-question p");
-        //     // if (questionTxt != null) {
-        //     questionTxt.addEventListener("click", () => {
-        //         speech.text = questionTxt.value;
-        //         window.speechSynthesis.speak(speech);
-        //     });
-        //     // }
-        // }
-    </script>
     <?php include '../components/footer.php'; ?>
