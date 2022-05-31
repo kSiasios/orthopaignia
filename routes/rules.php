@@ -55,13 +55,28 @@ if (!isset($_SESSION["logged"])) {
             </div> -->
             <div class="buttons-container">
                 <div class="prev-button">
-                    <button class="blue" onclick="updateRule(-1)"><i class="fi fi-rr-angle-left"></i> Προηγούμενο</button>
+                    <button class="blue" onclick="updateRule(-1)">
+                        <ion-icon name="caret-back"></ion-icon>
+                        <!-- <i class="fi fi-rr-angle-left"></i>  -->
+                        Προηγούμενο
+                    </button>
                 </div>
                 <div class="next-buttons">
-                    <button class="inverse">Παράβλεψη <i class="fi fi-rr-angle-double-right"></i></button>
-                    <button class="blue" onclick="updateRule(1)">Επόμενο <i class="fi fi-rr-angle-right"></i></button>
+                    <button class="inverse">
+                        Παράβλεψη
+                        <ion-icon name="play-skip-forward"></ion-icon>
+                        <!-- <i class="fi fi-rr-angle-double-right"></i> -->
+                    </button>
+                    <button class="blue" onclick="updateRule(1)">
+                        Επόμενο
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <!-- <i class="fi fi-rr-angle-right"></i> -->
+                    </button>
                 </div>
-                <button class="blue" id="play-button" onclick="redirectTo(`/${baseURL}/routes/quiz.php`)">Παίξε <i class="fi fi-sr-play"></i></button>
+                <button class="blue" id="play-button" onclick="redirectTo(`/${baseURL}/routes/quiz.php`)">Παίξε
+                    <!-- <i class="fi fi-sr-play"></i> -->
+                    <ion-icon name="caret-forward"></ion-icon>
+                </button>
             </div>
         </div>
     </div>

@@ -20,19 +20,40 @@ include './header.php';
             </p>
             <div class="dialog-buttons">
                 <div class="next-btns">
-                    <button class="inverse" id="skip-dialog" onclick="skipDialog()">Παράβλεψη <i class="fi fi-rr-angle-double-right"></i></button>
-                    <button class="blue" id="next-dialog" onclick="changeStoryLine(1)">Επόμενο <i class="fi fi-rr-angle-right"></i></button>
+                    <button class="inverse" id="skip-dialog" onclick="skipDialog()">
+                        Παράβλεψη
+                        <ion-icon name="play-skip-forward"></ion-icon>
+                        <!-- <i class="fi fi-rr-angle-double-right"></i> -->
+                    </button>
+                    <button class="blue" id="next-dialog" onclick="changeStoryLine(1)">
+                        Επόμενο
+                        <ion-icon name="chevron-forward"></ion-icon>
+                        <!-- <i class="fi fi-rr-angle-right"></i> -->
+                    </button>
                 </div>
-                <button class="blue" id="prev-dialog" onclick="changeStoryLine(-1)"><i class="fi fi-rr-angle-left"></i>
-                    Προηγούμενο</button>
+                <button class="blue" id="prev-dialog" onclick="changeStoryLine(-1)">
+                    <!-- <i class="fi fi-rr-angle-left"></i> -->
+                    <ion-icon name="caret-back"></ion-icon>
+                    Προηγούμενο
+                </button>
             </div>
             <div class="answer-buttons">
-                <button class="green" id="yes-dialog" onclick="answerDialog('y')">Ναι <i class="fi fi-rr-thumbs-up"></i></button>
-                <button class="red" id="no-dialog" onclick="answerDialog('n')">Όχι <i class="fi fi-rr-thumbs-down"></i></button>
+                <button class="green" id="yes-dialog" onclick="answerDialog('y')">Ναι
+                    <!-- <i class="fi fi-rr-thumbs-up"></i> -->
+                    <!-- <ion-icon name="thumbs-up-outline"></ion-icon> -->
+                    <ion-icon name="thumbs-up"></ion-icon>
+                </button>
+                <button class="red" id="no-dialog" onclick="answerDialog('n')">Όχι
+                    <ion-icon name="thumbs-down"></ion-icon>
+                    <!-- <i class="fi fi-rr-thumbs-down"></i> -->
+                </button>
             </div>
             <div class="play-buttons">
                 <!-- <button class="inverse" id="prev-dialog" onclick="">Προπονήσου <i class="fi fi-ss-book-alt"></i></button> -->
-                <button class="green" id="prev-dialog" onclick="window.location = `/${baseURL}/routes/quiz.php`">Παίξε <i class="fi fi-sr-play"></i></button>
+                <button class="green" id="prev-dialog" onclick="window.location = `/${baseURL}/routes/quiz.php`">Παίξε
+                    <!-- <i class="fi fi-sr-play"></i> -->
+                    <ion-icon name="caret-forward"></ion-icon>
+                </button>
             </div>
         </div>
         <div class="story-images">

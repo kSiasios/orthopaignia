@@ -91,16 +91,49 @@ require_once "../includes/functions.php";
                 quizContainer.appendChild(scoreElement);
                 await setQuestionGrades(questionResults);
 
-                console.log("setQuestionGrades FINISHED");
+                // console.log("setQuestionGrades FINISHED");
+
                 // If score is equal to the amount of questions fetched,
                 // The player have answered all the questions correctly
                 // Move on to the next quiz
                 if (score == Object.keys(questionsJSON).length) {
-                    sessionStorage.setItem("quizIndex", parseInt(sessionStorage.getItem("quizIndex")) + 1);
+                    // check if this quiz was the last one
+                    // if it was the last one, the player has won
+
+                    const searchParams = new URLSearchParams();
+                    searchParams.append("submit", "submit");
+                    searchParams.append("quizID", localStorage.getItem("quizProgress"));
+
+                    fetch(`/${baseURL}/includes/completeGame.php`, {
+                            method: "POST",
+                            body: searchParams
+                        }).then((res) => {
+                            return res.text();
+                        }).then((text) => {
+                            const jsonResponse = JSON.parse(text);
+                            if (jsonResponse.error == "none") {
+                                if (jsonResponse.answer === "true") {
+                                    console.log("Was last quiz");
+
+                                    // REDIRECT TO END GAME
+                                    window.location = `/${baseURL}/routes/end_game.php`;
+                                    return;
+                                } else {
+                                    console.log("Was NOT last quiz");
+                                }
+                            } else {
+                                console.log("Unexpected error!");
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                    // if it was not the last one, move on to the next quiz
+                    localStorage.setItem("quizIndex", parseInt(localStorage.getItem("quizIndex")) + 1);
                     return;
                 }
                 // Else, redirect to the corresponding rules
-                window.location = `/${baseURL}/routes/rules.php?index=${localStorage.getItem("quizProgress")}`;
+                // window.location = `/${baseURL}/routes/rules.php?index=${localStorage.getItem("quizProgress")}`;
                 return;
             }
 
@@ -260,13 +293,13 @@ require_once "../includes/functions.php";
                     const error = JSON.parse(text).error;
                     switch (error) {
                         case "none":
-                            console.log("Hooray!");
+                            console.log("Hooray! Grades set successfully!");
                             break;
                         default:
                             console.log("No-ray!");
                             break;
                     }
-                    console.log(text);
+                    // console.log(text);
                 }).catch((error) => {
                     console.log(error);
                 }))

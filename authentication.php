@@ -25,11 +25,17 @@ include './header.php';
             <div class="form-inputs login">
                 <form method="POST">
                     <div class="input-container">
-                        <label for="username"><i class="fi fi-ss-user"></i></label>
+                        <label for="username">
+                            <ion-icon name="person"></ion-icon>
+                            <!-- <i class="fi fi-ss-user"></i> -->
+                        </label>
                         <input type="text" name="username" id="username-input login" placeholder="Όνομα Χρήστη" />
                     </div>
                     <div class="input-container">
-                        <label for="password"><i class="fi fi-ss-key"></i></label>
+                        <label for="password">
+                            <ion-icon name="key"></ion-icon>
+                            <!-- <i class="fi fi-ss-key"></i> -->
+                        </label>
                         <input type="password" name="password" id="password-input login" placeholder="Κωδικός Πρόσβασης" />
                     </div>
                     <div class="form-submit">
@@ -47,19 +53,31 @@ include './header.php';
                                 <p class="header">Στοιχεία χρήστη</p>
                             </div>
                             <div class="input-container">
-                                <label for="username"><i class="fi fi-ss-user"></i></label>
+                                <label for="username">
+                                    <!-- <i class="fi fi-ss-user"></i> -->
+                                    <ion-icon name="person"></ion-icon>
+                                </label>
                                 <input type="text" name="username" id="username-input register" placeholder="Όνομα Χρήστη" />
                             </div>
                             <div class="input-container">
-                                <label for="email"><i class="fi fi-ss-at"></i></label>
+                                <label for="email">
+                                    <ion-icon name="at"></ion-icon>
+                                    <!-- <i class="fi fi-ss-at"></i> -->
+                                </label>
                                 <input type="email" name="email" id="email-input" placeholder="Ηλ. Ταχυδρομείο" />
                             </div>
                             <div class="input-container">
-                                <label for="password"><i class="fi fi-ss-key"></i></label>
+                                <label for="password">
+                                    <ion-icon name="key"></ion-icon>
+                                    <!-- <i class="fi fi-ss-key"></i> -->
+                                </label>
                                 <input type="password" name="password" id="password-input register" placeholder="Κωδικός Πρόσβασης" />
                             </div>
                             <div class="input-container">
-                                <label for="password"><i class="fi fi-ss-key"></i></label>
+                                <label for="password">
+                                    <ion-icon name="key"></ion-icon>
+                                    <!-- <i class="fi fi-ss-key"></i> -->
+                                </label>
                                 <input type="password" name="repeat-password" id="repeat-password-input" placeholder="Επανάληψη Κωδικού Πρόσβασης" />
                             </div>
                         </div>
@@ -68,15 +86,24 @@ include './header.php';
                                 <p class="header">Στοιχεία μαθητή</p>
                             </div>
                             <div class="input-container">
-                                <label for="student-name"><i class="fi fi-ss-user"></i></label>
+                                <label for="student-name">
+                                    <!-- <i class="fi fi-ss-user"></i> -->
+                                    <ion-icon name="person"></ion-icon>
+                                </label>
                                 <input type="text" name="student-name" id="student-name-input register" placeholder="Όνομα Μαθητή" />
                             </div>
                             <div class="input-container">
-                                <label for="student-lastname"><i class="fi fi-ss-user"></i></label>
+                                <label for="student-lastname">
+                                    <!-- <i class="fi fi-ss-user"></i> -->
+                                    <ion-icon name="person"></ion-icon>
+                                </label>
                                 <input type="text" name="student-lastname" id="student-lastname-input register" placeholder="Επώνυμο Μαθητή" />
                             </div>
                             <div class="input-container">
-                                <label for="student-grade"><i class="fi fi-sr-graduation-cap"></i></label>
+                                <label for="student-grade">
+                                    <ion-icon name="school"></ion-icon>
+                                    <!-- <i class="fi fi-sr-graduation-cap"></i> -->
+                                </label>
                                 <!-- <input type="text" name="student-grade" id="student-grade-input register" placeholder="Τάξη" /> -->
                                 <select name="student-grade" id="student-grade">
                                     <option value="none" disabled selected>Επιλέξτε τάξη</option>

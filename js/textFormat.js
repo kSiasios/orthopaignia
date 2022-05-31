@@ -4,7 +4,8 @@ function filterText(text) {
   filteredText = text;
   filteredText = filteredText.replaceAll(
     "==>",
-    "<i class='fi fi-rr-arrow-right'>"
+    "<ion-icon name='arrow-forward'></ion-icon>"
+    // "<i class='fi fi-rr-arrow-right'>"
   );
   filteredText = filteredText.replaceAll("/!!", "</span>");
   filteredText = filteredText.replaceAll("/**", "</span>");

@@ -26,7 +26,10 @@ if (!file("variables.env")) {
         }
         ?>
     </ul>
-    <a href="#" class="hamburger closed"><i class="fi fi-rr-menu-burger"></i></a>
+    <a href="#" class="hamburger closed">
+        <!-- <i class="fi fi-rr-menu-burger"></i> -->
+        <ion-icon name="menu"></ion-icon>
+    </a>
 </nav>
 
 
@@ -52,8 +55,10 @@ if (!file("variables.env")) {
 
     const hamburgerBtn = document.querySelector(".hamburger");
     const navUl = document.querySelector("nav").querySelector("ul");
-    const closeIcon = '<i class="fi fi-rr-cross"></i>';
-    const openIcon = '<i class="fi fi-rr-menu-burger"></i>';
+    // const closeIcon = '<i class="fi fi-rr-cross"></i>';
+    const closeIcon = '<ion-icon name="close"></ion-icon>';
+    const openIcon = '<ion-icon name="menu"></ion-icon>';
+    // const openIcon = '<i class="fi fi-rr-menu-burger"></i>';
     hamburgerBtn.addEventListener("click", (e) => {
         hamburger();
     });

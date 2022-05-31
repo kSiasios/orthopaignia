@@ -15,6 +15,12 @@ if (!file("variables.env")) {
     <?php
     echo $stylesheets;
     ?>
+
+    <!-- Include IonIcon Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Include Flaticon Icons -->
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css" />
@@ -23,8 +29,10 @@ if (!file("variables.env")) {
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css" />
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" />
 
+    <!-- Include the SweetAlert2 Library -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?php echo $baseURL ?>/js/sweetAlertFunctions.js"></script>
+    <!-- Include ResponsiveVoice -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=9EndP8Cp"></script>
     <link rel="icon" type="image/x-icon" href="<?php echo $baseURL ?>/images/favicon.ico">
     <title>

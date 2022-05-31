@@ -63,48 +63,61 @@ include '../header.php';
             <div class="format-helper">
                 <table>
                     <tr>
-                        <td>!!κείμενο/!! <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>!!κείμενο/!! <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-1">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>**κείμενο/** <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>**κείμενο/** <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-2">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>$κείμενο/$ <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>$κείμενο/$ <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-3">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>#κείμενο/# <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>#κείμενο/# <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-4">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>%κείμενο/% <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>%κείμενο/% <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-5">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>^κείμενο/^ <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>^κείμενο/^ <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-6">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>&κείμενο/& <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>&κείμενο/& <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-7">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>@κείμενο/@ <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>@κείμενο/@ <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-8">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>?κείμενο/? <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>?κείμενο/? <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-9">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>[κείμενο/] <i class="fi fi-rr-arrow-right"></i></td>
+                        <td>[κείμενο/] <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                         <td class="special-text-10 test">κείμενο</td>
                     </tr>
                     <tr>
-                        <td>==> <i class="fi fi-rr-arrow-right"></i></td>
-                        <td class="special-text-0 test"><i class="fi fi-rr-arrow-right"></i></td>
+                        <td>==> <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
+                        <td class="special-text-0 test">
+                            <ion-icon name='arrow-forward'></ion-icon>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -216,7 +229,8 @@ include '../header.php';
                     let error = text.split("=")[1];
                     switch (error) {
                         case "none":
-                            window.location = `/${baseURL}/routes/admin_panel.php`;
+                            // window.location = `/${baseURL}/routes/admin_panel.php`;
+                            location.reload();
                             break;
                         case "accessDenied":
                             sweetAlertError({
@@ -315,7 +329,7 @@ include '../header.php';
         function exportHTML() {
             const container = document.querySelector(".exported-HTML");
             const arr = getFormData();
-            container.innerHTML = `${String(arr).replace("==>", "<i class=\"fi fi-rr-arrow-right\">").replace(/&/g, "&amp;")
+            container.innerHTML = `${String(arr).replace("==>", "<ion-icon name='arrow-forward'></ion-icon>").replace(/&/g, "&amp;")
          .replace(/</g, "&lt;")
          .replace(/>/g, "&gt;")
          .replace(/"/g, "\\&quot;")
