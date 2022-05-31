@@ -61,6 +61,7 @@ if (!isset($_SESSION["logged"])) {
                     <button class="inverse">Παράβλεψη <i class="fi fi-rr-angle-double-right"></i></button>
                     <button class="blue" onclick="updateRule(1)">Επόμενο <i class="fi fi-rr-angle-right"></i></button>
                 </div>
+                <button class="blue" id="play-button" onclick="redirectTo(`/${baseURL}/routes/quiz.php`)">Παίξε <i class="fi fi-sr-play"></i></button>
             </div>
         </div>
     </div>
@@ -91,6 +92,7 @@ if (!isset($_SESSION["logged"])) {
             const element = rulesObj[ruleIndex];
             const prevBtn = buttons.querySelector(".prev-button");
             const nextBtns = buttons.querySelector(".next-buttons");
+            const playBtn = buttons.querySelector("#play-button");
             if (ruleIndex <= 0) {
                 ruleIndex = 0;
                 prevBtn.style.display = "none";
@@ -102,7 +104,9 @@ if (!isset($_SESSION["logged"])) {
             if (ruleIndex >= Object.keys(rulesObj).length - 1) {
                 ruleIndex = Object.keys(rulesObj).length - 1;
                 nextBtns.style.display = "none";
+                playBtn.style.display = "flex";
             } else {
+                playBtn.style.display = "none";
                 nextBtns.style.display = "flex";
             }
             buttons.remove();
@@ -111,6 +115,10 @@ if (!isset($_SESSION["logged"])) {
             ruleHeader.innerText = element.ruleName;
 
             ruleBody.parentElement.appendChild(buttons);
+        }
+
+        function redirectTo(url) {
+            window.location = url;
         }
     </script>
     <?php include '../components/footer.php'; ?>

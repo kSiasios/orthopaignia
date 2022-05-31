@@ -752,3 +752,29 @@ function debugEcho($reset = false)
     echo "CHECKPOINT " . $_SESSION["debugLine"] . "\n";
     $_SESSION["debugLine"]++;
 }
+
+function getEvaluations($conn, $userID, $quizID)
+{
+    $sqlGetEvaluations = "SELECT * FROM evaluations WHERE userID = ? AND quizID = ?;";
+    $stmtGetEvaluations = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmtGetEvaluations, $sqlGetEvaluations)) {
+        echo '{"error": "stmtFailed"}';
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmtGetEvaluations, "ii", $userID, $quizID);
+    mysqli_stmt_execute($stmtGetEvaluations);
+    // debugEcho();
+
+    $resultData = mysqli_stmt_get_result($stmtGetEvaluations);
+    // $evaluationID;
+    if ($rowEval = mysqli_fetch_assoc($resultData)) {
+        // We have an evaluation
+        // we only have to update the latest update
+        // $evaluationID = $rowEval["evaluationID"];
+
+        return $rowEval;
+    }
+
+    return false;
+}

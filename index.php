@@ -31,7 +31,7 @@ include './header.php';
                 <button class="red" id="no-dialog" onclick="answerDialog('n')">Όχι <i class="fi fi-rr-thumbs-down"></i></button>
             </div>
             <div class="play-buttons">
-                <button class="inverse" id="prev-dialog" onclick="">Προπονήσου <i class="fi fi-ss-book-alt"></i></button>
+                <!-- <button class="inverse" id="prev-dialog" onclick="">Προπονήσου <i class="fi fi-ss-book-alt"></i></button> -->
                 <button class="green" id="prev-dialog" onclick="window.location = `/${baseURL}/routes/quiz.php`">Παίξε <i class="fi fi-sr-play"></i></button>
             </div>
         </div>

@@ -49,6 +49,7 @@ require_once "../includes/functions.php";
         let currentQuestionIndex = 0;
         let score = 0;
         let counter = 0;
+        let totalCounter = 0;
         // console.log(counter);
         setInterval(() => {
             counter++;
@@ -76,7 +77,7 @@ require_once "../includes/functions.php";
             });
         }
 
-        function populateQuiz(questionIndex) {
+        async function populateQuiz(questionIndex) {
             // Call drag-drop function to initialize element references
             initializeElements();
 
@@ -88,8 +89,9 @@ require_once "../includes/functions.php";
                 let scoreElement = document.createElement("h2");
                 scoreElement.innerText = `Το σκορ σου: ${score}`;
                 quizContainer.appendChild(scoreElement);
-                setQuestionGrades(questionResults);
+                await setQuestionGrades(questionResults);
 
+                console.log("setQuestionGrades FINISHED");
                 // If score is equal to the amount of questions fetched,
                 // The player have answered all the questions correctly
                 // Move on to the next quiz
@@ -230,40 +232,80 @@ require_once "../includes/functions.php";
             currentQuestionIndex++;
             // console.log(counter / 10);
             populateQuiz(currentQuestionIndex);
+            totalCounter += counter;
             counter = 0;
         }
 
         function setQuestionGrades(results) {
-            const searchParams = new URLSearchParams();
+            return new Promise((resolve, reject) => {
 
-            searchParams.append("submit", "submit");
-            // searchParams.append("results", results.map((elem) => {
-            //     return elem.join("~")
-            // }).join("|"));
-            searchParams.append("results", JSON.stringify(questionResults));
+                const searchParams = new URLSearchParams();
 
-            // console.log(JSON.stringify(questionResults));
+                searchParams.append("submit", "submit");
+                // searchParams.append("results", results.map((elem) => {
+                //     return elem.join("~")
+                // }).join("|"));
+                searchParams.append("results", JSON.stringify(questionResults));
+                searchParams.append("totalTime", totalCounter);
+                searchParams.append("quizID", localStorage.getItem("quizProgress"));
 
-            fetch(`/${baseURL}/includes/setQuestionsGrades.php`, {
-                method: "POST",
-                body: searchParams
-            }).then((res) => {
+                // console.log(JSON.stringify(questionResults));
+
+                resolve(fetch(`/${baseURL}/includes/setGrades.php`, {
+                    method: "POST",
+                    body: searchParams
+                }).then((res) => {
+                    return res.text();
+                }).then((text) => {
+                    const error = JSON.parse(text).error;
+                    switch (error) {
+                        case "none":
+                            console.log("Hooray!");
+                            break;
+                        default:
+                            console.log("No-ray!");
+                            break;
+                    }
+                    console.log(text);
+                }).catch((error) => {
+                    console.log(error);
+                }))
+            });
+
+        }
+
+        function completeQuiz() {
+            fetch(`/${baseURL}/includes/fetchQuizzes.php`).then(res => {
                 return res.text();
             }).then((text) => {
-                const error = JSON.parse(text).error;
-                switch (error) {
-                    case "none":
-                        console.log("Hooray!");
-                        break;
-                    default:
-                        console.log("No-ray!");
-                        break;
-                }
-                console.log(text);
+                const jsonResponse = JSON.parse(text);
+                console.log(JSON.parse(text));
+                jsonResponse.forEach((element, index) => {
+                    if (element.quizID == localStorage.getItem("quizProgress")) {
+                        console.log(`Found Quiz in the list at index: ${index}`);
+                        // check if the last element is equal to the current element
+                        if (jsonResponse[jsonResponse.length - 1] == element) {
+                            console.log("Last Item");
+
+                            // redirect to end screen
+                        }
+                        if (jsonResponse.length > 1) {
+                            // we have a quiz later in the jsonResponse array
+                            // set localStorage variable quizProgress to the ID of the next quiz
+                            localStorage.setItem("quizProgress", jsonResponse[index + 1].quizID);
+
+                            // reload page to fetch the next quiz
+                            location.reload();
+                        }
+                        return;
+                    }
+                });
             }).catch((error) => {
-                console.log(error);
-            })
+                console.error(error);
+            });
         }
+
+        completeQuiz();
     </script>
     <script src="<?php echo $baseURL ?>/js/dragDropGame.js"></script>
     <?php include '../components/footer.php'; ?>
