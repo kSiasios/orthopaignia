@@ -50,6 +50,14 @@ require_once "../includes/functions.php";
         let score = 0;
         let counter = 0;
         let totalCounter = 0;
+
+        let studyTime = 0;
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.has('studyTime')) {
+            studyTime = parseFloat(urlParams.get('studyTime'));
+        }
+
         // console.log(counter);
         setInterval(() => {
             counter++;
@@ -85,10 +93,10 @@ require_once "../includes/functions.php";
             delete questionsJSON["error"];
 
             if (!Object.keys(questionsJSON)[questionIndex]) {
-                quizContainer.innerHTML = "";
-                let scoreElement = document.createElement("h2");
-                scoreElement.innerText = `Το σκορ σου: ${score}`;
-                quizContainer.appendChild(scoreElement);
+                // quizContainer.innerHTML = "";
+                // let scoreElement = document.createElement("h2");
+                // scoreElement.innerText = `Το σκορ σου: ${score}`;
+                // quizContainer.appendChild(scoreElement);
                 await setQuestionGrades(questionResults);
 
                 // console.log("setQuestionGrades FINISHED");
@@ -103,6 +111,8 @@ require_once "../includes/functions.php";
                     const searchParams = new URLSearchParams();
                     searchParams.append("submit", "submit");
                     searchParams.append("quizID", localStorage.getItem("quizProgress"));
+
+                    localStorage.setItem("quizIndex", parseInt(localStorage.getItem("quizIndex")) + 1);
 
                     fetch(`/${baseURL}/includes/completeGame.php`, {
                             method: "POST",
@@ -129,11 +139,10 @@ require_once "../includes/functions.php";
                             console.error(err);
                         })
                     // if it was not the last one, move on to the next quiz
-                    localStorage.setItem("quizIndex", parseInt(localStorage.getItem("quizIndex")) + 1);
                     return;
                 }
                 // Else, redirect to the corresponding rules
-                // window.location = `/${baseURL}/routes/rules.php?index=${localStorage.getItem("quizProgress")}`;
+                window.location = `/${baseURL}/routes/rules.php?index=${localStorage.getItem("quizProgress")}`;
                 return;
             }
 
@@ -210,7 +219,8 @@ require_once "../includes/functions.php";
             if (element["type"] == "drag-drop") {
                 const confirmButton = document.createElement("button");
                 confirmButton.classList.add("green");
-                confirmButton.innerText = "LOLOLOLOLO";
+                // confirmButton.innerText = "LOLOLOLOLO";
+                confirmButton.innerText = "Επόμενο";
                 confirmButton.addEventListener("click", () => {
                     if (document.querySelector(".empty").innerHTML == "") {
                         // console.log(`Current Answer: No answer`);
@@ -278,11 +288,14 @@ require_once "../includes/functions.php";
                 // searchParams.append("results", results.map((elem) => {
                 //     return elem.join("~")
                 // }).join("|"));
+
+                // if (studyTime != -1) {
+                searchParams.append("studyTime", studyTime);
+                // }
+
                 searchParams.append("results", JSON.stringify(questionResults));
                 searchParams.append("totalTime", totalCounter);
                 searchParams.append("quizID", localStorage.getItem("quizProgress"));
-
-                // console.log(JSON.stringify(questionResults));
 
                 resolve(fetch(`/${baseURL}/includes/setGrades.php`, {
                     method: "POST",

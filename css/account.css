@@ -19,8 +19,8 @@ input::placeholder {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1em;
-  padding: 1em;
+  gap: 2em;
+  padding: 3em 1em;
   border-radius: 1em;
   background-color: var(--primary-clr);
 }

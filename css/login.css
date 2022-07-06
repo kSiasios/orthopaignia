@@ -95,7 +95,7 @@ max-width: 20rem;
   justify-content: center;
 }
 
-.input-container label i {
+.input-container label ion-icon {
   color: var(--bg);
 }
 

@@ -22,7 +22,14 @@ $results = json_decode($_POST["results"]);
 
 $quizID = $_POST["quizID"];
 
+if (isset($_POST["studyTime"])) {
+    $studyTime = floatval($_POST["studyTime"]) / 10;
+} else {
+    $studyTime = 0;
+}
+
 // echo "QUIZ_ID: " . $quizID . "\n";
+debugEcho(true);
 
 $userID = getUserID($conn, $_SESSION["username"]);
 // debugEcho();
@@ -196,6 +203,9 @@ for ($i = 0; $i < sizeof($results); $i++) {
     // updateGradePerRule($conn, $ruleID, $userID);
 }
 
+debugEcho();
+
+
 $evalExists = false;
 $evaluationID = "";
 
@@ -229,6 +239,9 @@ if ($eval = getEvaluations($conn, $userID, $quizID)) {
     }
 }
 
+debugEcho();
+
+
 // Create grade 
 
 // $rightAnswersCount = 0;
@@ -236,7 +249,8 @@ $successRatio = $rightAnswersCount / sizeof($results);
 
 $currentDate = date("D M j G:i:s T Y");
 
-$avgTimePerQuestion = (floatval($_POST["totalTime"]) / sizeof($results)) / 10;
+// $avgTimePerQuestion = (floatval($_POST["totalTime"]) / sizeof($results)) / 10;
+$totalTime = floatval($_POST["totalTime"]) / 10;
 
 // echo "STATS:\n"
 //     . "\tSUCCESS RATIO: " . ($successRatio * 100) . "%\n"
@@ -245,14 +259,18 @@ $avgTimePerQuestion = (floatval($_POST["totalTime"]) / sizeof($results)) / 10;
 // debugEcho();
 
 
-$sqlCreateGrade = "INSERT INTO grades(timePerQuestion, successRatio, evaluationID, gradeDate) VALUES (?, ?, ?, ?);";
+$sqlCreateGrade = "INSERT INTO grades(answerTime, successRatio, evaluationID, gradeDate, studyTime) VALUES (?, ?, ?, ?, ?);";
 $stmtCreateGrade = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmtCreateGrade, $sqlCreateGrade)) {
     echo '{"error": "stmtFailed"}';
     exit();
 }
+
+debugEcho();
+
 // echo "INSERT INTO grades(timePerQuestion, successRatio, evaluationID, gradeDate) VALUES ($avgTimePerQuestion, $successRatio, $evaluationID, $currentDate);";
-mysqli_stmt_bind_param($stmtCreateGrade, "ddis", $avgTimePerQuestion, $successRatio, $evaluationID, $currentDate);
+// mysqli_stmt_bind_param($stmtCreateGrade, "ddis", $avgTimePerQuestion, $successRatio, $evaluationID, $currentDate);
+mysqli_stmt_bind_param($stmtCreateGrade, "ddisd", $totalTime, $successRatio, $evaluationID, $currentDate, $studyTime);
 // echo "HERE";
 
 mysqli_stmt_execute($stmtCreateGrade);

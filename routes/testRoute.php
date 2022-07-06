@@ -38,6 +38,20 @@ require_once "../includes/functions.php";
             <div class="special-text-4 potential-answer" draggable="true">ις</div>
             <div class="special-text-5 potential-answer" draggable="true">υς</div>
         </div>
+        <div class="confetti-container">
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+        </div>
     </div>
     <script src="<?php echo $baseURL ?>/js/dragDropGame.js"></script>
     <?php include '../components/footer.php'; ?>

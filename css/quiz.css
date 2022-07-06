@@ -15,6 +15,12 @@
     width: 100%;
 }
 
+.quiz-question p {
+    display: inline-flex;
+    align-items: center;
+    gap: 1em;
+}
+
 .quiz-answers {
     display: flex;
     flex-direction: column;

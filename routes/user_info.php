@@ -72,7 +72,7 @@ if (!isset($_GET['user']) || $_GET['user'] == "") {
                         document.querySelector(".page-content").innerHTML += `<br/>--- Grade ${index}:`;
                         document.querySelector(".page-content").innerHTML += `<br/>------- Date: ${grade.gradeDate}`;
                         document.querySelector(".page-content").innerHTML += `<br/>------- Success Ratio: ${grade.successRatio * 100}%`;
-                        document.querySelector(".page-content").innerHTML += `<br/>------- Average Time Per Question: ${grade.timePerQuestion}s`;
+                        document.querySelector(".page-content").innerHTML += `<br/>------- Average Time Per Question: ${grade.answerTime}s`;
                     })
                 });
                 // document.querySelector(".page-content").innerHTML += `<br/>${jsonResponse.user.userEducation}`;

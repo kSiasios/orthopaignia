@@ -73,7 +73,8 @@ if (!isset($_SESSION["logged"])) {
                         <!-- <i class="fi fi-rr-angle-right"></i> -->
                     </button>
                 </div>
-                <button class="blue" id="play-button" onclick="redirectTo(`/${baseURL}/routes/quiz.php`)">Παίξε
+                <button class="blue" id="play-button" onclick="redirectTo(`/${baseURL}/routes/quiz.php${totalCounter !== 0 ? '?studyTime=' + totalCounter : ''}`)">
+                    Παίξε
                     <!-- <i class="fi fi-sr-play"></i> -->
                     <ion-icon name="caret-forward"></ion-icon>
                 </button>
@@ -85,6 +86,12 @@ if (!isset($_SESSION["logged"])) {
         const buttons = document.querySelector(".buttons-container");
         let rulesObj;
         let ruleIndex = 0;
+
+        let totalCounter = 0;
+
+        setInterval(() => {
+            totalCounter++;
+        }, 100);
 
         const searchParams = new URLSearchParams();
         searchParams.append("submit", "submit");
@@ -133,7 +140,41 @@ if (!isset($_SESSION["logged"])) {
         }
 
         function redirectTo(url) {
+            // Update user's study time
+
+            // const searchParams = new URLSearchParams();
+
+            // searchParams.append("submit", "submit");
+            // // searchParams.append("results", results.map((elem) => {
+            // //     return elem.join("~")
+            // // }).join("|"));
+            // // searchParams.append("results", JSON.stringify(questionResults));
+            // searchParams.append("totalTime", totalCounter);
+            // searchParams.append("quizID", localStorage.getItem("quizProgress"));
+
+            // // console.log(JSON.stringify(questionResults));
+
+            // fetch(`/${baseURL}/includes/setGrades.php`, {
+            //     method: "POST",
+            //     body: searchParams
+            // }).then((res) => {
+            //     return res.text();
+            // }).then((text) => {
+            //     const error = JSON.parse(text).error;
+            //     switch (error) {
+            //         case "none":
+            //             console.log("Hooray! Grades set successfully!");
+            //             break;
+            //         default:
+            //             console.log("No-ray!");
+            //             break;
+            //     }
+            //     // console.log(text);
             window.location = url;
+            // }).catch((error) => {
+            //     console.log(error);
+            // })
+
         }
     </script>
     <?php include '../components/footer.php'; ?>

@@ -1,0 +1,445 @@
+[
+    {
+        "word": "η σκέψ",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ει",
+            "answer-2": "ι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "οι προβολ",
+        "answers": {
+            "answer-0": "είς",
+            "answer-1": "ής",
+            "answer-2": "ίς",
+            "answer-3": "οίς"
+        }
+    },
+    {
+        "word": "οι δημιουργ",
+        "answers": {
+            "answer-0": "οί",
+            "answer-1": "ί",
+            "answer-2": "εί",
+            "answer-3": "ή"
+        }
+    },
+    {
+        "word": "οι σκύλ",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "υ",
+            "answer-2": "ει",
+            "answer-3": "η"
+        }
+    },
+    {
+        "word": "η επίσκεψ",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ι",
+            "answer-2": "υ",
+            "answer-3": "οι"
+        }
+    },
+    {
+        "word": "ο φορτωτ",
+        "answers": {
+            "answer-0": "ής",
+            "answer-1": "ίς",
+            "answer-2": "ύς",
+            "answer-3": "οίς"
+        }
+    },
+    {
+        "word": "οι βάσ",
+        "answers": {
+            "answer-0": "εις",
+            "answer-1": "ης",
+            "answer-2": "οις",
+            "answer-3": "υς"
+        }
+    },
+    {
+        "word": "οι κουρ",
+        "answers": {
+            "answer-0": "είς",
+            "answer-1": "οίς",
+            "answer-2": "ίς",
+            "answer-3": "ύς"
+        }
+    },
+    {
+        "word": "το μαχαίρ",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "η",
+            "answer-2": "υ",
+            "answer-3": "οι"
+        }
+    },
+    {
+        "word": "οι κτηνοτρόφ",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "το δάκρ",
+        "answers": {
+            "answer-0": "υ",
+            "answer-1": "ει",
+            "answer-2": "ι",
+            "answer-3": "η"
+        }
+    },
+    {
+        "word": "το χρυσάφ",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "υ",
+            "answer-2": "η",
+            "answer-3": "οι"
+        }
+    },
+    {
+        "word": "οι διάδρομ",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "η διαδρομ",
+        "answers": {
+            "answer-0": "ή",
+            "answer-1": "ί",
+            "answer-2": "οί",
+            "answer-3": "ύ"
+        }
+    },
+    {
+        "word": "ο ναύτ",
+        "answers": {
+            "answer-0": "ης",
+            "answer-1": "εις",
+            "answer-2": "ις",
+            "answer-3": "υς"
+        }
+    },
+    {
+        "word": "το βράδ",
+        "answers": {
+            "answer-0": "υ",
+            "answer-1": "ι",
+            "answer-2": "η",
+            "answer-3": "ει"
+        }
+    },
+    {
+        "word": "το ποτάμ",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "ει",
+            "answer-2": "οι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "το κατάρτ",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "οι"
+        }
+    },
+    {
+        "word": "ο πελάτ",
+        "answers": {
+            "answer-0": "ης",
+            "answer-1": "εις",
+            "answer-2": "οις",
+            "answer-3": "υς"
+        }
+    },
+    {
+        "word": "ο επιβάτ",
+        "answers": {
+            "answer-0": "ης",
+            "answer-1": "εις",
+            "answer-2": "ις",
+            "answer-3": "υς"
+        }
+    },
+    {
+        "word": "η γνώμ",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ει",
+            "answer-2": "οι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "η γνώσ",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ει",
+            "answer-2": "οι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "οι γνώσ",
+        "answers": {
+            "answer-0": "εις",
+            "answer-1": "οις",
+            "answer-2": "ης",
+            "answer-3": "ις"
+        }
+    },
+    {
+        "word": "οι γραμματ",
+        "answers": {
+            "answer-0": "είς",
+            "answer-1": "οίς",
+            "answer-2": "ύς",
+            "answer-3": "ίς"
+        }
+    },
+    {
+        "word": "οι κατακτητ",
+        "answers": {
+            "answer-0": "ές",
+            "answer-1": "αίς"
+            // ,
+            // "answer-2": "οι",
+            // "answer-3": "υ"
+        }
+    },
+    {
+        "word": "το ψαλίδ",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "ει",
+            "answer-2": "οι",
+            "answer-3": "η"
+        }
+    },
+    {
+        "word": "το δίχτ",
+        "answers": {
+            "answer-0": "υ",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "ι"
+        }
+    },
+    {
+        "word": "το παλικάρ",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "η",
+            "answer-2": "ει",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "πρόταση",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "οι",
+            "answer-2": "ει",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "η μουσικ",
+        "answers": {
+            "answer-0": "ή",
+            "answer-1": "εί",
+            "answer-2": "οί",
+            "answer-3": "ύ"
+        }
+    },
+    {
+        "word": "χυμοί",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "τα"
+        }
+    },
+    {
+        "word": "η κόρ",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ι",
+            "answer-2": "οι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "οι ταξιτζήδ",
+        "answers": {
+            "answer-0": "ες",
+            "answer-1": "αις"
+            // ,
+            // "answer-2": "οι",
+            // "answer-3": "υ"
+        }
+    },
+    {
+        "word": "ο στρατιώτ",
+        "answers": {
+            "answer-0": "ης",
+            "answer-1": "εις",
+            "answer-2": "ις",
+            "answer-3": "υς"
+        }
+    },
+    {
+        "word": "οι μανάβιδ",
+        "answers": {
+            "answer-0": "ες",
+            "answer-1": "αις",
+            "answer-2": "οι",
+            "answer-3": "η"
+        }
+    },
+    {
+        "word": "το λιβάδ",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "η",
+            "answer-2": "οι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "οι άνεμ",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "η άσκησ",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ι",
+            "answer-2": "οι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "οι ασκήσ",
+        "answers": {
+            "answer-0": "εις",
+            "answer-1": "ης",
+            "answer-2": "οις",
+            "answer-3": "υς"
+        }
+    },
+    {
+        "word": "ο ελεγκτ",
+        "answers": {
+            "answer-0": "ής",
+            "answer-1": "είς",
+            "answer-2": "οί",
+            "answer-3": "ίς"
+        }
+    },
+    {
+        "word": "οι βράχ",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "η",
+            "answer-2": "ι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "η λίμν",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ει",
+            "answer-2": "οι",
+            "answer-3": "υ"
+        }
+    },
+    {
+        "word": "το λιμάν",
+        "answers": {
+            "answer-0": "ι",
+            "answer-1": "υ",
+            "answer-2": "ει",
+            "answer-3": "οι"
+        }
+    },
+    {
+        "word": "το δόρ",
+        "answers": {
+            "answer-0": "υ",
+            "answer-1": "ει",
+            "answer-2": "οι",
+            "answer-3": "ι"
+        }
+    },
+    {
+        "word": "οι δρόμ",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "ι"
+        }
+    },
+    {
+        "word": "δάσκαλοι",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "η",
+            "answer-2": "τα",
+            "answer-3": "ο"
+        }
+    },
+    {
+        "word": "οι φίλ",
+        "answers": {
+            "answer-0": "οι",
+            "answer-1": "ει",
+            "answer-2": "η",
+            "answer-3": "ι"
+        }
+    },
+    {
+        "word": "οι αδερφ",
+        "answers": {
+            "answer-0": "οί",
+            "answer-1": "ή",
+            "answer-2": "ί",
+            "answer-3": "ύ"
+        }
+    },
+    {
+        "word": "η κούρασ",
+        "answers": {
+            "answer-0": "η",
+            "answer-1": "ει",
+            "answer-2": "ι",
+            "answer-3": "υ"
+        }
+    }
+]

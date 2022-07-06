@@ -10,17 +10,23 @@
 
 html {
   --bg: white;
+  /* --bg: rgb(32, 32, 32); */
   --primary-clr: #c4c4c4;
+  /* --primary-clr: #3a3a3a; */
   --secondary-clr: #b2b2b2;
+  /* --secondary-clr: #525252; */
   --secondary-clr-dark: #6d6d6d;
+  /* --secondary-clr-dark: #7e7e7e; */
   --underline: rgba(0, 0, 0, 0.5);
   --hover-bg: rgba(0, 0, 0, 0.25);
   --hover-color: white;
+  /* --hover-color: rgb(151, 151, 151); */
   --special-text-color: white;
 
   --btn-clr: white;
 
   --text-clr: black;
+  /* --text-clr: rgb(219, 219, 219); */
   --transition: 0.5s ease-in-out;
 }
 
@@ -55,14 +61,11 @@ html[theme="dark"] {
   --text-clr: rgb(173, 173, 173);
 }
 
-
 body {
   background: var(--bg);
   min-height: 100vh;
   height: 100%;
 }
-
-
 
 a {
   color: inherit;
@@ -72,7 +75,13 @@ a {
   justify-content: center;
 }
 
-h1,h2,h3,h4,h5,h6,p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   color: var(--text-clr);
 }
 
@@ -95,6 +104,8 @@ nav ul {
   justify-content: center;
 
   font-size: small;
+
+  color: var(--text-clr) !important;
 }
 
 .hamburger {
@@ -153,8 +164,10 @@ nav ul {
 .nav-link.active:hover,
 .nav-link.active:focus-within {
   background: var(--hover-bg);
-  color: var(--hover-color);
+  color: var(--hover-color) !important;
+  /* color: black !important; */
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .nav-link.active {
@@ -166,6 +179,8 @@ nav ul {
   padding: 1.5rem;
   width: 100%;
   text-align: end;
+
+  /* color: var(--text-clr); */
 }
 
 nav {
@@ -300,7 +315,7 @@ form {
   font-weight: bold;
   box-shadow: inset 0 0 0 0.12em rgb(0, 182, 106); */
 
-  background:rgb(0, 182, 106) !important;
+  background: rgb(0, 182, 106) !important;
   color: white;
   font-weight: bold;
   box-shadow: inset 0 0 0 0.12em rgb(0, 182, 106);
@@ -345,7 +360,7 @@ select {
   cursor: pointer;
   padding: 0.5em 1em;
   margin-inline-start: 0.5em;
-  background: var(--secondary-clr);;
+  background: var(--secondary-clr);
 }
 
 h2 {
@@ -489,7 +504,6 @@ input:disabled {
   /* bottom: 0; */
 }
 
-
 .swal2-title {
   box-shadow: 0 0;
 }
@@ -499,6 +513,10 @@ input:disabled {
   border-radius: 0.25em;
   width: 5em;
   height: 2.5em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 ion-icon {
