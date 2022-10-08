@@ -97,3 +97,17 @@
       transform: rotateZ(15deg) rotateY(1440deg) translate(10vw, 110vh);
     }
   }
+
+  h2 {
+    position: absolute;
+    /* color: black; */
+    box-shadow: none;
+    transform: rotate(-15deg);
+    font-size: 5em;
+    opacity: 10%;
+  }
+
+  p {
+    font-size: 3em;
+    opacity: 50%;
+  }

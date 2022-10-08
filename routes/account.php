@@ -19,6 +19,7 @@ if (!isset($_SESSION["logged"])) {
         <div class="settings">
             <h3>Ρυθμίσεις</h3>
             <div class="settings-section">
+                <h4>Προσωπικά Στοιχεία</h4>
                 <form id="change-info-form">
                     <input type="text" disabled name="username" id="settings-username" placeholder="Όνομα Χρήστη" value="<?php if (isset($_SESSION['username'])) echo $_SESSION['username'] ?>">
                     <input type="text" name="firstname" id="settings-firstname" placeholder="Όνομα" value="<?php if (isset($_SESSION['username'])) echo $_SESSION['firstname'] ?>">
@@ -27,6 +28,7 @@ if (!isset($_SESSION["logged"])) {
                 </form>
             </div>
             <div class="change-password">
+                <h4>Αλλαγή Κωδικού Πρόσβασης</h4>
                 <form id="change-password-form">
                     <input type="password" name="old-password" id="old-password" placeholder="Κωδικός Πρόσβασης">
                     <input type="password" name="new-password" id="new-password" placeholder="Νέος Κωδικός Πρόσβασης">

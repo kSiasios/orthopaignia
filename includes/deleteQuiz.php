@@ -16,6 +16,8 @@ if (!isset($_POST['submit']) || !isset($_POST['quizID'])) {
     exit();
 }
 
+// debugEcho(true);
+
 $quizID = $_POST['quizID'];
 
 // DELETE CONNECTED RULES
@@ -40,7 +42,11 @@ while ($row = mysqli_fetch_assoc($resultData)) {
 // DELETE CONNECTED EVALUATIONS
 //      DELETE CONNECTED GRADES
 
+// debugEcho();
+
 deleteEvaluationsForQuiz($conn, $quizID);
+
+// debugEcho();
 
 // $sqlGetEvals = "SELECT * FROM evaluations WHERE quizID = ?;";
 // $stmtGetEvals = mysqli_stmt_init($conn);
@@ -62,6 +68,9 @@ deleteEvaluationsForQuiz($conn, $quizID);
 
 // DELETE CONNECTED QUESTIONS
 //      DELETE CONNECTED ANSWERS
+
+// debugEcho();
+
 $sqlGetQuestions = "SELECT * FROM questions WHERE quizID = ?;";
 $stmtGetQuestions = mysqli_stmt_init($conn);
 
@@ -80,6 +89,8 @@ while ($row = mysqli_fetch_assoc($resultData)) {
 }
 
 mysqli_stmt_close($stmtGetQuestions);
+
+// debugEcho();
 
 // DELETE CONNECTED RULES
 
@@ -106,5 +117,7 @@ if (!mysqli_stmt_prepare($stmtDeleteQuiz, $sqlDeleteQuiz)) {
 mysqli_stmt_bind_param($stmtDeleteQuiz, "i", $quizID);
 mysqli_stmt_execute($stmtDeleteQuiz);
 mysqli_stmt_close($stmtDeleteQuiz);
+
+// debugEcho();
 
 echo "error=none";

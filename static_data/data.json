@@ -3,8 +3,8 @@
         "text": "Πρώτη Κατηγορία",
         "rules": {
             "0": {
-                "name": "Κατάληξη σε <span class=\"special-text-1\">-ης</span>, <span class=\"special-text-1\">-η</span>",
-                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα αρσενικά που τελειώνουν σε <span class='special-text-1'>-ης</span>, γράγονται με ήτα. (η)</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">ο στρατιώτ<span class='special-text-1'>ης</span><br />ο σπουδαστ<span class='special-text-1'>ής</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα θηλυκά που τελειώνουν σε <span class='special-text-1'>-η</span>, γράγονται με ήτα. (η) </p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">η βρύσ<span class='special-text-1'>η</span><br />η γιορτ<span class='special-text-1'>ή</span></p></div></div></div>",
+                "name": "Κατάληξη σε <span class=\"special-text-1\">-ης</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα αρσενικά που τελειώνουν σε <span class='special-text-1'>-ης</span>, γράγονται με ήτα. (η)</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">ο στρατιώτ<span class='special-text-1'>ης</span><br />ο σπουδαστ<span class='special-text-1'>ής</span></p></div></div></div>",
                 "questions": {
                     "0": {
                         "text": "",
@@ -18,6 +18,21 @@
                 }
             },
             "1": {
+                "name": "Κατάληξη σε <span class=\"special-text-1\">-η</span>",
+                "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα θηλυκά που τελειώνουν σε <span class='special-text-1'>-η</span>, γράγονται με ήτα. (η) </p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">η βρύσ<span class='special-text-1'>η</span><br />η γιορτ<span class='special-text-1'>ή</span></p></div></div></div>",
+                "questions": {
+                    "0": {
+                        "text": "",
+                        "answers": {
+                            "right-answer": "",
+                            "wrong-answer-0": "",
+                            "wrong-answer-1": "",
+                            "wrong-answer-2": ""
+                        }
+                    }
+                }
+            },
+            "2": {
                 "name": "Πληθυντικός αριθμός σε <span class=\"special-text-2\">-οι</span> και <span class=\"special-text-6\">-εις</span>",
                 "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλοι οι πληθυντικοί γράφονται με κάτι διπλό. Εάν η λέξη τελειώνει σε <span class='special-text-2'>-οι</span>, είναι όμικρον γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">οι άνθρωπ<span class='special-text-2'>οι</span><br />οι γιατρ<span class='special-text-2'>οί</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Αν τελειώνει σε <span class='special-text-6'>-εις</span>, είναι έψιλον γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">οι κουρ<span class='special-text-6'>εις</span><br />οι γνώσ<span class='special-text-6'>εις</span></p></div></div></div>",
                 "questions": {
@@ -32,7 +47,7 @@
                     }
                 }
             },
-            "2": {
+            "3": {
                 "name": "Ουδέτερα και εξαιρέσεις",
                 "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλα τα ουδέτερα που τελειώνουν σε <span class='special-text-3'>-ι</span> γράφονται με γιώτα! Εκτός από τα παρακάτω:<br />1) δόρ<span class='special-text-6'>υ</span><br />2) δάκρ<span class='special-text-6'>υ</span><br />3) δίχτ<span class='special-text-6'>υ</span><br />4) οξ<span class='special-text-6'>ύ</span><br />5) βράδ<span class='special-text-6'>υ</span><br />6) στάχ<span class='special-text-6'>υ</span></p></div></div>",
                 "questions": {
@@ -47,7 +62,7 @@
                     }
                 }
             },
-            "3": {
+            "4": {
                 "name": "Πληθυντικός ουδέτερων σε <span class=\"special-text-3\">-η</span>",
                 "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Όλα τα ουδέτερα που τελειώνουν στον πληθυντικό αριθμό σε <span class='special-text-6'>-η</span>, αυτό είναι πάντα ήτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">τα δάσ<span class='special-text-6'>η</span><br />τα μέρ<span class='special-text-6'>η</span></p></div></div></div>",
                 "questions": {
@@ -62,7 +77,7 @@
                     }
                 }
             },
-            "4": {
+            "5": {
                 "name": "Ουδέτερα που τελειώνοιυν σε <span class=\"special-text-7\">-ειο</span> και <span class=\"special-text-4\">-ιο</span>",
                 "text": "<div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Τα ουδέτερα που τελειώνουν σε <span class='special-text-7'>-ειο</span>, γράφονται με έψιλον γιώτα, εάν:<br />1) το <span class='special-text-7'>-είο</span> τονίζεται<br />2) μπαίνουν σε πινακίδα</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">το κρεοπολ<span class='special-text-7'>είο</span><br />το σχολ<span class='special-text-7'>είο</span></p></div></div></div><div class=\"rule\"><div class=\"rule-section\"><p class=\"rule-text\">Διαφορετικά, γράφονται με γιώτα.</p><div class=\"rule-example\"><p class=\"rule-example-header\">Παράδειγμα</p><p class=\"example\">το πανεπιστήμ<span class='special-text-4'>ιο</span><br />το τεράδ<span class='special-text-4'>ιο</span></p></div></div></div>",
                 "questions": {

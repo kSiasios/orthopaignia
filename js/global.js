@@ -3,6 +3,8 @@ baseURL = window.location.pathname.split("/")[1].replace(/(?:\r\n|\r|\n)/g, "");
 function logoutHandler() {
   console.log(sessionStorage);
   console.log("CLEARING SESSION");
+
+  localStorage.clear();
   window.sessionStorage.clear();
 
   fetch(`/${baseURL}/includes/logoutHandler.php`, {
@@ -17,7 +19,12 @@ function logoutHandler() {
 }
 
 function replaceSpecialCharacters(str) {
-  return str.replaceAll('"', '"');
+  return (
+    str
+      .replaceAll('"', '"')
+      // .replaceAll("\n", "<br />")
+      .replaceAll("\n", "")
+  );
 }
 
 function convertEducationToReadable(level) {

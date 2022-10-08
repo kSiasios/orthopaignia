@@ -200,7 +200,11 @@ function deleteQuestion($conn, $questionID)
     // mysqli_stmt_execute($stmtDeleteAnswers);
     // mysqli_stmt_close($stmtDeleteAnswers);
 
-    $sqlGetAnswers = "SELECT * FROM answers WHERE questionsID = ?;";
+    // echo "Inside deleteQuestion \n";
+    // debugEcho();
+
+
+    $sqlGetAnswers = "SELECT * FROM answers WHERE questionID = ?;";
     $stmtGetAnswers = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmtGetAnswers, $sqlGetAnswers)) {
@@ -228,6 +232,8 @@ function deleteQuestion($conn, $questionID)
     mysqli_stmt_bind_param($stmtDeleteQuestion, "i", $questionID);
     mysqli_stmt_execute($stmtDeleteQuestion);
     mysqli_stmt_close($stmtDeleteQuestion);
+
+    // echo "Outside deleteQuestion \n";
 }
 
 function deleteAnswer($conn, $answerID)

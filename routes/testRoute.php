@@ -38,20 +38,28 @@ require_once "../includes/functions.php";
             <div class="special-text-4 potential-answer" draggable="true">ις</div>
             <div class="special-text-5 potential-answer" draggable="true">υς</div>
         </div>
-        <div class="confetti-container">
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
+        <div style="background: #eee; padding: 1em; border-radius: 1em; display: flex; flex-direction: column; gap: 1em;">
+            <button class="blue">Επόμενο</button>
+            <button class="green">Επιβεβαίωση</button>
+            <!-- <button class="yellow"></button> -->
+            <button class="red">Ακύρωση</button>
+            <button>Απλό Κουμπί</button>
+            <button class="inverse">Αντίστροφο Κουμπί</button>
         </div>
+        <!-- <div class="confetti-container">
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+            <span class="confetti"></span>
+        </div> -->
     </div>
     <script src="<?php echo $baseURL ?>/js/dragDropGame.js"></script>
     <?php include '../components/footer.php'; ?>

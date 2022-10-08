@@ -40,9 +40,15 @@ require_once "../includes/functions.php";
         </div>
     </div>
     <script>
-        const forQuiz = localStorage.getItem("quizProgress");
+        let forQuiz = localStorage.getItem("quizProgress");
 
-        console.log(`forQuiz: ${forQuiz}`)
+        if (forQuiz != null) {
+            // console.log()
+            console.log(`forQuiz: ${forQuiz}`)
+        } else {
+            console.log(`forQuiz is null: ${forQuiz}`)
+        }
+
 
         const questionResults = [];
         let questions;
@@ -68,21 +74,69 @@ require_once "../includes/functions.php";
         function fetchQuestions(forQuiz) {
             const searchParams = new URLSearchParams();
             searchParams.append("submit", "submit");
-            if (forQuiz !== "") {
+            if (forQuiz !== "" && forQuiz !== null) {
                 searchParams.append("quizID", forQuiz);
+                fetchNeededData(searchParams);
+            } else {
+                console.log("No forQuiz... Fetching quiz")
+
+
+
+                fetchQuizzes().then((res) => {
+                    // console.log(res);
+                    const jsonArray = res;
+                    console.log(jsonArray);
+
+                    forQuiz = jsonArray[0].quizID;
+                    console.log("For quiz is: " + forQuiz);
+
+                    localStorage.setItem("quizProgress", forQuiz);
+
+                    searchParams.append("quizID", forQuiz);
+                    fetchNeededData(searchParams);
+                })
+
+                // console.log(jsonArray);
+                // // fetch(`/${baseURL}/includes/fetchQuizzes.php`)
+                // //     .then((res) => {
+                // //         return res.text();
+                // //     })
+                // //     .then((text) => {
+                // //         // console.log(text);
+                // //         const jsonArray = JSON.parse(text);
+                // // console.log(jsonArray);
+                // forQuiz = jsonArray[0].quizID;
+                // console.log("For quiz is: " + forQuiz);
+
+                // localStorage.setItem("quizProgress", forQuiz);
+
+                // searchParams.append("quizID", forQuiz);
+
+
+                // // console.log(`First quiz to have ever existed in this database has an ID of ${firstQuiz}.`)
+                // // jsonArray.forEach((element) => {
+                // //     console.log(element);
+                // // })
+                // fetchNeededData();
+                // // }).catch((err) => {
+                // //     console.log(err);
+                // // })
             }
 
-            fetch(`/${baseURL}/includes/fetchQuizQuestions.php`, {
-                method: "POST",
-                body: searchParams
-            }).then((res) => {
-                return res.text();
-            }).then((text) => {
-                questions = replaceSpecialCharacters(text);
-                populateQuiz(currentQuestionIndex);
-            }).catch((err) => {
-                console.error(err);
-            });
+
+            function fetchNeededData(searchParams) {
+                fetch(`/${baseURL}/includes/fetchQuizQuestions.php`, {
+                    method: "POST",
+                    body: searchParams
+                }).then((res) => {
+                    return res.text();
+                }).then((text) => {
+                    questions = replaceSpecialCharacters(text);
+                    populateQuiz(currentQuestionIndex);
+                }).catch((err) => {
+                    console.error(err);
+                });
+            }
         }
 
         async function populateQuiz(questionIndex) {
@@ -104,6 +158,9 @@ require_once "../includes/functions.php";
                 // If score is equal to the amount of questions fetched,
                 // The player have answered all the questions correctly
                 // Move on to the next quiz
+
+                console.log(`Now check if the player has answered correctly. To do so score (${score}) must be equal to ${Object.keys(questionsJSON).length}`)
+
                 if (score == Object.keys(questionsJSON).length) {
                     // check if this quiz was the last one
                     // if it was the last one, the player has won
@@ -112,7 +169,7 @@ require_once "../includes/functions.php";
                     searchParams.append("submit", "submit");
                     searchParams.append("quizID", localStorage.getItem("quizProgress"));
 
-                    localStorage.setItem("quizIndex", parseInt(localStorage.getItem("quizIndex")) + 1);
+                    // localStorage.setItem("quizIndex", parseInt(localStorage.getItem("quizIndex")) + 1);
 
                     fetch(`/${baseURL}/includes/completeGame.php`, {
                             method: "POST",
@@ -130,6 +187,64 @@ require_once "../includes/functions.php";
                                     return;
                                 } else {
                                     console.log("Was NOT last quiz");
+                                    // INCREASE QUIZ PROGRESS
+
+                                    fetchQuizzes().then((res) => {
+                                        // console.log(res);
+                                        const jsonArray = res;
+                                        console.log(jsonArray);
+
+                                        for (let index = 0; index < jsonArray.length; index++) {
+                                            const element = jsonArray[index];
+                                            console.log(`Is ${element.quizID} equal to ${localStorage.getItem("quizProgress")}?`);
+                                            if (element.quizID == localStorage.getItem("quizProgress")) {
+                                                console.log(`Yes, at index ${index}`);
+                                            } else {
+                                                console.log("No");
+                                            }
+                                            if (element.quizID == localStorage.getItem("quizProgress")) {
+                                                localStorage.setItem("quizProgress", jsonArray[index + 1].quizID);
+                                                // RELOAD PAGE
+                                                location.reload(true);
+                                                return;
+                                            }
+                                        }
+
+                                        // jsonArray.forEach((element, index) => {
+                                        //     console.log(`Is ${element.quizID} equal to ${localStorage.getItem("quizProgress")}?`);
+                                        //     if (element.quizID == localStorage.getItem("quizProgress")) {
+                                        //         console.log(`Yes, at index ${index}`);
+                                        //     } else {
+                                        //         console.log("No");
+                                        //     }
+                                        //     if (element.quizID == localStorage.getItem("quizProgress")) {
+                                        //         localStorage.setItem("quizProgress", jsonArray[index + 1].quizID);
+                                        //         // RELOAD PAGE
+                                        //         // location.reload(true);
+                                        //         return;
+                                        //     }
+                                        // })
+                                        // forQuiz = jsonArray[0].quizID;
+                                        // console.log("For quiz is: " + forQuiz);
+                                        // 
+                                        // localStorage.setItem("quizProgress", forQuiz);
+                                        // 
+                                        // searchParams.append("quizID", forQuiz);
+                                        // fetchNeededData(searchParams);
+                                    })
+
+                                    // fetch(`/${baseURL}/includes/fetchQuizzes.php`)
+                                    //     .then((res) => {
+                                    //         return res.text();
+                                    //     })
+                                    //     .then((text) => {
+                                    //         // console.log(text);
+                                    //         const jsonArray = JSON.parse(text);
+                                    //     }).catch((err) => {
+                                    //         console.log(err);
+                                    //     })
+                                    // return;
+
                                 }
                             } else {
                                 console.log("Unexpected error!");
@@ -219,8 +334,9 @@ require_once "../includes/functions.php";
             if (element["type"] == "drag-drop") {
                 const confirmButton = document.createElement("button");
                 confirmButton.classList.add("green");
-                // confirmButton.innerText = "LOLOLOLOLO";
                 confirmButton.innerText = "Επόμενο";
+                confirmButton.style.marginBlockEnd = "1em";
+                confirmButton.style.marginInlineStart = "1em";
                 confirmButton.addEventListener("click", () => {
                     if (document.querySelector(".empty").innerHTML == "") {
                         // console.log(`Current Answer: No answer`);
@@ -321,13 +437,24 @@ require_once "../includes/functions.php";
         }
 
         function completeQuiz() {
-            fetch(`/${baseURL}/includes/fetchQuizzes.php`).then(res => {
-                return res.text();
-            }).then((text) => {
-                const jsonResponse = JSON.parse(text);
-                console.log(JSON.parse(text));
+
+            fetchQuizzes().then((res) => {
+                // console.log(res);
+                const jsonResponse = res;
+                console.log(jsonArray);
+
+                // forQuiz = jsonArray[0].quizID;
+                // console.log("For quiz is: " + forQuiz);
+
+                // localStorage.setItem("quizProgress", forQuiz);
+
+                // searchParams.append("quizID", forQuiz);
+                // fetchNeededData(searchParams);
+
+                console.log(`Gonna check if any of the above IDs match ${localStorage.getItem("quizProgress")}`)
+
                 jsonResponse.forEach((element, index) => {
-                    if (element.quizID == localStorage.getItem("quizProgress")) {
+                    if (parseInt(element.quizID) === parseInt(localStorage.getItem("quizProgress"))) {
                         console.log(`Found Quiz in the list at index: ${index}`);
                         // check if the last element is equal to the current element
                         if (jsonResponse[jsonResponse.length - 1] == element) {
@@ -346,12 +473,73 @@ require_once "../includes/functions.php";
                         return;
                     }
                 });
-            }).catch((error) => {
-                console.error(error);
+
+                console.log("Not matched!!!");
+            })
+
+            // fetch(`/${baseURL}/includes/fetchQuizzes.php`).then(res => {
+            //     return res.text();
+            // }).then((text) => {
+            //     const jsonResponse = JSON.parse(text);
+            //     console.log(JSON.parse(text));
+
+            //     console.log(`Gonna check if any of the above IDs match ${localStorage.getItem("quizProgress")}`)
+
+            //     jsonResponse.forEach((element, index) => {
+            //         if (parseInt(element.quizID) === parseInt(localStorage.getItem("quizProgress"))) {
+            //             console.log(`Found Quiz in the list at index: ${index}`);
+            //             // check if the last element is equal to the current element
+            //             if (jsonResponse[jsonResponse.length - 1] == element) {
+            //                 console.log("Last Item");
+
+            //                 // redirect to end screen
+            //             }
+            //             if (jsonResponse.length > 1) {
+            //                 // we have a quiz later in the jsonResponse array
+            //                 // set localStorage variable quizProgress to the ID of the next quiz
+            //                 localStorage.setItem("quizProgress", jsonResponse[index + 1].quizID);
+
+            //                 // reload page to fetch the next quiz
+            //                 location.reload();
+            //             }
+            //             return;
+            //         }
+            //     });
+
+            //     console.log("Not matched!!!");
+            // }).catch((error) => {
+            //     console.error(error);
+            // });
+        }
+
+        function fetchQuizzes() {
+
+            console.log("INSIDE fetchQuizzes()")
+
+            return new Promise((resolve, reject) => {
+
+                resolve(fetch(`/${baseURL}/includes/fetchQuizzes.php`)
+                    .then((res) => {
+                        return res.text();
+                    }).then((text) => {
+                        const error = JSON.parse(text).error;
+                        // switch (error) {
+                        //     case "none":
+                        //         console.log("Hooray! Grades set successfully!");
+                        //         break;
+                        //     default:
+                        //         console.log("No-ray!");
+                        //         break;
+                        // }
+                        // console.log(text);
+                        return JSON.parse(text);
+                    }).catch((error) => {
+                        console.log(error);
+                    }))
             });
         }
 
-        completeQuiz();
+        // completeQuiz();
     </script>
     <script src="<?php echo $baseURL ?>/js/dragDropGame.js"></script>
     <?php include '../components/footer.php'; ?>

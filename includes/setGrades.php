@@ -29,7 +29,7 @@ if (isset($_POST["studyTime"])) {
 }
 
 // echo "QUIZ_ID: " . $quizID . "\n";
-debugEcho(true);
+// debugEcho(true);
 
 $userID = getUserID($conn, $_SESSION["username"]);
 // debugEcho();
@@ -203,7 +203,7 @@ for ($i = 0; $i < sizeof($results); $i++) {
     // updateGradePerRule($conn, $ruleID, $userID);
 }
 
-debugEcho();
+// debugEcho();
 
 
 $evalExists = false;
@@ -239,7 +239,7 @@ if ($eval = getEvaluations($conn, $userID, $quizID)) {
     }
 }
 
-debugEcho();
+// debugEcho();
 
 
 // Create grade 
@@ -266,7 +266,7 @@ if (!mysqli_stmt_prepare($stmtCreateGrade, $sqlCreateGrade)) {
     exit();
 }
 
-debugEcho();
+// debugEcho();
 
 // echo "INSERT INTO grades(timePerQuestion, successRatio, evaluationID, gradeDate) VALUES ($avgTimePerQuestion, $successRatio, $evaluationID, $currentDate);";
 // mysqli_stmt_bind_param($stmtCreateGrade, "ddis", $avgTimePerQuestion, $successRatio, $evaluationID, $currentDate);

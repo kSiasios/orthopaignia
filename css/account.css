@@ -36,6 +36,11 @@ input::placeholder {
   gap: 0.5em;
 }
 
+.settings div h4 {
+  padding-block: 1em;
+  opacity: 70%;
+}
+
 .delete-section {
   display: inline-flex;
   align-items: center;
