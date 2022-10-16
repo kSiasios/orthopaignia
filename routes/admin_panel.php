@@ -17,8 +17,11 @@ if (!isset($_SESSION["isAdmin"])) {
     <script src="<?php echo $baseURL ?>/js/fetchAdminData.js"></script>
     <?php include '../components/navbar.php'; ?>
     <div class="page-content">
-        <div class="test-ep" style="margin-block: 2em;">
+        <div class="test-ep" style="margin-block: 2em; display: inline-flex; gap: 1em;">
             <button class="blue" onclick="window.location = 'test_endpoints.php';">Test Endpoints</button>
+            <?php
+            // echo "<button class='purple' onclick='exportSQLData()'>Export SQL Data</button>";
+            ?>
         </div>
         <div class="admin-panel-container">
             <div class="user-data-container">
@@ -363,23 +366,6 @@ if (!isset($_SESSION["isAdmin"])) {
             console.error(`${error}`);
         });
 
-        // fetch(`/${baseURL}/includes/fetchUsersDataForAdmin.php`).then((res) => {
-        //     return res.text();
-        // }).then((text) => {
-        //     const jsonArray = JSON.parse(text);
-        //     jsonArray.forEach(element => {
-        //         // CREATE LINK FOR THE USER
-        //         const userLink = document.createElement("a");
-        //         userLink.setAttribute("href", `/${baseURL}/routes/user_info.php?user=${element.ID}`);
-        //         userLink.innerText = `${element.firstName} ${element.lastName}`;
-        //         userLink.classList.add("user-link");
-
-        //         usersContainer.appendChild(userLink);
-        //     });
-        // }).catch((error) => {
-        //     console.error(`${error}`);
-        // });
-
 
         const searchParams = new URLSearchParams();
         searchParams.append("multiple", "true");
@@ -405,5 +391,9 @@ if (!isset($_SESSION["isAdmin"])) {
         }).catch((error) => {
             console.error(`${error}`);
         });
+
+        function exportSQLData() {
+            window.location = `/${baseURL}/includes/exportSQLData.php`;
+        }
     </script>
     <?php include '../components/footer.php'; ?>

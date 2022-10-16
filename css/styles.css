@@ -313,6 +313,18 @@ form {
   color: var(--hover-color) !important;
 }
 
+.purple {
+  background: rgb(132, 0, 255) !important;
+  /* text-shadow: 1px 1px black; */
+  /* color: var(--secondary-clr-dark) !important; */
+}
+
+.purple:hover,
+.purple:focus {
+  background: rgb(193, 60, 255) !important;
+  color: var(--hover-color) !important;
+}
+
 .green-inverse {
   /* background: var(--bg) !important;
   color: rgb(0, 182, 106);
