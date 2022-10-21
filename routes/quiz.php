@@ -19,6 +19,7 @@ require_once "../includes/functions.php";
 <body>
     <?php include '../components/navbar.php'; ?>
     <div class="page-content">
+        <!-- <div class="quiz-indicator">4</div> -->
         <div class="quiz-container">
             <!-- <div class="quiz-question">
                 <p>Ερώτηση</p>
@@ -72,6 +73,8 @@ require_once "../includes/functions.php";
         fetchQuestions(forQuiz);
 
         function fetchQuestions(forQuiz) {
+            // document.querySelector(".quiz-indicator").innerText = forQuiz;
+
             const searchParams = new URLSearchParams();
             searchParams.append("submit", "submit");
             if (forQuiz !== "" && forQuiz !== null) {
@@ -88,6 +91,7 @@ require_once "../includes/functions.php";
                     console.log(jsonArray);
 
                     forQuiz = jsonArray[0].quizID;
+
                     console.log("For quiz is: " + forQuiz);
 
                     localStorage.setItem("quizProgress", forQuiz);
@@ -209,42 +213,7 @@ require_once "../includes/functions.php";
                                                 return;
                                             }
                                         }
-
-                                        // jsonArray.forEach((element, index) => {
-                                        //     console.log(`Is ${element.quizID} equal to ${localStorage.getItem("quizProgress")}?`);
-                                        //     if (element.quizID == localStorage.getItem("quizProgress")) {
-                                        //         console.log(`Yes, at index ${index}`);
-                                        //     } else {
-                                        //         console.log("No");
-                                        //     }
-                                        //     if (element.quizID == localStorage.getItem("quizProgress")) {
-                                        //         localStorage.setItem("quizProgress", jsonArray[index + 1].quizID);
-                                        //         // RELOAD PAGE
-                                        //         // location.reload(true);
-                                        //         return;
-                                        //     }
-                                        // })
-                                        // forQuiz = jsonArray[0].quizID;
-                                        // console.log("For quiz is: " + forQuiz);
-                                        // 
-                                        // localStorage.setItem("quizProgress", forQuiz);
-                                        // 
-                                        // searchParams.append("quizID", forQuiz);
-                                        // fetchNeededData(searchParams);
                                     })
-
-                                    // fetch(`/${baseURL}/includes/fetchQuizzes.php`)
-                                    //     .then((res) => {
-                                    //         return res.text();
-                                    //     })
-                                    //     .then((text) => {
-                                    //         // console.log(text);
-                                    //         const jsonArray = JSON.parse(text);
-                                    //     }).catch((err) => {
-                                    //         console.log(err);
-                                    //     })
-                                    // return;
-
                                 }
                             } else {
                                 console.log("Unexpected error!");

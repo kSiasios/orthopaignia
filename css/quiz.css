@@ -62,3 +62,27 @@
     width: 100%;
     padding: 1em;
 }
+
+.page-content {
+    justify-content: center;
+    padding-block-start: 0em;
+  }
+
+  .quiz-indicator {
+    width: 1em;
+    height: 3em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: red;
+    color: white;
+    font-size: 4rem;
+    font-weight: 900;
+    text-align: end;
+    border-radius: 0 0 4em 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    padding: 0 1em 0.1em 0;
+  }

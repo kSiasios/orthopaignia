@@ -190,28 +190,21 @@ nav ul {
 nav {
   background: var(--primary-clr);
   min-height: 3.875em;
+  position: absolute;
+top: 0;
+left: 0;
+width: 100%;
 }
 
 .page-content {
-  /* position: absolute;
   width: 100%;
   height: 100vh;
   top: 0;
   z-index: -1;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-block-start: 5em; */
-  /* position: absolute; */
-  width: 100%;
-  /* height: 100vh; */
-  top: 0;
-  z-index: -1;
-  display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* padding-block-start: 5em; */
-  padding-block-start: 2em;
+  padding-block-start: 8em;
   flex-direction: column;
 }
 
@@ -530,8 +523,8 @@ input:disabled {
   width: 100%;
   height: 2em;
   /* background: red; */
-  /* position: absolute; */
-  /* bottom: 0; */
+  position: absolute;
+  bottom: 0;
 }
 
 .swal2-title {
@@ -553,3 +546,22 @@ ion-icon {
   /* font-size: 32px; */
   aspect-ratio: 1;
 }
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../images/Shapes.png);
+  background-position: center;
+  z-index: -1;
+  filter: blur(5px);
+  opacity: 35%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* .backdrop::after {
+  
+} */

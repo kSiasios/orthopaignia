@@ -8,6 +8,7 @@ if (!file("variables.env")) {
 ?>
 
 <script src="<?php echo $baseURL ?>/js/global.js"></script>
+<div class="backdrop"></div>
 <nav>
     <!-- <a href="/sostografia/"><i class="fi fi-rr-arrow-small-left"></i></a> -->
     <ul class="closed">
@@ -31,6 +32,7 @@ if (!file("variables.env")) {
         <ion-icon name="menu"></ion-icon>
     </a>
 </nav>
+
 
 
 <script>

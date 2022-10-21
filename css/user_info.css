@@ -1,0 +1,69 @@
+.user-info {
+    font-size: 2em;
+    font-weight: 900;
+}
+
+.user-info p {
+    text-align: center;
+}
+
+.user-name-email {
+    display: inline-flex;
+    gap: .5em;
+}
+
+.evaluations,
+.evaluations-list,
+.evaluation {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.evaluations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-block: 2em;
+}
+
+.evaluation {
+    width: 100%;
+    gap: 1em;
+    padding: 1em;
+
+}
+
+.evaluation:nth-child(2n) {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.evaluation-grades {
+    display: inline-flex;
+    gap: 2em;
+}
+
+.grade-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+.grade-info p {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    padding-block: 0.5em;
+  }
+
+.value {
+    width: 100%;
+text-align: end;
+/* font-weight: 900; */
+font-style: italic;
+text-decoration: underline;
+}
+
+.evaluation-item {
+    list-style: none;
+}
+

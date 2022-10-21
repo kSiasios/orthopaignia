@@ -13,6 +13,7 @@ include './header.php';
 ?>
 
 <body>
+    <div class="backdrop"></div>
     <div class="page-content">
         <div class="login-form">
             <div class="form-header">
