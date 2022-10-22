@@ -25,6 +25,7 @@
     flex-direction: column;
     gap: 2em;
     margin-block: 2em;
+    padding: 0;
 }
 
 .evaluation {
@@ -41,6 +42,19 @@
 .evaluation-grades {
     display: inline-flex;
     gap: 2em;
+}
+
+.evaluation-item {
+    border-radius: 0.5em;
+    padding: 0.5em;
+}
+
+.evaluation:nth-child(2n) .evaluation-item:nth-child(2n + 1) {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.evaluation:nth-child(2n + 1) .evaluation-item:nth-child(2n) {
+    background: rgba(0, 0, 0, 0.15);
 }
 
 .grade-info {
