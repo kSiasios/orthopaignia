@@ -261,7 +261,11 @@ include '../header.php';
                 // ruleID === ""
                 quizID === ""
             ) {
-                window.alert("Κάποια πεδία είναι κενά!");
+                // window.alert("Κάποια πεδία είναι κενά!");
+                sweetAlertError({
+                    text: "Κάποια πεδία είναι κενά!",
+                    // redirect = ``;
+                });
                 return;
             }
             searchParams.append("question-type", questionType);
@@ -269,7 +273,11 @@ include '../header.php';
             searchParams.append("right-answer", rightAnswer);
             for (const [i, ans] of wrongAnswers.entries()) {
                 if (ans.value === "") {
-                    window.alert("Κάποια πεδία είναι κενά!");
+                    // window.alert("Κάποια πεδία είναι κενά!");
+                    sweetAlertError({
+                        text: "Κάποια πεδία είναι κενά!",
+                        // redirect = ``;
+                    });
                     return;
                 }
                 if (questionType === "multiple-choice") {
@@ -298,38 +306,38 @@ include '../header.php';
                             break;
                         case "noWrongAnswers":
                             // window.location = `/${baseURL}/routes/admin_panel.php`;
-                            sweetAlertError(
-                                text = "Δεν έχετε δώσει λάθος απαντήσεις!",
+                            sweetAlertError({
+                                text: "Δεν έχετε δώσει λάθος απαντήσεις!",
                                 // redirect = ``;
-                            );
+                            });
                             break;
                         case "rightAnswerNotCreatedOrNoID":
                             // window.location = `/${baseURL}/routes/admin_panel.php`;
-                            sweetAlertError(
-                                text = "Υπήρξε πρόβλημα στη δημιουργία της σωστής απάντησης!",
+                            sweetAlertError({
+                                text: "Υπήρξε πρόβλημα στη δημιουργία της σωστής απάντησης!",
                                 // redirect = ``;
-                            );
+                            });
                             break;
                         case "emptyInputs":
                             // window.location = `/${baseURL}/routes/admin_panel.php`;
-                            sweetAlertError(
-                                text = "Κάποια πεδία είναι κενά!",
+                            sweetAlertError({
+                                text: "Κάποια πεδία είναι κενά!",
                                 // redirect = ``;
-                            );
+                            });
                             break;
                         case "questionNotCreatedOrNoID":
                             // window.location = `/${baseURL}/routes/admin_panel.php`;
-                            sweetAlertError(
-                                text = "Υπήρξε πρόβλημα στη δημιουργία της ερώτησης!",
+                            sweetAlertError({
+                                text: "Υπήρξε πρόβλημα στη δημιουργία της ερώτησης!",
                                 // redirect = ``;
-                            );
+                            });
                             break;
                         case "accessDenied":
                             // window.location = `/${baseURL}/routes/admin_panel.php`;
-                            sweetAlertError(
-                                text = "Δεν έχετε πρόσβαση σε αυτή τη λειτουργία!",
+                            sweetAlertError({
+                                text: "Δεν έχετε πρόσβαση σε αυτή τη λειτουργία!",
                                 // redirect = ``;
-                            );
+                            });
                             break;
                         default:
                             break;

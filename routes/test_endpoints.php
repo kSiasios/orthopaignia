@@ -1,4 +1,7 @@
 <?php
+
+// TO DELETE 
+
 session_start();
 $title = "Διαχείρηση";
 $stylesheets =

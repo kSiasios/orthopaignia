@@ -17,12 +17,14 @@ if (!isset($_SESSION["isAdmin"])) {
     <script src="<?php echo $baseURL ?>/js/fetchAdminData.js"></script>
     <?php include '../components/navbar.php'; ?>
     <div class="page-content">
+        <!-- TO DELETE -->
         <div class="test-ep" style="margin-block: 2em; display: inline-flex; gap: 1em;">
             <button class="blue" onclick="window.location = 'test_endpoints.php';">Test Endpoints</button>
             <?php
             // echo "<button class='purple' onclick='exportSQLData()'>Export SQL Data</button>";
             ?>
         </div>
+        <!-- / TO DELETE -->
         <div class="admin-panel-container">
             <div class="user-data-container">
                 <h2>Δεδομένα Χρηστών</h2>

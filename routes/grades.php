@@ -54,7 +54,11 @@ if (!isset($_SESSION["logged"])) {
             const error = responseJSON.error;
             switch (error) {
                 case "unauthorized":
-                    window.alert("Unauthorized");
+                    // window.alert("Unauthorized");
+                    sweetAlertError({
+                        text: "Δεν έχετε πρόσβαση σε αυτή τη λειτουργία!",
+                        // redirect = ``;
+                    });
                     break;
                 default:
                     break;
@@ -108,7 +112,11 @@ if (!isset($_SESSION["logged"])) {
             const error = responseJSON.error;
             switch (error) {
                 case "unauthorized":
-                    window.alert("Unauthorized");
+                    // window.alert("Unauthorized");
+                    sweetAlertError({
+                        text: "Δεν έχετε πρόσβαση σε αυτή τη λειτουργία!",
+                        // redirect = ``;
+                    });
                     break;
                 default:
                     break;
@@ -160,7 +168,11 @@ if (!isset($_SESSION["logged"])) {
             const error = responseJSON.error;
             switch (error) {
                 case "unauthorized":
-                    window.alert("Unauthorized");
+                    // window.alert("Unauthorized");
+                    sweetAlertError({
+                        text: "Δεν έχετε πρόσβαση σε αυτή τη λειτουργία!",
+                        // redirect = ``;
+                    });
                     break;
                 default:
                     break;

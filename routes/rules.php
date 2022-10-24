@@ -62,11 +62,10 @@ if (!isset($_SESSION["logged"])) {
                     </button>
                 </div>
                 <div class="next-buttons">
-                    <button class="inverse">
+                    <!-- <button class="inverse">
                         Παράβλεψη
                         <ion-icon name="play-skip-forward"></ion-icon>
-                        <!-- <i class="fi fi-rr-angle-double-right"></i> -->
-                    </button>
+                    </button> -->
                     <button class="blue" onclick="updateRule(1)">
                         Επόμενο
                         <ion-icon name="chevron-forward"></ion-icon>

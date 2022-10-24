@@ -103,10 +103,10 @@ function submitRegister() {
           sweetAlertError({ text: "Αυτό το email δεν είναι αποδεκτό!" });
           break;
         case "emptyInput":
-          sweetAlertError({ text: "Αυτό το email δεν είναι αποδεκτό!" });
+          sweetAlertError({ text: "Κάποιο πεδίο είναι κενό!" });
           break;
         case "invalidUsername":
-          sweetAlertError({ text: "Αυτό το email δεν είναι αποδεκτό!" });
+          sweetAlertError({ text: "Αυτό το όνομα χρήστη δεν είναι αποδεκτό!" });
           break;
         case "userExists":
           sweetAlertWarning({

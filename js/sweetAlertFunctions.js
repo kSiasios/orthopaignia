@@ -39,3 +39,24 @@ function sweetAlertError({
     }
   });
 }
+
+function sweetAlertSuccess({
+  title = "Επιτυχία",
+  text = "Η ενέργεια ολοκληρώθηκε με επιτυχία!",
+  confirmText = "Εντάξει",
+  cancelText = "Ακύρωση",
+  redirect = "",
+} = {}) {
+  Swal.fire({
+    title: title,
+    text: text,
+    icon: "success",
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: confirmText,
+  }).then(() => {
+    if (redirect != "") {
+      window.location = redirect;
+    }
+  });
+}

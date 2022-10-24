@@ -57,7 +57,11 @@ include '../header.php';
 
             for (const pair of formData) {
                 if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
-                    window.alert("Κάποια πεδία είναι κενά!");
+                    // window.alert("Κάποια πεδία είναι κενά!");
+                    sweetAlertError({
+                        text: "Κάποια πεδία είναι κενά!",
+                        // redirect = ``;
+                    });
                     return;
                 }
                 searchParams.append(pair[0], pair[1]);
@@ -80,13 +84,25 @@ include '../header.php';
                             window.location = `/${baseURL}/routes/admin_panel.php`;
                             break;
                         case "stmtFailed":
-                            window.alert("Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.");
+                            // window.alert("Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.");
+                            sweetAlertError({
+                                text: "Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.",
+                                // redirect = ``;
+                            });
                             break;
                         case "categoryAlreadyExists":
-                            window.alert("Υπάρχει ήδη κατηγορία με αυτό το όνομα.");
+                            // window.alert("Υπάρχει ήδη κατηγορία με αυτό το όνομα.");
+                            sweetAlertError({
+                                text: "Υπάρχει ήδη κατηγορία με αυτό το όνομα.",
+                                // redirect = ``;
+                            });
                             break;
                         default:
-                            window.alert(`Υπήρξε ένα ασυνήθιστο λάθος: ${error}`);
+                            // window.alert(`Υπήρξε ένα ασυνήθιστο λάθος: ${error}`);
+                            sweetAlertError({
+                                text: `Υπήρξε ένα ασυνήθιστο λάθος: ${error}`,
+                                // redirect = ``;
+                            });
                             break;
                     }
                 })

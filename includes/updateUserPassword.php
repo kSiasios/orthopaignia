@@ -9,19 +9,27 @@ if (!isset($_SESSION['logged'])) {
 
 if (isset($_POST['submit'])) {
     require_once "db.info.php";
+    require_once "functions.php";
 
     $oldPassword = $_POST['old-password'];
     $newPassword = $_POST['new-password'];
 
+    $userID = getUserID($conn, $_SESSION["username"]);
     // CHECK IF USERS HAS TYPED THE CORRECT PREVIOUS PASSWORD
-    $sql = "SELECT * FROM users WHERE userUsername = ?;";
+    $sql = "SELECT * FROM users WHERE userID = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         echo ("error=stmtFailed");
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "s", $_SESSION["username"]);
+    mysqli_stmt_bind_param($stmt, "i", $userID);
+    // echo "USERNAME: " . encrypt($_SESSION["username"]) . "\n";
+
+
+    // echo print_r($_SESSION) . "\n";
+    // echo "USERID $userID";
+
 
     mysqli_stmt_execute($stmt);
 
@@ -30,7 +38,7 @@ if (isset($_POST['submit'])) {
         if (password_verify($oldPassword, $row["userPassword"])) {
             $hash = password_hash($newPassword, PASSWORD_DEFAULT);
 
-            $updateSQL = "UPDATE users SET userPassword = ? WHERE userUsername = ?;";
+            $updateSQL = "UPDATE users SET userPassword = ? WHERE userID = ?;";
 
             $stmtUpdate = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmtUpdate, $updateSQL)) {
@@ -38,7 +46,7 @@ if (isset($_POST['submit'])) {
                 exit();
             }
 
-            mysqli_stmt_bind_param($stmtUpdate, "ss", $hash, $_SESSION["username"]);
+            mysqli_stmt_bind_param($stmtUpdate, "si", $hash, $row["userID"]);
 
             mysqli_stmt_execute($stmtUpdate);
             mysqli_stmt_close($stmtUpdate);

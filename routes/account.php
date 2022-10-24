@@ -92,10 +92,10 @@ if (!isset($_SESSION["logged"])) {
                                     location.reload();
                                     break;
                                 case "notLoggedOrNoUsername":
-                                    sweetAlertError(
-                                        text = "Δεν έχετε πρόσβαση σε αυτή τη σελίδα!",
-                                        redirect = `/${baseURL}`
-                                    );
+                                    sweetAlertError({
+                                        text: "Δεν έχετε πρόσβαση σε αυτή τη σελίδα!",
+                                        redirect: `/${baseURL}`
+                                    });
                                     break;
                                 case "evaluationsDeletionFailed":
                                     sweetAlertError();
@@ -139,10 +139,14 @@ if (!isset($_SESSION["logged"])) {
                     let error = text.split("=")[1];
                     switch (error) {
                         case "none":
-                            location.reload();
+                            // location.reload();
+                            sweetAlertSuccess({
+                                text: "Τα στοιχεία σας ανανεώθηκαν επιτυχώς!"
+                            })
                             break;
                         default:
                             console.log("Not Updated");
+                            sweetAlertError()
                             break;
                     }
                 })
@@ -158,7 +162,10 @@ if (!isset($_SESSION["logged"])) {
 
             for (const pair of userPasswordData) {
                 if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
-                    window.alert("Κάποια πεδία είναι κενά!");
+                    // window.alert("Κάποια πεδία είναι κενά!");
+                    sweetAlertError({
+                        text: "Κάποια πεδία είναι κενά!"
+                    });
                     return;
                 }
                 searchParams.append(pair[0], pair[1]);
@@ -167,7 +174,10 @@ if (!isset($_SESSION["logged"])) {
             searchParams.append("submit", "submit");
 
             if (searchParams.get("new-password") !== searchParams.get("rep-new-password")) {
-                window.alert("Οι κωδικοί δεν είναι ίδιοι! Βεβαιωθείται ότι επαναλαμβάνετε τον νέο σας κωδικό σωστά.");
+                // window.alert("Οι κωδικοί δεν είναι ίδιοι! Βεβαιωθείται ότι επαναλαμβάνετε τον νέο σας κωδικό σωστά.");
+                sweetAlertError({
+                    text: "Οι κωδικοί δεν είναι ίδιοι! Βεβαιωθείται ότι επαναλαμβάνετε τον νέο σας κωδικό σωστά."
+                });
                 return;
             }
 
@@ -182,15 +192,28 @@ if (!isset($_SESSION["logged"])) {
                     let error = text.split("=")[1];
                     switch (error) {
                         case "none":
+                            sweetAlertSuccess({
+                                title: "",
+                                text: "Ο κωδικός σας ανανεώθηκε!"
+                            })
                             break;
                         case "userNotFound":
-                            window.alert("Δεν βρέθηκε ο χρήστης!");
+                            // window.alert("Δεν βρέθηκε ο χρήστης!");
+                            sweetAlertError({
+                                text: "Δεν βρέθηκε ο χρήστης!"
+                            });
                             break;
                         case "wrongPassword":
-                            window.alert("Ο παλιός κωδικός που δώσατε είναι λάθος!");
+                            // window.alert("Ο παλιός κωδικός που δώσατε είναι λάθος!");
+                            sweetAlertError({
+                                text: "Ο παλιός κωδικός που δώσατε είναι λάθος!"
+                            });
                             break;
                         default:
                             console.log("Not Updated");
+                            sweetAlertError({
+                                text: "Ο κωδικός σας δεν ανανεώθηκε! (Άγνωστο Σφάλμα)"
+                            });
                             break;
                     }
                 })
