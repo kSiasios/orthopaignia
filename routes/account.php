@@ -45,8 +45,6 @@ if (!isset($_SESSION["logged"])) {
     <script>
         let userInfoForm = document.querySelector(".settings-section").getElementsByTagName("form")[0];
         let userPasswordForm = document.querySelector(".change-password").getElementsByTagName("form")[0];
-
-
         userInfoForm.addEventListener(
             "submit",
             function(event) {
@@ -139,7 +137,6 @@ if (!isset($_SESSION["logged"])) {
                     let error = text.split("=")[1];
                     switch (error) {
                         case "none":
-                            // location.reload();
                             sweetAlertSuccess({
                                 text: "Τα στοιχεία σας ανανεώθηκαν επιτυχώς!"
                             })
@@ -162,7 +159,6 @@ if (!isset($_SESSION["logged"])) {
 
             for (const pair of userPasswordData) {
                 if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
-                    // window.alert("Κάποια πεδία είναι κενά!");
                     sweetAlertError({
                         text: "Κάποια πεδία είναι κενά!"
                     });
@@ -174,7 +170,6 @@ if (!isset($_SESSION["logged"])) {
             searchParams.append("submit", "submit");
 
             if (searchParams.get("new-password") !== searchParams.get("rep-new-password")) {
-                // window.alert("Οι κωδικοί δεν είναι ίδιοι! Βεβαιωθείται ότι επαναλαμβάνετε τον νέο σας κωδικό σωστά.");
                 sweetAlertError({
                     text: "Οι κωδικοί δεν είναι ίδιοι! Βεβαιωθείται ότι επαναλαμβάνετε τον νέο σας κωδικό σωστά."
                 });
@@ -198,13 +193,11 @@ if (!isset($_SESSION["logged"])) {
                             })
                             break;
                         case "userNotFound":
-                            // window.alert("Δεν βρέθηκε ο χρήστης!");
                             sweetAlertError({
                                 text: "Δεν βρέθηκε ο χρήστης!"
                             });
                             break;
                         case "wrongPassword":
-                            // window.alert("Ο παλιός κωδικός που δώσατε είναι λάθος!");
                             sweetAlertError({
                                 text: "Ο παλιός κωδικός που δώσατε είναι λάθος!"
                             });

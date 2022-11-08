@@ -31,7 +31,6 @@ mysqli_stmt_execute($stmt);
 $resultData = mysqli_stmt_get_result($stmt);
 $returnData = array();
 while ($row = mysqli_fetch_assoc($resultData)) {
-    // $returnTxt = $returnTxt . "<div class='rule'><p class='rule-name'>" . $row['ruleName'] . "</p><button class='red' onclick='deleteRule(" . $row['ruleID'] . ")'>Διαγραφή</button></div>";
     array_push($returnData, $row);
 }
 

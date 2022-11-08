@@ -18,7 +18,7 @@ if (!isset($_POST['submit']) || !isset($_POST['user'])) {
 $userID = $_POST["user"];
 
 if (!isset($_POST["evaluationID"])) {
-    // fetch grades for all evaluations
+
     $returnData = array();
     $sqlEvals = "SELECT * FROM evaluations WHERE userID = ?;";
     $stmtEvals = mysqli_stmt_init($conn);

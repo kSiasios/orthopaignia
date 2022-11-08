@@ -13,13 +13,12 @@ if (!isset($_SESSION["logged"])) {
     exit();
 }
 
-// require_once "../includes/functions.php";
-
 ?>
 
 <body>
     <?php include '../components/navbar.php'; ?>
-    <div class="page-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <div class="page-content"
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <h2 style="text-align: center;">Συχγαρητήρια!</h2>
         <p>Ο Μπρόνκο είναι χαρούμενος!</p>
         <div class="bronco fade-in">
@@ -36,14 +35,6 @@ if (!isset($_SESSION["logged"])) {
             <span class="confetti"></span>
             <span class="confetti"></span>
             <span class="confetti"></span>
-            <!-- <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span>
-            <span class="confetti"></span> -->
         </div>
     </div>
     <?php include '../components/footer.php'; ?>

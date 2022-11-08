@@ -24,12 +24,6 @@ if (isset($_POST['submit'])) {
     }
 
     mysqli_stmt_bind_param($stmt, "i", $userID);
-    // echo "USERNAME: " . encrypt($_SESSION["username"]) . "\n";
-
-
-    // echo print_r($_SESSION) . "\n";
-    // echo "USERID $userID";
-
 
     mysqli_stmt_execute($stmt);
 

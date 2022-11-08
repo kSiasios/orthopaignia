@@ -8,16 +8,11 @@ if (isset($_POST['submit'])) {
     $questionType = $_POST["question-type"];
     $questionText = $_POST["question"];
     $rightAnswer = $_POST["right-answer"];
-    // $ruleID = $_POST["rule"];
     $quizID = $_POST["quizID"];
 
     $questionID;
     $answerID;
 
-    // if (!($questionText != "" && $rightAnswer != "" && $ruleID != "")) {
-    //     echo "error=emptyInputs";
-    //     exit();
-    // }
     if (!($questionText != "" && $rightAnswer != "" && $quizID != "")) {
         echo "error=emptyInputs";
         exit();
@@ -34,7 +29,6 @@ if (isset($_POST['submit'])) {
         exit();
     }
 
-    // mysqli_stmt_bind_param($stmtCreateQuestion, "si", $questionText, $ruleID);
     mysqli_stmt_bind_param($stmtCreateQuestion, "sis", $questionText, $quizID, $questionType);
     mysqli_stmt_execute($stmtCreateQuestion);
     mysqli_stmt_close($stmtCreateQuestion);

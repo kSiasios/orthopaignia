@@ -33,81 +33,72 @@ include '../header.php';
         </div>
     </div>
     <script>
-        let quizForm = document.querySelector(".form-container");
+    let quizForm = document.querySelector(".form-container");
 
-        quizForm.addEventListener(
-            "submit",
-            function(event) {
-                event.preventDefault();
-                submitForm();
-            },
-            true
+    quizForm.addEventListener(
+        "submit",
+        function(event) {
+            event.preventDefault();
+            submitForm();
+        },
+        true
+    );
+
+    function submitForm() {
+        const formData = new FormData(
+            document
+            .querySelector(".form-container")
+            .getElementsByTagName("form")[0]
         );
 
-        function submitForm() {
-            const formData = new FormData(
-                document
-                .querySelector(".form-container")
-                .getElementsByTagName("form")[0]
-            );
+        const searchParams = new URLSearchParams();
 
-            const searchParams = new URLSearchParams();
-
-            for (const pair of formData) {
-                if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
-                    // window.alert("Κάποια πεδία είναι κενά!");
-                    sweetAlertError({
-                        text: "Κάποια πεδία είναι κενά!",
-                        // redirect = ``;
-                    });
-                    return;
-                }
-                searchParams.append(pair[0], pair[1]);
-            }
-
-            searchParams.append("submit", "submit");
-
-            fetch(`/${baseURL}/includes/newQuizHandler.php`, {
-                    method: "POST",
-                    body: searchParams,
-                })
-                .then(function(response) {
-                    return response.text();
-                })
-                .then(function(text) {
-                    let error = text.split("=")[1];
-
-                    switch (error) {
-                        case "none":
-                            // window.location = `/${baseURL}/routes/admin_panel.php`;
-                            location.reload();
-                            break;
-                        case "stmtFailed":
-                            // window.alert("Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.");
-                            sweetAlertError({
-                                text: "Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.",
-                                // redirect = ``;
-                            });
-                            break;
-                        case "quizAlreadyExists":
-                            // window.alert("Υπάρχει ήδη αξιολόγηση με αυτό το όνομα.");
-                            sweetAlertError({
-                                text: "Υπάρχει ήδη αξιολόγηση με αυτό το όνομα.",
-                                // redirect = ``;
-                            });
-                            break;
-                        default:
-                            // window.alert(`Υπήρξε ένα ασυνήθιστο λάθος: ${error}`);
-                            sweetAlertError({
-                                text: `Υπήρξε ένα ασυνήθιστο λάθος: ${error}`,
-                                // redirect = ``;
-                            });
-                            break;
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
+        for (const pair of formData) {
+            if (pair[0] == "" || pair[0] == null || pair[1] == "" || pair[0] == null) {
+                sweetAlertError({
+                    text: "Κάποια πεδία είναι κενά!",
                 });
+                return;
+            }
+            searchParams.append(pair[0], pair[1]);
         }
+
+        searchParams.append("submit", "submit");
+
+        fetch(`/${baseURL}/includes/newQuizHandler.php`, {
+                method: "POST",
+                body: searchParams,
+            })
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(text) {
+                let error = text.split("=")[1];
+
+                switch (error) {
+                    case "none":
+                        location.reload();
+                        break;
+                    case "stmtFailed":
+                        sweetAlertError({
+                            text: "Κάτι πήγε στραβά! Προσπαθήστε πάλι αργότερα.",
+                        });
+                        break;
+                    case "quizAlreadyExists":
+                        sweetAlertError({
+                            text: "Υπάρχει ήδη αξιολόγηση με αυτό το όνομα.",
+                        });
+                        break;
+                    default:
+                        sweetAlertError({
+                            text: `Υπήρξε ένα ασυνήθιστο λάθος: ${error}`,
+                        });
+                        break;
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
     </script>
     <?php include '../components/footer.php'; ?>

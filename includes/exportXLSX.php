@@ -18,16 +18,12 @@ function filterData(&$str)
     }
 }
 
-// $filename = "orthopaignia_data_" . date('d-m-Y') . ".xls";
 $filename = "orthopaignia_data_" . date('d-m-Y') . ".csv";
 
 $fields = array("ID", "ΟΝΟΜΑ", "ΕΠΩΝΥΜΟ", "E-MAIL", "ΟΝΟΜΑ ΧΡΗΣΤΗ", "ΕΚΠΑΙΔΕΥΣΗ");
 
-// $excelData = implode("\t", array_values($fields)) . "\n";
 // CSV Format
 $excelData = implode(", ", array_values($fields)) . "\n";
-
-
 // FETCH USERDATA FROM DATABASE
 $sql = "SELECT * FROM users ORDER BY userID ASC;";
 $stmt = mysqli_stmt_init($conn);
@@ -53,14 +49,11 @@ while ($row = mysqli_fetch_assoc($resultData)) {
         convertEducationToReadable($row["userEducation"])
     );
     array_walk($lineData, 'filterData');
-    // $excelData .= implode("\t", array_values($lineData)) . "\n";
     $excelData .= implode(", ", array_values($lineData)) . "\n";
-
     array_push($users, $lineData);
 }
 
 mysqli_stmt_close($stmt);
-
 
 // FOREACH QUIZ, FETCH USER EVALUATIONS
 // FOR IT TO HAVE THE BELOW STRUCTURE
@@ -72,13 +65,10 @@ mysqli_stmt_close($stmt);
 // |         | USER_1 | GRADE_1 | GRADE_2 |
 // |         | USER_2 | GRADE_1 | GRADE_2 |
 
-// $fields2 = array("", "Χρήστης", "|", "Βαθμός 1", "|", "Βαθμός 2");
 $fields2 = array("ΕΡΩΤΗΜΑΤΟΛΟΓΙΟ", "ΧΡΗΣΤΗΣ", "ΠΡΩΤΗ ΠΡΟΣΠΑΘΕΙΑ", "", "", "", "ΤΕΛΕΥΤΑΙΑ ΠΡΟΣΠΑΘΕΙΑ", "", "", "");
 $fields3 = array("", "", "ΗΜΕΡΟΜΗΝΙΑ", "ΠΟΣΟΣΤΟ ΕΠΙΤΥΧΙΑΣ", "ΧΡΟΝΟΣ ΟΛΟΚΛΗΡΩΣΗΣ", "ΧΡΟΝΟΣ ΜΕΛΕΤΗΣ", "ΗΜΕΡΟΜΗΝΙΑ", "ΠΟΣΟΣΤΟ ΕΠΙΤΥΧΙΑΣ", "ΧΡΟΝΟΣ ΟΛΟΚΛΗΡΩΣΗΣ", "ΧΡΟΝΟΣ ΜΕΛΕΤΗΣ");
 
 $excelData .= "\n\n";
-// $excelData .= implode("\t", array_values($fields2)) . "\n";
-// $excelData .= implode("\t", array_values($fields3)) . "\n";
 $excelData .= implode(", ", array_values($fields2)) . "\n";
 $excelData .= implode(", ", array_values($fields3)) . "\n";
 
@@ -101,7 +91,6 @@ while ($rowQuizzes = mysqli_fetch_assoc($quizzesResultData)) {
 
 mysqli_stmt_close($stmtQuizzes);
 
-
 $sqlEvals = "SELECT * FROM evaluations;";
 $stmtEvals = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmtEvals, $sqlEvals)) {
@@ -119,7 +108,6 @@ while ($rowEvals = mysqli_fetch_assoc($evalsResultData)) {
 }
 
 mysqli_stmt_close($stmtEvals);
-
 
 $sqlGrades = "SELECT * FROM grades;";
 $stmtGrades = mysqli_stmt_init($conn);
@@ -139,25 +127,18 @@ while ($rowGrades = mysqli_fetch_assoc($gradesResultData)) {
 
 mysqli_stmt_close($stmtGrades);
 
-
 foreach ($quizzes as $quiz) {
-    // echo $quiz["quizID"] . ", " . $quiz["quizTitle"] . "\n";
-
     $emptyRow = array("");
-    // $excelData .= implode("\t", array_values($emptyRow)) . "\n";
     $excelData .= implode(", ", array_values($emptyRow)) . "\n";
 
     $quizTitle = array($quiz["quizTitle"]);
-    // $excelData .= implode("\t", array_values($quizTitle)) . "\n";
     $excelData .= implode(", ", array_values($quizTitle)) . "\n";
 
     foreach ($evals as $eval) {
         if ($quiz["quizID"] == $eval["quizID"]) {
-            // echo "\t\tFound A Match\n";
             $connectedUser = "";
             foreach ($users as $user) {
                 if ($user[0] == $eval["userID"]) {
-                    // echo "\t\t\tFound Connected User: " . $user[4] . "\n";
                     $connectedUser = $user[4];
                 }
             }
@@ -167,35 +148,21 @@ foreach ($quizzes as $quiz) {
 
             foreach ($grades as $grade) {
                 if ($grade["gradeID"] == $eval["firstAttempt"]) {
-                    // array_push($firstAttempt, $grade);
                     $firstAttempt = $grade;
                 }
 
                 if ($grade["gradeID"] == $eval["latestAttempt"]) {
-                    // array_push($latestAttempt, $grade);
                     $latestAttempt = $grade;
                 }
             }
 
-            // foreach ($firstAttempt as $key => $value) {
-            //     echo "\t\t\t\t\t\$firstAttempt[$key] => $value\n";
-            //     foreach ($value as $key1 => $value1) {
-            //         echo "\t\t\t\t\t\t\t\t\$value[$key1] => $value1\n";
-            //     }
-            // }
-
             $userData = array("", $connectedUser, $firstAttempt["gradeDate"], ($firstAttempt["successRatio"] * 100) . "%", $firstAttempt["answerTime"], $firstAttempt["studyTime"], $latestAttempt["gradeDate"], ($latestAttempt["successRatio"] * 100) . "%", $latestAttempt["answerTime"], $latestAttempt["studyTime"]);
-            // $userData = array("", $connectedUser, $firstAttempt["gradeDate"], ($firstAttempt["successRatio"] * 100) . "%", $firstAttempt["answerTime"], $firstAttempt["studyTime"], $latestAttempt["gradeDate"], ($latestAttempt["successRatio"] * 100) . "%", $latestAttempt["answerTime"], $latestAttempt["studyTime"]);
-            // $excelData .= implode("\t", array_values($userData)) . "\n";
             $excelData .= implode(", ", array_values($userData)) . "\n";
         }
     }
 }
 
-
-
 // HEADERS FOR DOWNLOADING
-// header("Content-Type: application/vnd.ms-excel");
 header("Content-Type: text/csv");
 header("Content-Disposition: attachment; filename=\"$filename\"");
 

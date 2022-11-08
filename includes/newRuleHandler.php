@@ -1,7 +1,6 @@
 <?php
 
 if (isset($_POST['submit'])) {
-    // $quizID = intval($_POST["rule-category"], $base = 10);
     $quizID = intval($_POST["rule-quiz"], $base = 10);
 
     if ($quizID == null) {

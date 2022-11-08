@@ -13,7 +13,7 @@
   height: 100%;
 
   min-width: 50%;
-width: max-content;
+  width: max-content;
 }
 
 .form-header {
@@ -48,7 +48,7 @@ width: max-content;
   background: var(--secondary-clr-dark);
 
   /* width: 77%; */
-max-width: 100%;
+  max-width: 100%;
 }
 
 .form-inputs {
@@ -68,7 +68,7 @@ max-width: 100%;
   margin-block: 0.5rem;
   height: 2rem;
   width: 100%;
-max-width: 20rem;
+  max-width: 20rem;
 }
 
 .input-container input,
@@ -112,24 +112,22 @@ a.active {
   background: var(--secondary-clr-dark);
   color: var(--hover-color);
 }
-
-
 .input-sections {
   display: flex;
   flex-direction: row;
   gap: var(--gap, 1em);
-  width: max-content
+  width: max-content;
 }
 
 select {
   border: 0px solid var(--primary-clr);
-border-radius: 0 0.25em 0.25em 0;
-cursor: pointer;
-padding: 0.5em;
-margin-inline-start: 0;
-background: var(--secondary-clr);
-margin: 0;
-height: 100%;
+  border-radius: 0 0.25em 0.25em 0;
+  cursor: pointer;
+  padding: 0.5em;
+  margin-inline-start: 0;
+  background: var(--secondary-clr);
+  margin: 0;
+  height: 100%;
 }
 
 label {
@@ -139,7 +137,6 @@ label {
 @media only screen and (max-width: 36em) {
   .input-sections {
     flex-direction: column;
-
   }
 }
 

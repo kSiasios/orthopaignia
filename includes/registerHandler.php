@@ -18,22 +18,16 @@ if (isset($_POST['submit'])) {
         echo ("error=emptyInput");
         exit();
     }
-
-
     if (invalidUID($username) !== false) {
         // THERE ARE EMPTY INPUTS
         echo ("error=invalidUsername");
         exit();
     }
-
-
     if (invalidEmail($email) !== false) {
         // THERE ARE EMPTY INPUTS
         echo ("error=invalidEmail");
         exit();
     }
-
-
     if (uidExists($conn, $username, $email) !== false) {
         // THERE ARE EMPTY INPUTS
         echo ("error=userExists");

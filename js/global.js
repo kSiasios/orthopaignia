@@ -19,12 +19,7 @@ function logoutHandler() {
 }
 
 function replaceSpecialCharacters(str) {
-  return (
-    str
-      .replaceAll('"', '"')
-      // .replaceAll("\n", "<br />")
-      .replaceAll("\n", "")
-  );
+  return str.replaceAll('"', '"').replaceAll("\n", "");
 }
 
 function convertEducationToReadable(level) {

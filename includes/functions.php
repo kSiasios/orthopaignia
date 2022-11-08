@@ -131,47 +131,6 @@ function logUserIn($conn, $pwd, $pwdHash)
 
 function deleteRule($conn, $ruleID)
 {
-    // $sqlGetQuestions = "SELECT * FROM questions WHERE questions.ruleID = ?;";
-    // $stmtGetQuestions = mysqli_stmt_init($conn);
-
-    // if (!mysqli_stmt_prepare($stmtGetQuestions, $sqlGetQuestions)) {
-    //     echo ("error=stmtFailed");
-    //     exit();
-    // }
-
-    // mysqli_stmt_bind_param($stmtGetQuestions, "i", $ruleID);
-    // mysqli_stmt_execute($stmtGetQuestions);
-
-    // $resultData = mysqli_stmt_get_result($stmtGetQuestions);
-    // while ($row = mysqli_fetch_assoc($resultData)) {
-    //     // FOREACH QUESTION, DELETE ALL ANSWERS
-    //     // $sqlDeleteAnswers = "DELETE FROM answers WHERE questionID = ?;";
-    //     // $stmtDeleteAnswers = mysqli_stmt_init($conn);
-
-    //     // if (!mysqli_stmt_prepare($stmtDeleteAnswers, $sqlDeleteAnswers)) {
-    //     //     echo ("error=stmtFailed");
-    //     //     exit();
-    //     // }
-
-    //     // mysqli_stmt_bind_param($stmtDeleteAnswers, "i", $row["questionID"]);
-    //     // mysqli_stmt_execute($stmtDeleteAnswers);
-    //     // mysqli_stmt_close($stmtDeleteAnswers);
-
-    //     // // DELETE ALL QUESTIONS THAT USE THIS RULE
-    //     // $sqlDeleteQuestion = "DELETE FROM questions WHERE questionID = ?;";
-    //     // $stmtDeleteQuestion = mysqli_stmt_init($conn);
-
-    //     // if (!mysqli_stmt_prepare($stmtDeleteQuestion, $sqlDeleteQuestion)) {
-    //     //     echo ("error=stmtFailed");
-    //     //     exit();
-    //     // }
-
-    //     // mysqli_stmt_bind_param($stmtDeleteQuestion, "i", $row["questionID"]);
-    //     // mysqli_stmt_execute($stmtDeleteQuestion);
-    //     // mysqli_stmt_close($stmtDeleteQuestion);
-    //     deleteQuestion($conn, $row["questionID"]);
-    // }
-
     // DELETE RULE
     $sqlDeleteRule = "DELETE FROM rules WHERE ruleID = ?;";
     $stmtDeleteRule = mysqli_stmt_init($conn);
@@ -188,22 +147,6 @@ function deleteRule($conn, $ruleID)
 
 function deleteQuestion($conn, $questionID)
 {
-    // $sqlDeleteAnswers = "DELETE FROM answers WHERE questionID = ?;";
-    // $stmtDeleteAnswers = mysqli_stmt_init($conn);
-
-    // if (!mysqli_stmt_prepare($stmtDeleteAnswers, $sqlDeleteAnswers)) {
-    //     echo ("error=stmtFailed");
-    //     exit();
-    // }
-
-    // mysqli_stmt_bind_param($stmtDeleteAnswers, "i", $questionID);
-    // mysqli_stmt_execute($stmtDeleteAnswers);
-    // mysqli_stmt_close($stmtDeleteAnswers);
-
-    // echo "Inside deleteQuestion \n";
-    // debugEcho();
-
-
     $sqlGetAnswers = "SELECT * FROM answers WHERE questionID = ?;";
     $stmtGetAnswers = mysqli_stmt_init($conn);
 
@@ -232,8 +175,6 @@ function deleteQuestion($conn, $questionID)
     mysqli_stmt_bind_param($stmtDeleteQuestion, "i", $questionID);
     mysqli_stmt_execute($stmtDeleteQuestion);
     mysqli_stmt_close($stmtDeleteQuestion);
-
-    // echo "Outside deleteQuestion \n";
 }
 
 function deleteAnswer($conn, $answerID)
@@ -254,15 +195,6 @@ function deleteAnswer($conn, $answerID)
 function deleteEvaluation($conn, $evalID)
 {
     // DELETE CONNECTED GRADES
-    // $sqlDeleteGrades = "DELETE FROM grades WHERE evaluationID = ?;";
-    // $stmtDeleteGrades = mysqli_stmt_init($conn);
-    // if (!mysqli_stmt_prepare($stmtDeleteGrades, $sqlDeleteGrades)) {
-    //     echo ("error=deleteGradesFailed");
-    //     exit();
-    // }
-    // mysqli_stmt_bind_param($stmtDeleteGrades, "i", $evalID);
-    // mysqli_stmt_execute($stmtDeleteGrades);
-    // mysqli_stmt_close($stmtDeleteGrades);
     $sqlGetGrades = "SELECT * FROM grades WHERE evaluationID = ?;";
     $stmtGetGrades = mysqli_stmt_init($conn);
 
@@ -339,8 +271,6 @@ function deleteEvaluationsForQuiz($conn, $quizID)
         deleteEvaluation($conn, $rowEval["evaluationID"]);
     }
 }
-
-
 $alphabet = " !\"#$%&()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~}";
 
 function randomChars($num)
@@ -382,7 +312,6 @@ function getUserID($conn, $credential)
         echo ("error=adminFetchFailed");
         exit();
     }
-    // mysqli_stmt_bind_param($stmt, "ii", $credential, $credential);
     mysqli_stmt_execute($stmt);
     $resultData = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($resultData)) {
@@ -415,207 +344,6 @@ function getQuestionByText($conn, $text)
         exit();
     }
     mysqli_stmt_close($stmtQuestionID);
-}
-
-// To delete
-function updateGradePerRule($conn, $ruleID, $userID)
-{
-    // CHECK IF RULE EXISTS
-    $sqlRuleInfo = "SELECT * FROM rule WHERE ruleID = ?;";
-    $stmtRuleInfo = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtRuleInfo, $sqlRuleInfo)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtRuleInfo, "i", $ruleID);
-    mysqli_stmt_execute($stmtRuleInfo);
-
-    $resultData = mysqli_stmt_get_result($stmtRuleInfo);
-    if (!mysqli_fetch_assoc($resultData)) {
-        echo '{"error":"ruleNotFound", "ruleID":"' . $ruleID . '"}';
-        exit();
-    }
-    mysqli_stmt_close($stmtRuleInfo);
-
-    // FETCH GRADE FOREACH CONNECTED QUESTION
-    $sqlConnectedQuestions = "SELECT * FROM questions WHERE ruleID = ?;";
-    $stmtConnectedQuestions = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtConnectedQuestions, $sqlConnectedQuestions)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtConnectedQuestions, "i", $ruleID);
-    mysqli_stmt_execute($stmtConnectedQuestions);
-
-    $resultData = mysqli_stmt_get_result($stmtConnectedQuestions);
-    $sum = 0;
-    $questionCount = 0;
-    while ($row = mysqli_fetch_assoc($resultData)) {
-
-        $questionID = $row["questionID"];
-        $sqlGetQuestionGrade = "SELECT * FROM gradeperquestion WHERE questionID = ? AND userID = ?;";
-        $stmtGetQuestionGrade = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmtGetQuestionGrade, $sqlGetQuestionGrade)) {
-            echo '{"error": "stmtFailed"}';
-            exit();
-        }
-
-        mysqli_stmt_bind_param($stmtGetQuestionGrade, "ii", $questionID, $userID);
-        mysqli_stmt_execute($stmtGetQuestionGrade);
-        $resultDataGetGrades = mysqli_stmt_get_result($stmtGetQuestionGrade);
-
-        if ($rowGetGrades = mysqli_fetch_assoc($resultDataGetGrades)) {
-            $sum += $rowGetGrades["relevantGrade"];
-            $questionCount++;
-        }
-
-        mysqli_stmt_close($stmtGetQuestionGrade);
-    }
-
-    $newGrade = $sum / $questionCount;
-    mysqli_stmt_close($stmtConnectedQuestions);
-
-    // UPDATE RULE GRADE
-
-    // CHECK IF THE ENTRY ALREADY EXISTS
-    $sqlGetPrevGrade = "SELECT * FROM gradeperrule WHERE ruleID = ? AND userID = ?;";
-    $stmtGetPrevGrade = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtGetPrevGrade, $sqlGetPrevGrade)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtGetPrevGrade, "ii", $ruleID, $userID);
-    mysqli_stmt_execute($stmtGetPrevGrade);
-
-    $resultData = mysqli_stmt_get_result($stmtGetPrevGrade);
-    if (!mysqli_fetch_assoc($resultData)) {
-        // A PREVIOUS ENTRY DOES NOT EXIST => CREATE ONE
-        $sqlCreateGrade = "INSERT INTO gradeperrule(userID, ruleID) VALUES (?, ?);";
-        $stmtCreateGrade = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmtCreateGrade, $sqlCreateGrade)) {
-            echo '{"error": "stmtFailed"}';
-            exit();
-        }
-
-        mysqli_stmt_bind_param($stmtCreateGrade, "ii", $userID, $ruleID);
-        mysqli_stmt_execute($stmtCreateGrade);
-        mysqli_stmt_close($stmtCreateGrade);
-    }
-    mysqli_stmt_close($stmtGetPrevGrade);
-
-    $sqlUpdate = "UPDATE gradeperrule SET grade = ? WHERE ruleID = ? AND userID = ?;";
-    $stmtUpdate = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtUpdate, $sqlUpdate)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtUpdate, "dii", $newGrade, $ruleID, $userID);
-    mysqli_stmt_execute($stmtUpdate);
-    mysqli_stmt_close($stmtUpdate);
-}
-
-// To delete
-function updateGradePerCategory($conn, $categoryID, $userID)
-{
-    // CHECK IF RULE EXISTS
-    $sqlCategoryInfo = "SELECT * FROM category WHERE categoryID = ?;";
-    $stmtCategoryInfo = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtCategoryInfo, $sqlCategoryInfo)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtCategoryInfo, "i", $categoryID);
-    mysqli_stmt_execute($stmtCategoryInfo);
-
-    $resultData = mysqli_stmt_get_result($stmtCategoryInfo);
-    if (!mysqli_fetch_assoc($resultData)) {
-        echo '{"error":"categoryNotFound"}';
-        exit();
-    }
-    mysqli_stmt_close($stmtCategoryInfo);
-
-    // FETCH GRADE FOREACH CONNECTED QUESTION
-    $sqlConnectedRules = "SELECT * FROM rule WHERE categoryID = ?;";
-    $stmtConnectedRules = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtConnectedRules, $sqlConnectedRules)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtConnectedRules, "i", $categoryID);
-    mysqli_stmt_execute($stmtConnectedRules);
-
-    $resultData = mysqli_stmt_get_result($stmtConnectedRules);
-    $sum = 0;
-    $rulesCount = 0;
-    while ($row = mysqli_fetch_assoc($resultData)) {
-        $sqlGetQuestionGrade = "SELECT * FROM gradeperrule WHERE ruleID = ? AND userID = ?;";
-        $stmtGetQuestionGrade = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmtGetQuestionGrade, $sqlGetQuestionGrade)) {
-            echo '{"error": "stmtFailed"}';
-            exit();
-        }
-
-        mysqli_stmt_bind_param($stmtGetQuestionGrade, "ii", $row["ruleID"], $userID);
-        mysqli_stmt_execute($stmtGetQuestionGrade);
-        $resultDataGetGrades = mysqli_stmt_get_result($stmtConnectedRules);
-
-
-        if ($rowGetGrades = mysqli_fetch_assoc($resultDataGetGrades)) {
-            $sum += $rowGetGrades["grade"];
-            $rulesCount++;
-        }
-
-        mysqli_stmt_close($stmtGetQuestionGrade);
-    }
-
-    $newGrade = $sum / $rulesCount;
-    mysqli_stmt_close($stmtConnectedRules);
-
-    // UPDATE RULE GRADE
-
-    // CHECK IF THE ENTRY ALREADY EXISTS
-    $sqlGetPrevGrade = "SELECT * FROM gradeperrule WHERE ruleID = ? AND userID = ?;";
-    $stmtGetPrevGrade = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtGetPrevGrade, $sqlGetPrevGrade)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtGetPrevGrade, "ii", $ruleID, $userID);
-    mysqli_stmt_execute($stmtGetPrevGrade);
-
-    $resultData = mysqli_stmt_get_result($stmtGetPrevGrade);
-    if (!mysqli_fetch_assoc($resultData)) {
-        // A PREVIOUS ENTRY DOES NOT EXIST => CREATE ONE
-        $sqlCreateGrade = "INSERT INTO gradepercategory(userID, categoryID) VALUES (?, ?);";
-        $stmtCreateGrade = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmtCreateGrade, $sqlCreateGrade)) {
-            echo '{"error": "stmtFailed"}';
-            exit();
-        }
-
-        mysqli_stmt_bind_param($stmtCreateGrade, "ii", $userID, $categoryID);
-        mysqli_stmt_execute($stmtCreateGrade);
-        mysqli_stmt_close($stmtCreateGrade);
-    }
-    mysqli_stmt_close($stmtGetPrevGrade);
-
-    $sqlUpdate = "UPDATE gradepercategory SET grade = ? WHERE categoryID = ? AND userID = ?;";
-    $stmtUpdate = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmtUpdate, $sqlUpdate)) {
-        echo '{"error": "stmtFailed"}';
-        exit();
-    }
-
-    mysqli_stmt_bind_param($stmtUpdate, "dii", $newGrade, $categoryID, $userID);
-    mysqli_stmt_execute($stmtUpdate);
-    mysqli_stmt_close($stmtGetPrevGrade);
 }
 
 function convertEducationToReadable($level)
@@ -686,18 +414,12 @@ function fetchUserData($conn, $userID)
 
         $noPass = array();
         foreach ($row as $key => $value) {
-            // $arr[3] will be updated with each value from $arr...
-            // echo "{$key} => {$value} ";
-            // print_r($arr);
             if ($key == "userPassword") {
-                # code...
                 continue;
             }
             $noPass[$key] = $value;
-            // array_push($noPass, $key);
         }
 
-        // array_push($responseData, $noPass);
         $responseData["user"] = $noPass;
 
         $sqlEvals = "SELECT * FROM evaluations WHERE userID = ?;";
@@ -716,7 +438,6 @@ function fetchUserData($conn, $userID)
         while ($rowEvals = mysqli_fetch_assoc($resultDataEvals)) {
 
             $evaluation = array();
-            // array_push($evaluation, $rowEvals);
             $evaluation["evaluation"] = $rowEvals;
             $grades = array();
             //      FOR EACH EVALUATION FETCH GARDES
@@ -733,18 +454,14 @@ function fetchUserData($conn, $userID)
             while ($rowGrades = mysqli_fetch_assoc($resultDataGrades)) {
                 array_push($grades, $rowGrades);
             }
-            // array_push($evaluation, $grades);
             $evaluation["grades"] = $grades;
             //      PUSH EVALUATIONS TO A NEW ARRAY CALLED EVALUATIONS
             array_push($evaluations, $evaluation);
         }
 
-        // array_push($responseData, ($evaluations));
         $responseData["user"]["evaluations"] = $evaluations;
 
-
         return json_encode($responseData);
-        // echo '{"firstName": "' . $userFirstName . '","lastName": "' . $userLastName . '","username": "' . $userUsername . '","email": "' . $userEmail . '"}';
     } else {
         return "error=noUsersFound";
     }
@@ -770,15 +487,9 @@ function getEvaluations($conn, $userID, $quizID)
 
     mysqli_stmt_bind_param($stmtGetEvaluations, "ii", $userID, $quizID);
     mysqli_stmt_execute($stmtGetEvaluations);
-    // debugEcho();
 
     $resultData = mysqli_stmt_get_result($stmtGetEvaluations);
-    // $evaluationID;
     if ($rowEval = mysqli_fetch_assoc($resultData)) {
-        // We have an evaluation
-        // we only have to update the latest update
-        // $evaluationID = $rowEval["evaluationID"];
-
         return $rowEval;
     }
 
