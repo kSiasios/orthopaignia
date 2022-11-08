@@ -27,7 +27,6 @@
   width: 4em;
   aspect-ratio: 1;
   border-radius: 50%;
-  /* background: red; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,13 +39,14 @@
 .rule-progress-bar::before,
 .question-progress-bar::before {
   position: absolute;
-  /* content: attr(data-grade); */
   content: "";
   width: 130%;
   height: 130%;
   border-radius: 50%;
-  /* background: green; */
-  background: conic-gradient(var(--conic-gradient-color, red) var(--conic-gradient-percentage, 0%), var(--underline) 0);
+  background: conic-gradient(
+    var(--conic-gradient-color, red) var(--conic-gradient-percentage, 0%),
+    var(--underline) 0
+  );
   z-index: 4;
 }
 
@@ -63,6 +63,5 @@
   justify-content: center;
   border-radius: 50%;
   background: var(--bg);
-  /* background: var(--secondary-clr); */
   z-index: 6;
 }

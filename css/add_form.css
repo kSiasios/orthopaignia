@@ -2,7 +2,6 @@
   width: 80%;
   max-width: 50em;
   background: var(--primary-clr);
-  /* padding: 1em; */
   padding: 2.5em;
   padding-block: 2.5rem;
   border-radius: 1em;
@@ -66,7 +65,6 @@ form {
 }
 
 .format-helper tr td:first {
-  /* width: 80px; */
   text-align: end;
 }
 
@@ -88,7 +86,6 @@ select {
 .form-wrapper {
   display: flex;
   flex-direction: column;
-  /* flex-direction: row; */
   justify-content: center;
   align-items: center;
   min-width: 17em;
